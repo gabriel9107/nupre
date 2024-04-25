@@ -1,0 +1,6 @@
+@NUPRE_HostAddress = http://localhost:5195
+
+GET {{NUPRE_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
