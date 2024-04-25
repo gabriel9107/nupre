@@ -1,0 +1,110 @@
+/*===================================================
+===================== MODALBOX ======================
+===================================================*/
+.open-modal { cursor: pointer; }
+
+.modal-wrap {
+	background-color: rgba(0, 0, 0, .6);
+	display: none;
+	height: 100%;
+	left: 0;
+	overflow-y: auto; 
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 9999;
+
+	.modalbox {
+		box-shadow: 0 4px 5px 0 rgba(0,0,0,.14);
+		background-color: #FFF;
+		border-radius: 12px;
+		display: none;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		position: relative;
+		width: 600px;
+
+		&.success { border-color: $green-sea; }
+		&.warning { border-color: $orange; }
+		&.danger { border-color: rgba($red, .8); }
+		&.small { width: 400px; }
+		&.medium { width: 700px; }
+		&.big { width: 980px; }
+
+		&.confirmation {
+			border-top: 0;
+			text-align: center;
+
+			.modal-body-content { padding: 20px; }
+
+			.confirmation-message { 
+				font-size: 18px; 
+				font-weight: bold; 
+
+				span { font-weight: normal; }
+			}
+		}
+
+		.modal-header { 
+			border-bottom: 1px $light-grey solid;
+			padding: 26px;
+			position: relative;
+
+			h2 { 
+				color: $title; 
+				font-size: 22px;
+				margin: 0; 
+			}
+
+			.description { 
+				color: $chateau; 
+				display: block;
+				font-size: 15px;
+				margin-top: 12px; 
+			} 
+
+			.close-btn {
+				background-color: $white;
+				border: 1px solid $chateau;
+				border-radius: 50%;
+				color: $chateau;
+				font-size: 14px;
+				height: 28px;
+				line-height: 24px;
+				outline: none;
+				position: absolute;
+				right: 30px;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 28px;
+
+				&:hover { border-color: $red; color: $red; }
+			}
+		}
+
+		.modal-body-content {
+			max-height: 76vh; 
+			overflow: auto;
+			padding: 26px; 
+
+			&.not-flow { overflow: inherit; }
+		}
+
+		.modal-footer { 
+			// background: #F9F9F9; 
+			// overflow: hidden;
+			border-top: 1px $light-grey solid; 
+			padding: 26px;
+
+			&.right { text-align: right; }
+
+			button { 
+				font-size: 14px;
+				margin-right: 8px; 
+				&:last-child { margin-right: 0; }
+				transition: none;
+			}
+		}
+	}
+}

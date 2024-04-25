@@ -1,0 +1,138 @@
+/*===================================================
+====================== BUTTONS ======================
+===================================================*/
+%ds-btn { 
+	border: 0;
+	border-radius: .2em; 
+	color: $white;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	outline: 0;
+	padding: 8px 18px; 
+	transition: opacity ease-in-out .3s;
+	text-decoration: none;
+
+	&:hover { opacity: 0.8; text-decoration: none; }
+
+	&:active { opacity: 1; }
+}
+
+.default-btn, .primary-btn, .accent-btn, .danger-btn, .chambray-btn { @extend %ds-btn; background-color: $white; }
+
+.default-btn { 
+	background-color: $white; 
+	border: 1px solid $chambray; 
+	color: $chambray;
+
+	&:hover { opacity: 1; background-color: rgba($chambray, .05); }
+}
+
+// regular btn
+.primary-btn { background-color: $primary;}
+
+.accent-btn { background-color: $accent;}
+
+.danger-btn { background-color: $red; }
+
+.chambray-btn { background-color: $chambray; }
+
+//outline buttons
+.outline-btn { 
+	@extend %ds-btn;
+	background-color: transparent; 
+
+	&.icon { 
+		color: $chateau; 
+		padding: 0;
+
+		&:hover { color: $chambray; }
+
+		&.edit:hover { color: $orange; }
+
+		&.delete:hover { color: $red; }
+
+		i { font-size: 18px; }
+
+		&.m-right { margin-right: 10px; }
+	}
+}
+
+//rounded buttons
+.rounded { 
+	border-radius: 3em; 
+
+	&.sm-btn { padding: 4px 14px; }
+
+	&.lg-btn { padding: 14px 24px; }
+}
+
+//circle buttons
+.circle { 
+	border-radius: 50%; 
+	height: 40px;
+	padding: 0;
+	line-height: 44px;
+	text-align: center;
+	width: 40px;
+
+	.sm-btn {
+		font-size: 15px !important;
+		height: 30px; 
+		width: 30px;
+	}
+
+	.lg-btn { 
+		font-size: 26px !important;
+		height: 60px; 
+		width: 60px;
+	}
+}
+
+//button group
+.group-buttons {
+
+	&.sm-btn, &.lg-btn { padding: 0; }
+	&.sm-btn { button, a, input { font-size: 13px !important; padding: 2px 8px; } }
+	&.lg-btn { button, &.lg-btn a, &.lg-btn input { font-size: 20px !important; padding: 14px 28px; } }
+
+	button { 
+		border-radius: 0;
+		border-right-width: 0;
+		margin-right: -3px; 
+
+		&:first-child { border-radius: .2em 0 0 .2em; }
+		&:last-child { border-radius: 0 .2em .2em 0; border-right-width: 1px; }
+		&.default-btn:hover { color: $blue; }
+	}
+}
+
+//dropdown btn
+.tooglebtn {
+	position: relative;
+
+	.drop {
+		display: none;
+		background-color: $white;
+		border: 1px solid rgba($text, .2);
+		border-radius: 8px;
+		box-shadow: 0 0 4px rgba($text, .2);
+		position: absolute;
+		right: 0;
+		text-align: left;
+		top: 30px;
+		width: 220px;
+		z-index: 1;
+
+		.item {
+			cursor: pointer;
+			padding: 10px 18px;
+			border-bottom: 1px solid rgba($text, .2);
+			transition: all .3s ease;
+
+			&:last-of-type { border-bottom: 0; }
+
+			&:hover { background-color: rgba($primary, .08); color: $chambray; }
+		}
+	}
+}

@@ -1,0 +1,225 @@
+/*================================================================================================
+============================================= NAVBAR =============================================
+================================================================================================*/
+#main-nav {
+	display: grid;
+	font-size: 14px;
+	grid-template-columns: 140px auto;
+	left: -50%;
+	margin: 0 auto;
+	position: absolute;
+	right: -50%;
+	top: 30px;
+	max-width: 770px;
+
+	.logo {
+		background-color: white;
+		border-radius: 8px 0 0 8px;
+		padding: 9px 8px 9px 14px;
+		position: relative;
+		vertical-align: top;
+
+		a { color: $text; text-decoration: none; }
+
+		&::after {
+			content: '';
+			display: block;
+			border-top: 54px solid $white;
+			border-left: 22px solid transparent;
+			position: absolute;
+			transform: rotateY(180deg);
+			top: 0;
+			right: -22px;
+		}  
+
+		.icon {  
+			margin-right: 5px;
+			position: relative;
+			top: 2px;
+			width: 20px;
+		}
+
+		.name {
+			font: {
+				size: 15px;
+				weight: bold;
+			}
+			line-height: normal;
+			position: relative;
+			top: -2px;
+			text-transform: uppercase;
+		}
+	}
+
+	ul {
+		background-color: $primary;
+		border-radius: 0 8px 8px 0;
+		display: inline-block;
+		list-style: none;
+		margin: 0;
+		padding: 0 0 0 20px;
+
+		li { display: inline-block; }
+
+		.active {
+			position: relative;
+
+			&::after {
+				content: '';
+				background-color: #69C26C;
+				border-radius: 30px;
+				bottom: 8px;
+				height: 2px;
+				left: 50%;
+				position: absolute;
+				transform: translateX(-50%);
+				width: 50%;
+			}
+		}
+
+		.fas { font-size: 12px; margin-left: 5px; }
+
+		a, .static-opt { 
+			color: $white; 
+			cursor: pointer;
+			display: block;
+			padding: 14px 18px;
+			text-decoration: none;
+		}
+	}
+
+	.responsive-actions { 
+		text-align: right;
+
+		span {
+			color: $chambray;
+			display: inline-block;
+			font-size: 22px;
+			height: 24px;
+			margin-right: 20px;
+			width: 24px;
+			text-align: center;
+		}
+	}
+
+	.has-submenu { 
+		position: relative; 
+
+		&:hover > .submenu, &:active > .submenu { opacity: 1; visibility: visible; }
+	}
+
+	.submenu {
+		background-color: $white;
+		border-radius: 8px;
+		box-shadow: 0 0 8px rgba($text, .2);
+		left: 50%;
+		list-style: none;
+		margin: 0;
+		opacity: 0;
+		padding: 0;
+		position: absolute;
+		top: 46px;
+		transform: translateX(-50%);
+		transition: all ease-in-out .3s;
+		width: 240px;
+		visibility: hidden;
+		z-index: 1;
+
+		li { 
+			border-bottom: 1px solid rgba($text, .06);
+			display: block; 
+
+			&:last-of-type { border-bottom: 0; }
+		}
+
+		.item { 			
+			color: $text; 
+			cursor: pointer;
+			display: block;
+			font-weight: 500;
+			padding: 12px 18px;
+			transition: all ease-in-out .3s;			
+
+			&:hover { background: rgba($accent, .04); color: $accent; }
+
+			&:hover ~ .submenu, &:active ~ .submenu { opacity: 1; visibility: visible; }
+		}
+
+		.scnlvl { 
+			left: auto;
+			right: -244px; 
+			top: 12px;
+			transform: none; 
+		}
+
+		span.item {
+			padding-right: 36px;
+			position: relative;
+
+			&::after {  
+				content: '\f105';
+				display: block;
+				font: {
+					family: 'Font Awesome 5 Free';
+					size: 16px;
+					weight: 900;
+				}
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 18px;
+			}
+		}
+	}
+}
+/*================================================================================================
+============================================= SIDENAV ============================================
+================================================================================================*/
+.sidenav {
+	ul { 
+		list-style: none;
+		margin: 0; 
+		padding: 0; 
+	}
+
+	li {
+		box-shadow: 0 0 0 transparent inset;
+		cursor: pointer;
+		font-size: 15px; 
+		line-height: normal;
+		margin-bottom: 3px;
+		opacity: .6; 
+		padding: 10px 16px;
+		position: relative;
+		transition: opacity ease .3s;
+
+		a { color: $text; text-decoration: none; }
+
+		&::before { 
+			bottom: 0;
+			content: '';
+			display: block;
+			left: 0;
+			position: absolute;
+			top: 0;
+			transition: width ease .3s;
+			width: 1px;
+		}
+
+		&:hover, &.current {
+			color: #507452;
+			opacity: 1;
+
+			&::before {
+				background-color: #ecf3ec;
+				width: 100%;
+			}
+
+			a { 
+				color: #507452; 
+				position: relative; 
+				z-index: 1; 
+			}
+		}
+	}
+}

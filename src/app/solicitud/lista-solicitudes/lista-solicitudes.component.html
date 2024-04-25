@@ -1,0 +1,160 @@
+<section class="animate__animated animate__fadeIn">
+    <div id="main-title">
+        <div class="container">
+            <h2>Solicitudes de Registro NUPRE </h2>
+        </div>
+    </div>
+
+    <div class="body-content">
+        <div class="reg_wrapper">
+            <form class="header_list">
+                <div id="bread-crumbs">
+                    <div class="container">
+                        <ul class="no-style">
+                            <li><a href="">Inicio</a></li>
+                            <li>Consulta</li>
+                            <li>NUPRE</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="grid-column-sys navigation">
+                        <div class="column rborder topPadding" id="filter">
+
+                            <div class="search-box">
+                                <div class="input-box">
+                                    <input formControlName="Search" type="text" class="form-input"
+                                        placeholder="Buscar solicitud" />
+                                </div>
+                                <div class="addons button-icon">
+                                    <button (click)="GetSolicitudes(true)"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+
+                            <section>
+                                <h4>Busquda por fecha de registro</h4>
+                                <div class="register-list">
+                                    <strong>Fecha inicio:</strong>
+                                    <input type="date" class="input form-input" formControlName="fechaInicio"
+                                        (change)="GetSolicitudes()" appMaxLenDate>
+
+                                    <strong>Fecha fin:</strong>
+                                    <input type="date" class="input form-input" formControlName="fechaFin"
+                                        (change)="GetSolicitudes()" appMaxLenDate>
+                                </div>
+                            </section>
+                            <section>
+                                <h4>Filtrar por estado</h4>
+                                <div class="register-list">
+                                    <label class="form-rdb form-control">
+                                        <input type="radio" name="tipoest" id="idtypestatus" value="0" checked
+                                            (change)="GetSolicitudes()" />
+                                        <span class="elem"></span> Todos
+                                    </label>
+                                    <div class="item" *ngFor="let typestatus of TipoEstado">
+                                        <label class="form-rdb form-control">
+                                            <input type="radio" name="tipoest" id="idtypestatus"
+                                                value={{typestatus.estado_Numero}} (change)="GetSolicitudes()" />
+                                            <span class="elem"></span> {{typestatus.estado_Descripcion}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <div class="bottom-btn">
+                                <button class="default-btn rounded">
+                                    <i class="fas fa-history"></i> Limpiar filtros
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="column topPadding">
+                            <div id="register_top_head">
+                                <div id="reg_legend" class="column is-7">
+                                    <span> {{detalle.length}} registro(s) de {{headerSolicitud.recordsFiltered}}
+                                    </span>
+                                </div>
+                                <div class="right-block">
+                                    <div>
+                                        <select class="select" formControlName="pagesize" (change)="GetSolicitudes()">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <button class="primary-btn rounded ">
+                                            <i class="fas fa-plus icon"></i> Nuevo
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Loading -->
+                            <div class="skeleton slst animate__animated animate__fadeIn" *ngIf="loading">
+                                <div class="tpln clm2 fd">
+                                    <div><span class="sqr"></span></div>
+                                    <div><span class="rnd"></span><span class="ln"></span><span class="rnd"></span>
+                                    </div>
+                                </div>
+                                <div class="lst fd">
+                                    <div class="sqr wd mhg wvs pst"></div>
+                                    <div class="sqr wd mhg wvs pst"></div>
+                                    <div class="sqr wd mhg wvs pst"></div>
+                                </div>
+                            </div>
+
+                            <!-- no register 1 -->
+                            <div>
+                                <div class="blue-alert">
+                                    <div class="content">
+                                        <i class="fas fa-info-circle"></i> No existen registros de
+                                        NUPRE a
+                                        consultar.
+                                    </div>
+                                </div>
+                                <button class="primary-btn rounded" (click)="nuevasolicitud()"><i
+                                        class="fas fa-plus"></i> Nueva
+                                    Solicitud</button>
+                            </div>
+
+                            <!-- En caso de qe sea hombre -->
+                            <div *ngIf="ValidarError">
+                                <div class="red-alert">
+                                    <div class="content">
+                                        <i class="fas fa-info-circle"></i> {{ErrorMessage}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- no register 2 -->
+                            <div class="no-register columns is-variable is-0 animate__animated animate__fadeIn"
+                                *ngIf="loading2">
+                                <div class="column is-1">
+                                    <div class="icon">
+                                        <i class="fas fa-file"></i>
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="text" *ngIf="loading2">
+                                        <span>{{TextoFiltro}} </span>
+                                        <span *ngIf="ValidaFiltroBtn">No existen solicitudes que coincidan con su
+                                            criterio de búsqueda: "<strong
+                                                class="color-regal">{{TextBtn}}</strong>".</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

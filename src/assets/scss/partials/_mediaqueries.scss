@@ -1,0 +1,184 @@
+@media screen and (max-width: 1336px) {
+    .container { width: 98%; }
+
+    body { min-width: 380px; }
+}
+
+@media screen and (max-width: 980px) {
+    ::-webkit-scrollbar { height: 4px; }
+
+    body { padding-top: 0; }
+
+    .tm-hide { display: none; }
+
+    .tm-show { display: block; }
+
+    .container, .sm-width form { width: 100% !important; }
+
+    #main-nav { 
+        align-items: center;
+        background-color: $white;
+        border-top: 12px solid $primary;
+        grid-template-columns: 50% 50%;
+        max-width: initial;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        width: 100%; 
+
+        .logo {
+            border-radius: 0;
+
+            &::after { display: none; }
+
+            .icon { width: 28px; }
+
+            .name { font-size: 20px; }
+        }
+
+        ul {
+            background-color: $white;
+            display: none;
+            padding: 0;
+            position: absolute;
+            top: 62px;
+            width: 100%;
+            z-index: 1;
+
+            li { display: block; }
+
+            a { 
+                border-bottom: 1px solid rgba($grey, .4); 
+                color: $text;
+                font-size: 16px;
+                padding: 16px 30px; 
+            }
+
+            #notifications span.notification-label {
+                color: $white;
+                height: 20px;
+                left: 146px;
+                width: 20px;
+            }
+        }
+    }
+
+    #top-header {
+        box-shadow: 2px 0 6px rgba($black, .1);
+        height: auto;
+        position: relative;
+        z-index: 1;
+
+        header .content { width: 100%; }
+    }
+
+    #main-title { background-color: #f7f7f8; }
+
+    .grid-column-sys {
+        &.navigation { display: block; }
+
+        .column.rborder { border-right: 0; padding: 0 !important; }
+
+        // &.has-lateralNav .column.rborder { margin-left: -20px; width: 109%; }
+    }
+
+    #navigation-menu { 
+        .stickyComponent { position: relative; top: 0; } 
+        
+        .lateralbar-2 { 
+            white-space: nowrap; 
+            overflow-y: auto;
+
+            ul { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; }
+            
+            li { 
+                border: 1px solid rgba($grey, .6); 
+                border-right: 0;
+                margin: 0;
+                padding: 12px;
+
+                &:first-of-type { border-radius: 8px 0 0 8px; }
+
+                &:last-of-type { border-radius: 0 8px 8px 0; border-right: 1px solid rgba($grey, .6); }
+
+                &.is-active { background-color: rgba($accent, .05); }
+            }
+        }
+
+        .bottom-btn { display: none; }
+    }
+        
+    .content-title.tm-show {  
+        .status_request { 
+            margin-bottom: 16px;
+            position: relative; 
+            right: 0; 
+            width: 160px;
+        }
+    }
+
+    #planInfo {
+        .row { margin: 0; }
+
+        .col-w9, .col-w3 { padding: 0; width: 100%; }
+
+        .info-section { 
+            padding: 0 !important; 
+
+            &::before {
+                content: 'Otras Informaciones';
+                color: #3B953E;
+                display: block;
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 16px;
+            }
+        }
+    }
+
+    .modal-wrap .modalbox { width: 95%; }
+
+    #register_list, .register_list {
+        #statuslabel { 
+            padding: 0 12px; 
+            position: relative;
+            width: 80px; 
+
+            span {
+                display: inline-block;
+                position: absolute;
+                right: 20px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 980px) { 
+    #loginBox {
+        display: block;
+        width: 90%;
+
+        .left-col { display: none; }
+    }
+
+    #planInfo .col-w4 { padding: 0; width: 100%; }
+
+    #register_list, .register_list {
+        #formatFile { width: initial !important; }
+
+        .relates { 
+            margin-top: 18px !important;
+
+            span { 
+                display: block !important;
+                margin: 0 0 12px; 
+
+                &::after { display: none !important; }
+
+                &:last-child { margin-bottom: 0; }
+            }
+        }
+    }
+}

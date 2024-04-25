@@ -1,0 +1,31 @@
+/*================================================================================================
+========================================== GRID SYSTEM ===========================================
+================================================================================================*/
+$column: 12;
+
+.row { 
+	margin: 0 -10px; 
+	&:before, &:after { 
+		clear: both;
+		content: ""; 
+		display: block;
+	}
+
+	&.group-siblings {
+		margin: 0 -3px;
+
+		@for $i from 1 through 12 {
+			.col-w#{$i} { padding: 0 3px; }
+		}
+	}
+	
+	%col { 
+		box-sizing: border-box;
+		float: left; 
+		padding: 0 10px;
+	}
+
+	@for $i from 1 through 12 {
+		.col-w#{$i} { @extend %col; width: $i * 100% / $column }
+	}
+}

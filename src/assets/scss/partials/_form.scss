@@ -1,0 +1,467 @@
+/*===================================================
+=================== FORM ELEMENTS ===================
+===================================================*/
+// label { display: inline-block; margin: 0 15px 15px 0; }
+
+.form-input, .form-control { display: block; width: 100% !important; }
+.form-label { display: block; font-size: 14px; font-weight: bold; }
+
+.caption {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.label-text {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.inline-title {
+    display: inline-block;
+    margin-right: 15px;
+
+    &.has-switch { position: relative; top: -7px; }
+}
+
+input:-webkit-autofill { padding-left: 16px !important; box-shadow:  0 0 0px 1000px $white inset; }
+
+.input:focus, .textarea:focus {
+    border-color: rgba($blue, .4);
+    box-shadow: 0 0 6px rgba($blue, .4);
+    outline-width: 1px;
+}
+
+/*BASICS*/
+form [class^="col"] > .form-field { margin-bottom: 0; }
+
+.form-field { margin-bottom: 18px; }
+
+.input {
+    background-color: $white;
+    border: 1px solid rgba($text, .2);
+    border-radius: 8px;
+    height: 56px;
+    padding: 0 12px;
+    position: relative;
+    transition: box-shadow  ease .3s, outline ease-out .2s;
+}
+
+.ng-select {
+  height: 56px;
+}
+
+.textarea {
+    border: 1px solid rgba($text, .2);
+    border-radius: 8px;
+    display: block;
+    height: 80px;
+    padding: 8px 12px;
+    resize: none;
+    transition: box-shadow  ease .3s;
+}
+
+select option[value="0"][hidden] { color: green; }
+
+/*DISABLED ELEMENTS*/
+*:disabled {
+    cursor: not-allowed !important;
+    opacity: .6;
+}
+
+input:disabled, select:disabled, textarea:disabled {
+    background-color: rgba($grey, .2);
+    opacity: .5;
+}
+
+/*ERROR STYLE*/
+
+.inline-error {
+    color: $red;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.has-error {
+    position: relative;
+
+    &.is-search {
+        .error-text { right: 50px; }
+
+        input[type="text"] { padding-right: 60px; }
+
+        .clear-btn { right: 40px !important; }
+    }
+
+    .error-text {
+        background-color: #f3695f;
+        border-radius: 6px 6px 0 0;
+        color: $white;
+        display: block;
+        font-size: 12px;
+        line-height: normal;
+        padding: 10px;
+        position: absolute;
+        right: 0;
+        top: -36px;
+        z-index: 99;
+
+        ul { margin: 0; padding-left: 20px; }
+    }
+
+    .input, .textarea { border-color: rgba($red, .6); border-radius: 8px 0 8px 8px; }
+
+    [contentEditable=true]:empty::before { color: $red !important; opacity: 1 !important; }
+}
+
+.required-field { color: $red; font-size: 15px; }
+
+.required-field-cont { font-size: 13px; margin-top: 15px; }
+
+.search-box {
+    display: table;
+    width: 100%;
+
+    &.medium { width: 800px; }
+
+    &.m-bottom { margin-bottom: 36px; }
+
+    .input-box, .addons { display: table-cell; vertical-align: top; }
+
+    .input-box {
+        position: relative;
+
+        input {
+            background-color: $white;
+            border: 1px solid rgba($text, .2);
+            border-radius: 8px 0 0 8px;
+            font-size: 14px;
+            height: 50px;
+            padding-left: 12px;
+        }
+
+        input:not(:valid) ~ .clear-btn { display: none; }
+
+        .clear-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 14px;
+            top: 12.5px;
+        }
+
+        &.simple {
+            &::after {
+                content: "\f002";
+                display: inline-block;
+                font: {
+                    family: "Font Awesome 5 Free";
+                    weight: 900;
+                }
+                opacity: .3;
+                position: absolute;
+                top: 10px;
+                right: 14px;
+            }
+
+            input { border-radius: 8px; padding: 0 36px 0 12px; }
+        }
+    }
+
+    .addons {
+        width: 8%;
+
+        &.button-icon {
+            width: 50px;
+
+            button {
+                background-color: $chambray;
+                border: 0;
+                border-radius: 0 8px 8px 0;
+                color: $white;
+                height: 50px;
+                padding: 0;
+                width: 100%;
+            }
+        }
+    }
+}
+
+//input file
+.inputFile-btn {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    width: 250px;
+
+    input[type="file"] {
+        background: transparent;
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        text-indent: -180px;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+
+        &:hover + .fileBtn { background-color: $primary; color: $white; }
+
+        &:hover + .default-btn.fileBtn { background-color: rgba($chambray, .05); color: $chambray; }
+    }
+
+    .fileBtn { transition: .3s ease background-color; width: 100%; }
+}
+
+.upload_file {
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+
+    &.success {
+        border-color: $accent;
+
+        .file-name::before {
+            content: "\f058";
+            color: $accent;
+            display: inline-block;
+            font: {
+                family: "Font Awesome 5 Free";
+                weight: 400;
+            }
+            margin-right: 12px;
+        }
+    }
+
+    input {
+        background: transparent;
+        cursor: pointer;
+        height: 100%;
+        opacity: 0;
+        position: relative;
+        width: 100%;
+        z-index: 2;
+    }
+
+    .file-name {
+        left: 10px;
+        overflow: hidden;
+        padding-right: 80px;
+        position: absolute;
+        top: 13px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    .btn-searh, .btn-search {
+        font-size: 12px !important;
+        padding: 2px 8px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 1;
+    }
+}
+
+.success_upload {
+    height: 40px;
+    position: relative;
+
+    .icon {
+        font-size: 24px;
+        left: 50%;
+        opacity: .2;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        &.success { color: $accent; opacity: 1; }
+    }
+}
+
+/*RADIOBTN & CHECKBOX*/
+%squareSelection {
+    border: 1px solid $grey;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 12px 16px;
+    transition: border ease-in-out .2s;
+}
+
+.square-rdb {
+    display: inline-block;
+    margin: 0 6px 8px 0;
+    position: relative;
+
+    &:last-of-type { margin-right: 0; }
+
+    input {
+        visibility: hidden;
+        position: absolute;
+
+        &:checked ~ span {
+            background-color: #f7ffff;
+            border-color: $accent;
+            color: $accent;
+
+            &::before {
+                content: "\f00c";
+                display: inline-block;
+                font: {
+                    family: "Font Awesome 5 Free";
+                    weight: 900;
+                }
+                margin-right: 4px;
+            }
+        }
+    }
+
+    span { @extend %squareSelection; }
+
+
+    input:disabled + span {
+        background-color: rgba($text, .03);
+        cursor: default;
+        opacity: .4;
+    }
+}
+
+.fake-checkboxes {
+    .block {
+        @extend %squareSelection;
+        border-color: $accent;
+        background-color: #f7ffff;
+        color: $accent;
+        cursor: default;
+        margin: 0 6px 8px 0;
+    }
+}
+
+.form-chk { margin-bottom: 10px; }
+
+.form-chk, .form-rdb {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    margin: 0 15px 5px 0;
+
+    &:last-child { margin-right: 0; }
+
+    input {
+        margin-right: 8px;
+        opacity: 0;
+
+        &:checked + span.elem {
+            border-color: $accent;
+
+            &:before { background-color: $accent; }
+        }
+    }
+
+    &.form-rdb span.elem {
+        border-radius: 20px;
+
+        &:before { border-radius: 10px; }
+    }
+
+    span.elem {
+        transition: all ease .1s;
+        background-color: $white;
+        border: 1px solid rgba($black, .4);
+        border-radius: 3.5px;
+        // box-shadow: 0 0 6px rgba($black, .2) inset;
+        display: block;
+        height: 16px;
+        left: 0;
+        padding: 2px;
+        position: absolute;
+        top: 5px;
+        width: 16px;
+
+        &:before {
+            transition: all ease .1s;
+            background-color: transparent;
+            border-radius: 1px;
+            display: block;
+            content: "";
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    span.text { display: inline-block; }
+}
+
+/*SWITCH BUTTONS*/
+.switch-component {
+    margin-bottom: 15px;
+
+    .switch { top: 6px; }
+}
+
+.switch {
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    position: relative;
+    width: 55px;
+
+    .switch-input {
+        left: 10px;
+        position: absolute;
+        top: 10px;
+        visibility: hidden;
+
+        &:checked ~ .switch-btn {
+            left: 33px;
+        }
+
+        &:checked + .switch-label:before { opacity: 1; }
+        &:checked + .switch-label:after { opacity: 0; }
+        &:checked + .switch-label { background-color: $accent; }
+    }
+
+    .switch-label {
+        transition: all ease .3s;
+        background-color: rgba($grey, .4);
+        border: 1px solid rgba($black, .15);
+        border-radius: 20px;
+        display: block;
+        height: 100%;
+        position: relative;
+        width: 100%;
+
+        &:before, &:after {
+            transition: inherit;
+            color: rgba($black, .7);
+            font-size: 14px;
+            position: absolute;
+            top: 0;
+        }
+
+        &:before {
+            color: $white;
+            content: attr(data-on);
+            opacity: 0;
+            left: 8px;
+        }
+
+        &:after { content: attr(data-off); right: 8px; }
+    }
+
+    .switch-btn {
+        box-shadow: 0 4px 5px 0 rgba(0,0,0,.14);
+        transition: all .2s ease;
+        background-color: $white;
+        border-radius: 20px;
+        display: block;
+        height: 75%;
+        left: 3px;
+        position: absolute;
+        top: 3px;
+        width: 19px;
+    }
+}
