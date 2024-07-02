@@ -1,0 +1,147 @@
+<section class="animate__animated animate__fadeIn">
+    <div id="main-title">
+        <div class="container">
+            <h2>Detalle de la Solicitud</h2>
+        </div>
+    </div>
+
+    <div class="body-content">
+        <div id="bread-crumbs">
+            <div class="container">
+                <ul class="no-style">
+                    <li><a href="">Inicio</a></li>
+                    <li>Consulta</li>
+                    <li><a>Solicitudes NUPRE</a></li>
+                    <li>Detalle solicitud</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="grid-column-sys navigation has-lateralNav">
+                <div class="column topPadding rborder">
+                    <div id="navigation-menu">
+                        <div class="stickyComponent">
+                            <nav class="tabs lateralbar-2">
+                                <ul>
+                                    <li class="anchor is-active" data-tab="affiData">
+                                        <span class="circle check">1</span>
+                                        <span>Detalle de solicitud</span>
+                                    </li>
+                                    <li class="anchor" data-tab="regLicen">
+
+                                        <span class="circle">2</span>
+                                        <span>Documentos</span>
+                                    </li>
+                                    <li class="anchor" data-tab="pagos">
+                                        <span class="circle">3</span>
+                                        <span>Asociaciones </span>
+                                    </li>
+                                    <li class="anchor" data-tab="someter">
+                                        <span class="circle">4</span>
+                                        <span>Someter Solicitud</span>
+                                    </li>
+
+                                </ul>
+                            </nav>
+                            <div class="bottom-btn">
+                                <button class="default-btn rounded open-modal" data-target="historico"><i
+                                        class="fas fa-history"></i> Histórico</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column topPadding">
+                    <!-- LOADING -->
+                    <div class="skeleton gnrl animate__animated animate__fadeIn">
+                        <div class="tpln clm2 fd">
+                            <div><span class="sqr"></span></div>
+                            <div><span class="rnd"></span></div>
+                        </div>
+                        <div class="cnt clm2 fd">
+                            <div class="lst">
+                                <div class="sqr wd mhg wvs pst"></div>
+                                <div class="sqr wd mhg wvs pst"></div>
+                            </div>
+                            <div class="sqr wd mhg wvs pst"></div>
+                        </div>
+                    </div>
+                    <!-- END LOADING -->
+
+                    <div class="content-title has-status">
+                        <h3 class="title">
+                            <span class="goback-btn" routerLink="/Enfermedad"><i class="fas fa-chevron-left"></i></span>
+
+
+                        </h3>
+                        <div class="status_request">
+                            <div class="progress-outer">
+                                <div class="progress-inner"></div>
+
+                            </div>
+                            <div class="label-text">
+                                Proceso:
+                                <div class="indicator">
+
+                                    <div class="process_list">
+                                        <div class="item">
+                                            <span><i class="fas fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- tabs -->
+                    <div class="tab-content">
+                        <!-- información básica -->
+                        <div id="affiData" class="animate__animated animate__fadeIn is-active">
+
+                        </div>
+                        <!-- registro de licencia -->
+                        <div id="regLicen" class="animate_animated animate_fadeIn">
+
+                        </div>
+                        <div id="someter" class="animate_animated animate_fadeIn">
+
+                        </div>
+                        <div id="pagos" class="animate_animated animate_fadeIn">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL SECTION -->
+<!-- histórico -->
+<div id="historico" class="modal-wrap">
+    <div class="modalbox medium">
+        <div class="modal-header">
+            <h2><i class="fas fa-history"></i> Histórico</h2>
+            <button class="close-btn dismiss"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body-content">
+            <!-- <div class="tracking-item" *ngFor="let grupos of historicos">
+                <h4>
+                    {{grupos[0].evento_Historico_Fecha | date: "d MMM, y"}}
+                </h4>
+                <div class="milestone" *ngFor="let actividad of grupos">
+                    <div class="time">
+                        <i class="far fa-clock"></i>{{actividad.evento_Historico_Fecha | date:"h:mm a"}}
+                    </div>
+                    <div class="descrip">
+                        <strong></strong>
+                        <p>{{actividad.evento_Historico_Descripcion}}</p>
+                        <small>Realizado por: <i class="far fa-user"></i> {{actividad.usuario_Cuenta}}</small>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

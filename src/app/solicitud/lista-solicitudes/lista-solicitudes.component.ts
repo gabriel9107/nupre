@@ -112,10 +112,7 @@ export class ListaSolicitudesComponent implements OnInit {
   }
   public detallesolicitud(solicitudId = 0) {
 
-
-    console.log("verificando el numero de solicitud recibido");
-    console.log(solicitudId);
-    this.router.navigate(['/Detalle/']);
+    this.router.navigate(['/Detalle/' + solicitudId]);
   }
 
   public exportarExcel() {

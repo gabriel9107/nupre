@@ -10,6 +10,7 @@ import { SolicitudesModule } from './solicitud/solicitudes.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, NgIf } from '@angular/common';
+import { NupreInformacionBasicaComponent } from './solicitud/nupre-informacion-basica/nupre-informacion-basica.component';
 
 
 @NgModule({

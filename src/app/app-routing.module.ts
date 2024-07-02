@@ -13,11 +13,7 @@ const routes: Routes = [
     path: 'NUPRE',
     loadChildren: () => import('../app/solicitud/solicitudes.module').then(s => s.SolicitudesModule)
   },
-  {
-    path: 'AuditoresMedicos',
-    redirectTo: 'www.google.com.do'
-    // loadChildren: () => import('../app/solicitud/solicitudes.module').then(s => s.SolicitudesModule)
-  }
+
 ]
 
 @NgModule({
