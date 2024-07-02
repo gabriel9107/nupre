@@ -1,10 +1,13 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Solicitudes_listado } from '../../Models/Solicitudes_Listado';
 import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Solicitudes_Estados } from '../../Models/Solicitudes_Estados';
 import { Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-lista-solicitudes',
@@ -12,8 +15,47 @@ import { NupreService } from '../../Servicio/nupre.service';
 
 })
 export class ListaSolicitudesComponent implements OnInit {
+  //dato de pruebas
+  data: any[] = [];
+
+
+
+
   public headerSolicitud!: Solicitudes_listado;
-  public detalle!: Listado_Solicitud_Medico[]
+
+
+
+
+
+  public details: Listado_Solicitud_Medico[] = [];
+
+  // [{
+  //   profesionalesSolicitudesTranId: 1,
+  //   solicitudNumero: 1,
+  //   solicitudFecha: "2024-06-11T17:46:25.365",
+  //   profesionalDocumento: "string",
+  //   profesionalNombreCompleto: "string",
+  //   nacionalidadNumero: 0,
+  //   profesionalSexo: "string",
+  //   profesionalExequatur: "string",
+  //   profesionalDireccion: "string",
+  //   municipioNumero: 0,
+  //   profesionalTelefono1: "string",
+  //   profesionalTelefono2: "string",
+  //   profesionalTelefono3: "string",
+  //   profesionalMail: "string",
+  //   solicitudEstadoNumero: 0,
+  //   solicitudEstadoFecha: "2024-06-11T17:46:25.365",
+  //   solicitudEstadoNota: "string",
+  //   solicitudUsuarioCuenta: "string",
+  //   solicitudActualizarDatos: "string",
+  //   asociacionRegistroPatronal: 0,
+  //   motivoNumero: 0,
+  //   solicitudCertificadoNumero: "string",
+  //   registroEstado: "string",
+  //   registroUsuario: "string",
+  //   registroFecha: "2024-06-11T17:46:25.365"
+  // }];
   public loading = true;
   public loading2 = false;
   public validafiltro = false;
@@ -42,15 +84,12 @@ export class ListaSolicitudesComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private servicio: NupreService) {
 
 
-  }
-  ngOnInit(): void {
-    //nBuscar Estado de las solicitudes 
-    //obtener las solicitudes
-    // this.servicio.getAllSoliciudes().subscribe({
-    //   next:()
-    // })
 
-    throw new Error('Method not implemented.');
+  }
+
+
+  ngOnInit(): void {
+    this.buscarSolicitudes();
   }
 
   createFormActive() {
@@ -72,7 +111,48 @@ export class ListaSolicitudesComponent implements OnInit {
     this.router.navigate(['/RegistrarSolicitud/']);
   }
   public detallesolicitud(solicitudId = 0) {
-    // this.router.navigate(['/Lactancia/Detalle/' + solicitudId]);
+
+
+    console.log("verificando el numero de solicitud recibido");
+    console.log(solicitudId);
+    this.router.navigate(['/Detalle/']);
+  }
+
+  public exportarExcel() {
+    console.log('funcion pendeinte para exportar a excel');
+  }
+
+  buscarSolicitudes() {
+
+
+    // this.servicio.getData().subscribe(datos => this.details = datos);
+
+
+    // this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
+    //   this.details = res;
+    //   console.log(res);
+    // });
+
+
+    // this.servicio.getData().subscribe(data => {
+    //   this.details = data;
+    //   console.log(data);
+    // })
+
+
+    // this.servicio.getSolicitudesBasicas().subscribe((res: Listado_Solicitud_Medico[]) => {
+    //   this.details = res;
+
+    //   console.log("Arrys");
+    //   console.log(this.details);
+    // });
+
+    this.servicio.getAllSoliciudes().subscribe({
+      next: (todos) => {
+        console.log(todos);
+        this.details = todos;
+      }
+    })
   }
 
   public getestados() {
@@ -89,25 +169,14 @@ export class ListaSolicitudesComponent implements OnInit {
       statusnumber = Number((validarstatus as HTMLInputElement).value);
     }
 
-    // param.draw = this.filtro.draw!;
-    // param.AnioInicio = this.busquedaForm.get('fechaInicio')?.value;
-    // param.AnioFin = this.busquedaForm.get('fechaFin')?.value;
-    // param.PageIndex = this.filtro.PageIndex;
-    // param.Estado_Numero = statusnumber;
-    // param.Cantidad_Registros = this.filtro.Cantidad_Registros;
-    // param.Afiliado_NSS_Madre = this.user.UsuarioNss;
-    // param.Search = this.busquedaForm.get('Search')?.value;
-    // this.filtro.PageSize = this.busquedaForm.get('pagesize')?.value;
-    // param.PageSize = this.filtro.PageSize;
-
     return param;
   }
   public ValidadFiltros(btntype = false) {
 
-    if (this.detalle === null)
+    if (this.details === null)
       return;
 
-    if (this.detalle != null && this.detalle.length === 0) {
+    if (this.details != null && this.details.length === 0) {
       this.validafiltro = true;
       if (btntype) {
         this.validafiltro = true;
@@ -119,41 +188,13 @@ export class ListaSolicitudesComponent implements OnInit {
     } else this.validafiltro = false;
   }
   public pageIndexChange(draw: any) {
-    // this.filtro.draw = draw;
-    // this.filtro.PageIndex = 1; // Number(Number(this.filtro.PageSize!)*( draw-1))
-    // this.GetSolicitudes();
+
   }
   public GetSolicitudes(btntype = false) {
     var parameter = this.getParamFiltro()
-    this.loading = true;
+    this.loading = false;
     this.loading2 = true;
 
-    // this.service.getLactanciaListadoSolicitud_Afiliada(parameter)
-    //   .subscribe((res: IApiResult) => {
-    //     this.loading = false;
-    //     this.loading2 = false;
-    //     /*
-    //     this.filtro.draw = res.Draw;
-    //     this.filtro.PageIndex = res.PageIndex;
-    //     this.filtro.PageSize = res.PageSize;
-    //     */
-    //    let result = res.result as Maternidad_Listados_Solicitudes;
-
-    //     this.filtro.Cantidad_Registros = result.recordsTotal
-    //     this.headerSolicitud = result;
-    //     this.detalle = this.headerSolicitud.data!;
-    //     this.ValidadFiltros(btntype)
-
-    //   }, error => {
-    //     this.ValidarError = true;
-    //     this.ErrorMessage = error.error.errorMessage.join('\n');
-
-    //     this.loading = false
-    //     this.loading2 = false
-    //     this.validafiltro = true;
-    //     this.ValidadFiltros(btntype)
-    //     //this._toast.error('', 'Error');
-    // });
   }
 
 }

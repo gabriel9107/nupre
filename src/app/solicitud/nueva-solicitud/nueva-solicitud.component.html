@@ -1,175 +1,312 @@
-<section class="block-section">
-    <span class="goback-btn alone" (click)="regresar()"><i class="fas fa-chevron-left"></i> Regresar</span>
-    <div class="content-title">
-        <h3 class="title">Datos del Afiliado</h3>
+<div id="main-title">
+    <div class="container">
+        <h2>Solicitud de Registro de Medicos</h2>
     </div>
-    <div class="form-field">
-        <strong class="caption">Cédula / Pasaporte <span class="required-field">*</span>:</strong>
-        <div class="search-box">
-            <span class="error-text"
-                *ngIf="submitted &&  nuevasolicitudForm.controls['Search'].invalid && Search?.errors?.['required']">Debe
-                introducir una Cedula valida</span>
-            <div class="input-box">
-                <input formControlName="Search" type="text" class="form-input" />
-            </div>
-            <div class="addons button-icon">
-                <button class="tooltip" data-tooltip="Buscar" (click)="buscarDatosAfiliado()">
-                    <i class="fas fa-search"></i></button>
-                <!-- fa-trash -->
-            </div>
-        </div>
-    </div>
-    <div class="blue-alert" *ngIf="ValidaNSS">
-        <div class="content">
-            <p><i class="fas fa-info-circle"></i>
-            </p>
+</div>
+
+<div class="body-content">
+    <div id="bread-crumbs">
+        <div class="container sm-width v2">
+            <ul class="no-style">
+                <li><a href="">Inicio</a></li>
+                <li>Consulta</li>
+                <li><a>Solicitudes de NUPRE</a></li>
+                <!-- <li><a [routerLink]="['/Lactancia']">Solicitudes de Lactancia</a></li> -->
+                <li>Registro de Solicitudes de Medicos</li>
+            </ul>
         </div>
     </div>
 
-    <div>
-        <div class="form-field">
-            <strong class="caption">Nombre</strong>
-            <input formControlName="Nombre" type="text" class="input form-input">
-        </div>
-        <div class="row form-field ">
-            <div class="col-w6 ">
-                <strong class="captinon">Nacionalidad :</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Telefono'].invalid">Numero
-                        de Telefono invalido</span>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Telefono"
-                        class="input form-input">
-                </div>
-            </div>
-            <div class="col-w6">
-                <strong class="captinon">Sexo : <span class="required-field">*</span>:</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+    <div class="container topPadding sm-width v2">
+        <form #aForm>
+            <section class="block-section">
+                <span class="goback-btn alone" (click)="regresar()"><i class="fas fa-chevron-left"></i> Regresar</span>
 
-                    </span>
-                    <ng-template #conValorCelular>
+                <div class="form-field">
+                    <strong class="caption">Nombre</strong>
+                    <input formControlName="Nombre" type="text" class="input form-input">
+                </div>
+                <div class="row form-field ">
+                    <div class="col-w6 ">
+                        <strong class="captinon">Nacionalidad :</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Telefono'].invalid">Numero
+                                de Telefono invalido</span>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Telefono"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Sexo : <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Exequátur: <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Municipio (donde reside) : <span
+                                class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <strong class="caption">Dirección Residencia</strong>
+                        <input formControlName="Nombre" type="text" class="input form-input">
+                    </div>
+                </div>
+                <div class="content-title">
+                    <h3 class="title">Contacto </h3>
+                </div>
+
+                <div class="row form-field ">
+                    <div class="col-w6 ">
+                        <strong class="captinon">Celular :</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Telefono'].invalid">Numero
+                                de Telefono invalido</span>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Telefono"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Teléfono 1 : <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Teléfono 2 : <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Correo Electrónico : <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <strong class="caption">Dirección Residencial : <span class="required-field">*</span>:</strong>
+                    <div>
                         <span class="error-text"
-                            *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                            de Celular invalido</span>
-                    </ng-template>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                        class="input form-input">
-                </div>
-            </div>
-            <div class="col-w6">
-                <strong class="captinon">Exequátur: <span class="required-field">*</span>:</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+                            *ngIf="submitted &&!this.nuevasolicitudForm.controls['Afiliado_Correo']?.value; else conValorCorreo ">
 
-                    </span>
-                    <ng-template #conValorCelular>
+                        </span>
+                        <ng-template #conValorCorreo>
+                            <span class="error-text"
+                                *ngIf="submitted && nuevasolicitudForm.controls['Afiliado_Correo'].invalid">Correo
+                                invalido</span>
+                        </ng-template>
+                        <!-- TODO: Se arrregla la validación de correo (Afiliado_Correo) -->
+                        <input type="email" formControlName="Afiliado_Correo" class="input form-input">
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <!-- :pca;odades donde presta servicios -->
+
+                <div class="content-title">
+                    <h3 class="title">Localidades donde presta Servicios
+                    </h3>
+                </div>
+
+                <div class="form-field">
+                    <strong class="caption">Nombre Prestadora   : <span class="required-field">*</span>:</strong>
+                    <div>
                         <span class="error-text"
-                            *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                            de Celular invalido</span>
-                    </ng-template>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                        class="input form-input">
-                </div>
-            </div>
-            <div class="col-w6">
-                <strong class="captinon">Municipio (donde reside) : <span class="required-field">*</span>:</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+                            *ngIf="submitted &&!this.nuevasolicitudForm.controls['Afiliado_Correo']?.value; else conValorCorreo ">
 
-                    </span>
-                    <ng-template #conValorCelular>
+                        </span>
+                        <ng-template #conValorCorreo>
+                            <span class="error-text"
+                                *ngIf="submitted && nuevasolicitudForm.controls['Afiliado_Correo'].invalid">Correo
+                                invalido</span>
+                        </ng-template>
+                        <!-- TODO: Se arrregla la validación de correo (Afiliado_Correo) -->
+                        <input type="email" formControlName="Afiliado_Correo" class="input form-input">
+                    </div>
+                </div>
+                <div class="row form-field ">
+                    <div class="col-w6 ">
+                        <strong class="captinon">Municipio                            :</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Telefono'].invalid">Numero
+                                de Telefono invalido</span>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Telefono"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Teléfono 1 : <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Teléfono 2 : <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Direccion : <span class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text"
+                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+
+                            </span>
+                            <ng-template #conValorCelular>
+                                <span class="error-text"
+                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
+                                    de Celular invalido</span>
+                            </ng-template>
+                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
+                                class="input form-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <strong class="caption">Detalles  : <span class="required-field">*</span>:</strong>
+                    <div>
                         <span class="error-text"
-                            *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                            de Celular invalido</span>
-                    </ng-template>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                        class="input form-input">
+                            *ngIf="submitted &&!this.nuevasolicitudForm.controls['Afiliado_Correo']?.value; else conValorCorreo ">
+
+                        </span>
+                        <ng-template #conValorCorreo>
+                            <span class="error-text"
+                                *ngIf="submitted && nuevasolicitudForm.controls['Afiliado_Correo'].invalid">Correo
+                                invalido</span>
+                        </ng-template>
+                        <!-- TODO: Se arrregla la validación de correo (Afiliado_Correo) -->
+                        <input type="email" formControlName="Afiliado_Correo" class="input form-input">
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+            </section>
+            <div class="red-alert" *ngIf="showErrorMessage">
+                <!--  -->
+                <div class="content">
+                    {{ errorMessage }}
                 </div>
             </div>
-        </div>
-        <div class="content-title">
-            <h3 class="title">Contacto </h3>
-        </div>
 
-        <div class="row form-field ">
-            <div class="col-w6 ">
-                <strong class="captinon">Celular :</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Telefono'].invalid">Numero
-                        de Telefono invalido</span>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Telefono"
-                        class="input form-input">
-                </div>
+            <div class="required-field-cont">
+                <span class="required-field">*</span> Estos campos son requeridos para completar el formulario.
             </div>
-            <div class="col-w6">
-                <strong class="captinon">Teléfono 1 : <span class="required-field">*</span>:</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
 
-                    </span>
-                    <ng-template #conValorCelular>
-                        <span class="error-text"
-                            *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                            de Celular invalido</span>
-                    </ng-template>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                        class="input form-input">
-                </div>
+            <div class="bottom-btn">
+                <button type="button" class="default-btn rounded lg-btn" (click)="regresar()"><i
+                        class="fas fa-times"></i>
+                    Cancelar</button>
+                <button type="button" [disabled]="this.submitted" class="primary-btn rounded lg-btn"
+                    (click)="GuardarSolicitud()"><i class="fas fa-check"></i> Enviar solicitud</button>
             </div>
-            <div class="col-w6">
-                <strong class="captinon">Teléfono 2 : <span class="required-field">*</span>:</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
 
-                    </span>
-                    <ng-template #conValorCelular>
-                        <span class="error-text"
-                            *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                            de Celular invalido</span>
-                    </ng-template>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                        class="input form-input">
-                </div>
-            </div>
-            <div class="col-w6">
-                <strong class="captinon">Correo Electrónico : <span class="required-field">*</span>:</strong>
-                <div>
-                    <span class="error-text"
-                        *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
+        </form>
 
-                    </span>
-                    <ng-template #conValorCelular>
-                        <span class="error-text"
-                            *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                            de Celular invalido</span>
-                    </ng-template>
-                    <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                        class="input form-input">
-                </div>
-            </div>
-        </div>
-        <div class="form-field">
-            <strong class="caption">Dirección Residencial : <span class="required-field">*</span>:</strong>
-            <div>
-                <span class="error-text"
-                    *ngIf="submitted &&!this.nuevasolicitudForm.controls['Afiliado_Correo']?.value; else conValorCorreo ">
 
-                </span>
-                <ng-template #conValorCorreo>
-                    <span class="error-text"
-                        *ngIf="submitted && nuevasolicitudForm.controls['Afiliado_Correo'].invalid">Correo
-                        invalido</span>
-                </ng-template>
-                <!-- TODO: Se arrregla la validación de correo (Afiliado_Correo) -->
-                <input type="email" formControlName="Afiliado_Correo" class="input form-input">
-            </div>
-        </div>
     </div>
-</section>

@@ -6,6 +6,11 @@ import { Component } from '@angular/core';
 
 })
 export class NuevaSolicitudComponent {
+  submitted = false;
+  public showErrorMessage: boolean = false;
+  public errorMessage: string = "";
+
   buscarDatosAfiliado() { }
   regresar() { }
+  public GuardarSolicitud() { }
 }

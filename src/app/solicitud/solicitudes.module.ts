@@ -5,6 +5,9 @@ import { ListaSolicitudesComponent } from './lista-solicitudes/lista-solicitudes
 import { DetalleSolicitudesComponent } from './detalle-solicitudes/detalle-solicitudes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NupreInformacionBasicaComponent } from './detalle-solicitudes/nupre-informacion-basica/nupre-informacion-basica.component';
+import { NupreRegistrarDocumentacionComponent } from './detalle-solicitudes/nupre-registrar-documentacion/nupre-registrar-documentacion.component';
+import { NupreSometerSolicitudComponent } from './detalle-solicitudes/nupre-someter-solicitud/nupre-someter-solicitud.component';
 
 
 
@@ -22,12 +25,19 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: 'Detalle/:id',
-        component: DetalleSolicitudesComponent,
+        component: NupreInformacionBasicaComponent,
       }, {
         path: 'RegistrarSolicitud',
         component: NuevaSolicitudComponent,
       }
     ])
+
+  ],
+
+  declarations: [
+    NupreInformacionBasicaComponent,
+    NupreRegistrarDocumentacionComponent,
+    NupreSometerSolicitudComponent
 
   ],
   // exports:[ListaSolicitudesComponent],
