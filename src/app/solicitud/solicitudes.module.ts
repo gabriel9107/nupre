@@ -8,6 +8,9 @@ import { RouterModule } from '@angular/router';
 import { NupreInformacionBasicaComponent } from './nupre-informacion-basica/nupre-informacion-basica.component';
 import { NupreRegistrarDocumentacionComponent } from './nupre-registrar-documentacion/nupre-registrar-documentacion.component';
 import { NupreSometerSolicitudComponent } from './nupre-someter-solicitud/nupre-someter-solicitud.component';
+import { DetalleBasicoComponent } from './detalle-basico/detalle-basico.component';
+import { AsociacionesComponent } from './asociaciones/asociaciones.component';
+import { SolicitudesFormComponent } from './detalle-basico/solicitudes-form/solicitudes-form.component';
 
 
 
@@ -30,6 +33,11 @@ import { NupreSometerSolicitudComponent } from './nupre-someter-solicitud/nupre-
       {
         path: 'RegistrarSolicitud',
         component: NuevaSolicitudComponent,
+      },
+      {
+        path: 'RegistrarTitulo',
+        component: SolicitudesFormComponent
+
       }
     ])
 
@@ -38,7 +46,10 @@ import { NupreSometerSolicitudComponent } from './nupre-someter-solicitud/nupre-
   declarations: [
     NupreInformacionBasicaComponent,
     NupreRegistrarDocumentacionComponent,
-    NupreSometerSolicitudComponent
+    NupreSometerSolicitudComponent,
+    DetalleBasicoComponent,
+    AsociacionesComponent,
+    SolicitudesFormComponent
 
   ],
   // exports:[ListaSolicitudesComponent],

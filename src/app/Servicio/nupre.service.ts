@@ -35,7 +35,7 @@ export class NupreService {
 
     SolicitudDetalle(Solicitud_Numero: any): Observable<any> {
         let param = 'Solicitud_Numero=' + Solicitud_Numero;
-        return this.http.get('https://localhost:7035/solicitudes' + param, { headers: this.httpOptions.headers });
+        return this.http.get('https://localhost:7035/solicitudes/obtenerSolicitudPorId/1', { headers: this.httpOptions.headers });
 
     }
 

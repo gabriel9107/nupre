@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-w9">
+        <div class="yellow-alert">
+            <div class="content has-icon">
+                <div class="icon"><i class="fas fa-info-circle"></i> </div>
+                <div class="text">
+                    Existen datos que necesitan revisarse lo antes posible para continuar
+                    con el flujo de su solicitud. Puede ver el detalle en la columna de la derecha.
+                </div>
+            </div>
+        </div>
+        <!-- datos de la madre -->
+        <fieldset class="block-section has-edit-btn">
+            <legend>Datos del Solicitante</legend>
+            <div class="float-btn">
+                <span class="color-blue open-modal" data-target="edit_motherData"><i class="fas fa-pen"></i> Editar
+                    datos</span>
+            </div>
+            <div class="row">
+                <div class="col-w4">
+                    <label class="label-text">Nombre</label>
+                    <strong> </strong>
+                </div>
+                <div class="col-w4">
+                    <label class="label-text">Cédula</label>
+                    <strong> </strong>
+                </div>
+                <div class="col-w4">
+                    <label class="label-text">Teléfono residencial</label>
+                    <strong>
+                    </strong>
+                </div>
+                <div class="col-w4">
+                    <label class="label-text">Celular</label>
+                    <strong> </strong>
+                </div>
+                <div class="col-w4">
+                    <label class="label-text">Correo electrónico</label>
+                    <strong> </strong>
+                </div>
+            </div>
+
+
+            <!-- <div class="row">
+          <div class="col-w4">
+            <label class="label-text">Certificado médico</label>
+            <a [href]="url" target="_blank"><i class="fas fa-eye"></i> Ver documento</a>
+          </div>
+        </div> -->
+        </fieldset>
+    </div>
+    <div class="col-w3 info-section">
+        <div class="block m-top warning">
+            <h4> </h4>
+            <div>Diríjase a la pestaña “Registro de Documentos para ver los errores.</div>
+            <!-- <div class="form-field" *ngFor="let motivos of motivos_Rechazo">
+          {{(motivos.motivo_Rechazo_Descripcion)? '&bull;' + motivos.motivo_Rechazo_Descripcion : '' }}
+        </div>
+        <div *ngIf="notaEvaluador.length">
+          <h4>Nota: </h4>
+          <p>{{notaEvaluador}}</p>
+        </div> -->
+        </div>
+        <!-- <div class="block m-top warning" *ngIf="[solicitudRechazada, solicitudRechazoParcial].includes(true)">
+        <div class="form-field">
+          <label class="label-text">{{(solicitudRechazada)? 'Fecha de Rechazo' :'Fecha de devolución' }}</label>
+          <strong>{{fechaRechazoDevolucion | date:'dd/MM/yyyy'}}</strong>
+        </div>
+      </div> -->
+        <div class="block m-top">
+            <div class="form-field">
+                <label class="label-text">Fecha de registro</label>
+                <strong> </strong>
+            </div>
+        </div>
+
+
+    </div>
+</div>

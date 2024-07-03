@@ -10,7 +10,7 @@
             <ul class="no-style">
                 <li><a href="">Inicio</a></li>
                 <li>Consulta</li>
-                <li><a>Solicitudes de NUPRE</a></li>
+                <li><a (click)="listSolicitud()">Solicitudes de NUPRE</a></li>
                 <!-- <li><a [routerLink]="['/Lactancia']">Solicitudes de Lactancia</a></li> -->
                 <li>Registro de Solicitudes de Medicos</li>
             </ul>
@@ -21,6 +21,10 @@
         <form #aForm>
             <section class="block-section">
                 <span class="goback-btn alone" (click)="regresar()"><i class="fas fa-chevron-left"></i> Regresar</span>
+
+                <div class="content-title">
+                    <h3 class="title">Datos Personales </h3>
+                </div>
 
                 <div class="form-field">
                     <strong class="caption">Nombre</strong>
@@ -180,105 +184,45 @@
 
                 <!-- :pca;odades donde presta servicios -->
 
-                <div class="content-title">
-                    <h3 class="title">Localidades donde presta Servicios
-                    </h3>
-                </div>
 
-                <div class="form-field">
-                    <strong class="caption">Nombre Prestadora   : <span class="required-field">*</span>:</strong>
+
+                <section class="block-section">
+                    <div class="content-title">
+                        <h3 class="title">Requerimientos </h3>
+                    </div>
+
+                    <strong class="caption">Subir archivo <span class="required-field">*</span></strong>
+                    <strong class="caption">Subir Copia de Cédula Identidad y Electoral o Pasaporte <span
+                            class="required-field">*</span></strong>
                     <div>
                         <span class="error-text"
-                            *ngIf="submitted &&!this.nuevasolicitudForm.controls['Afiliado_Correo']?.value; else conValorCorreo ">
-
-                        </span>
-                        <ng-template #conValorCorreo>
-                            <span class="error-text"
-                                *ngIf="submitted && nuevasolicitudForm.controls['Afiliado_Correo'].invalid">Correo
-                                invalido</span>
-                        </ng-template>
-                        <!-- TODO: Se arrregla la validación de correo (Afiliado_Correo) -->
-                        <input type="email" formControlName="Afiliado_Correo" class="input form-input">
-                    </div>
-                </div>
-                <div class="row form-field ">
-                    <div class="col-w6 ">
-                        <strong class="captinon">Municipio                            :</strong>
-                        <div>
-                            <span class="error-text"
-                                *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Telefono'].invalid">Numero
-                                de Telefono invalido</span>
-                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Telefono"
-                                class="input form-input">
+                            *ngIf="submitted &&  RegistroForm.controls['archivo'].invalid && archivo?.errors?.['required']">Debe
+                            subir el documento</span>
+                        <!-- class success cuando se suba el archivo -->
+                        <div class="upload_file input">
+                            <input type="file" formControlName="archivo" accept="application/pdf" />
+                            <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                            <button class="btn-search chambray-btn rounded">Buscar</button>
                         </div>
                     </div>
-                    <div class="col-w6">
-                        <strong class="captinon">Teléfono 1 : <span class="required-field">*</span>:</strong>
-                        <div>
-                            <span class="error-text"
-                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
 
-                            </span>
-                            <ng-template #conValorCelular>
-                                <span class="error-text"
-                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                                    de Celular invalido</span>
-                            </ng-template>
-                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                                class="input form-input">
-                        </div>
-                    </div>
-                    <div class="col-w6">
-                        <strong class="captinon">Teléfono 2 : <span class="required-field">*</span>:</strong>
-                        <div>
-                            <span class="error-text"
-                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
-
-                            </span>
-                            <ng-template #conValorCelular>
-                                <span class="error-text"
-                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                                    de Celular invalido</span>
-                            </ng-template>
-                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                                class="input form-input">
-                        </div>
-                    </div>
-                    <div class="col-w6">
-                        <strong class="captinon">Direccion : <span class="required-field">*</span>:</strong>
-                        <div>
-                            <span class="error-text"
-                                *ngIf="submitted && !this.nuevasolicitudForm.controls['Afiliado_Celular']?.value; else conValorCelular ">
-
-                            </span>
-                            <ng-template #conValorCelular>
-                                <span class="error-text"
-                                    *ngIf="submitted && this.nuevasolicitudForm.controls['Afiliado_Celular']?.invalid">Numero
-                                    de Celular invalido</span>
-                            </ng-template>
-                            <input type="text" mask="(000) 000-0000" formControlName="Afiliado_Celular"
-                                class="input form-input">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-field">
-                    <strong class="caption">Detalles  : <span class="required-field">*</span>:</strong>
+                    <strong class="caption">Copia de Exequátur <span class="required-field">*</span></strong>
                     <div>
                         <span class="error-text"
-                            *ngIf="submitted &&!this.nuevasolicitudForm.controls['Afiliado_Correo']?.value; else conValorCorreo ">
-
-                        </span>
-                        <ng-template #conValorCorreo>
-                            <span class="error-text"
-                                *ngIf="submitted && nuevasolicitudForm.controls['Afiliado_Correo'].invalid">Correo
-                                invalido</span>
-                        </ng-template>
-                        <!-- TODO: Se arrregla la validación de correo (Afiliado_Correo) -->
-                        <input type="email" formControlName="Afiliado_Correo" class="input form-input">
+                            *ngIf="submitted &&  RegistroForm.controls['archivo'].invalid && archivo?.errors?.['required']">Debe
+                            subir el documento</span>
+                        <!-- class success cuando se suba el archivo -->
+                        <div class="upload_file input">
+                            <input type="file" formControlName="archivo" accept="application/pdf" />
+                            <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                            <button class="btn-search chambray-btn rounded">Buscar</button>
+                        </div>
                     </div>
-                </div>
+                    <div class="required-field-cont">
+                        <span class="required-field">*</span>El formato del archivo debe ser en .JPG o PDF.
+                    </div>
 
-
+                </section>
 
 
 

@@ -11,7 +11,7 @@
                 <ul class="no-style">
                     <li><a href="">Inicio</a></li>
                     <li>Consulta</li>
-                    <li><a>Solicitudes NUPRE</a></li>
+                    <li><a (click)="listSolicitud()">Solicitudes NUPRE</a></li>
                     <li>Detalle solicitud</li>
                 </ul>
             </div>
@@ -31,7 +31,7 @@
                                     <li class="anchor" data-tab="regLicen">
 
                                         <span class="circle">2</span>
-                                        <span>Documentos</span>
+                                        <span>Titulos </span>
                                     </li>
                                     <li class="anchor" data-tab="pagos">
                                         <span class="circle">3</span>
@@ -44,17 +44,20 @@
 
                                 </ul>
                             </nav>
-                            <div class="bottom-btn">
+
+                            <!-- Se debe de agregar le historial a medida de que se vaya avanzando con el tema
+                             <div class="bottom-btn">
                                 <button class="default-btn rounded open-modal" data-target="historico"><i
                                         class="fas fa-history"></i> Histórico</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
 
+
                 <div class="column topPadding">
                     <!-- LOADING -->
-                    <div class="skeleton gnrl animate__animated animate__fadeIn">
+                    <div class="skeleton gnrl animate__animated animate__fadeIn" *ngIf="loading">
                         <div class="tpln clm2 fd">
                             <div><span class="sqr"></span></div>
                             <div><span class="rnd"></span></div>
@@ -71,11 +74,12 @@
 
                     <div class="content-title has-status">
                         <h3 class="title">
-                            <span class="goback-btn" routerLink="/Enfermedad"><i class="fas fa-chevron-left"></i></span>
+                            <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
+                            Solicitud núm. 48444 &#124; Gabriel Montero Terrero
 
 
                         </h3>
-                        <div class="status_request">
+                        <!-- <div class="status_request">
                             <div class="progress-outer">
                                 <div class="progress-inner"></div>
 
@@ -92,23 +96,33 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- tabs -->
                     <div class="tab-content">
                         <!-- información básica -->
                         <div id="affiData" class="animate__animated animate__fadeIn is-active">
+                            <app-detalle-basico >
+                                <!-- [listadoLicencias]="listadoLicencias" -->
+                            </app-detalle-basico>
 
                         </div>
-                        <!-- registro de licencia -->
+                        <!-- registro de documentacion -->
                         <div id="regLicen" class="animate_animated animate_fadeIn">
+                            <app-nupre-registrar-documentacion>
 
+                            </app-nupre-registrar-documentacion>
+                        </div>
+
+                        <div id="Asociaciones" class="animate_animated animate_fadeIn">
+                            <app-asociaciones>
+
+                            </app-asociaciones>
                         </div>
                         <div id="someter" class="animate_animated animate_fadeIn">
+                            <app-nupre-someter-solicitud>
 
-                        </div>
-                        <div id="pagos" class="animate_animated animate_fadeIn">
-
+                            </app-nupre-someter-solicitud>
                         </div>
                     </div>
 

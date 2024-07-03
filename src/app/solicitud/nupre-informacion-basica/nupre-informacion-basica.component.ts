@@ -3,14 +3,16 @@ import { Motivo_Rechazo, User } from '../../Models/Solicitudes_ViewModelt';
 import { ActivatedRoute, Router, Params } from "@angular/router";
 
 import { NupreService } from '../../Servicio/nupre.service';
+import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
 
 @Component({
   selector: 'app-nupre-informacion-basica',
   templateUrl: './nupre-informacion-basica.component.html',
-  // styleUrl: './nupre-informacion-basica.component.css'
+
 })
 export class NupreInformacionBasicaComponent implements OnInit {
 
+  public detalle = Listado_Solicitud_Medico;
   public solicitudId!: number;
   public loading = true;
   public estado_Numero!: number;
@@ -28,15 +30,15 @@ export class NupreInformacionBasicaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getDetalleSolicitud();
   }
   public listSolicitud() {
     this.router.navigate(['/NUPRE']);
   }
-  public getldetalleSolicitud() {
-    this.loading = true;
-    // this.servicio.SolicitudDetalle(this.solicitudId).subscribe(res: )
-
-
+  public getDetalleSolicitud() {
+    this.loading = false;
+    this.servicio.SolicitudDetalle(this.solicitudId).subscribe(resp =>
+      this.detalle = resp
+    )
   }
 }
