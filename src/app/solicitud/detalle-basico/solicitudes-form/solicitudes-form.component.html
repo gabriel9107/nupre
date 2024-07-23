@@ -43,12 +43,16 @@
                             <strong class="caption">Profesion <span class="required-field">*</span>:
                                 <!--<span class="required-field">*</span>-->
                             </strong>
+
+                            <div class="form-control">
+
+                                <p-autoComplete [(ngModel)]="selectedCity" [suggestions]="cities"
+                                    (completeMethod)="search($event)" class="form-control" />
+                            </div>
                             <div>
                                 <span class="error-text">Este
                                     campo es requerido</span>
-                                <ng-select class="mds-ngselect" formControlName="Codigo_CIE" bindValue="codigo_CIE"
-                                    addTagText="Agregar procedimiento" bindLabel="codigo_CIE_Descripcion">
-                                </ng-select>
+
                             </div>
                         </div>
 

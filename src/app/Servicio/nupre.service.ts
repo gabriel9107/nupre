@@ -3,7 +3,8 @@ import { Observable, map, tap } from "rxjs";
 import { Solicitudes_listado } from '../Models/Solicitudes_Listado';
 import { urlNUPRE } from '../rutas/Rutas';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Listado_Solicitud_Medico } from "../Models/Nupre/Listado_Solicitud_Medico";
+import { Listado_Solicitud_Medico, Solicitud_MedicoCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
+import { environment } from "../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,9 @@ export class NupreService {
         })
     }
     baseUrl: string = "https://localhost:7035"
+
+
+
     constructor(private http: HttpClient) {
 
     }
@@ -39,6 +43,11 @@ export class NupreService {
 
     }
 
+
+    public crearSolicitud(solicitud: Solicitud_MedicoCreacionDTO) {
+
+        return this.http.post('https://localhost:7035/solicitudes', solicitud)
+    }
 
 
     public getData(): Observable<any> {

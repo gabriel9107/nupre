@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
+import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
 
 @Component({
   selector: 'app-nupre-registrar-documentacion',
@@ -10,6 +11,7 @@ import { NupreService } from '../../Servicio/nupre.service';
 export class NupreRegistrarDocumentacionComponent implements OnInit {
   public solicitudId!: number;
   public titulo: boolean = false;
+  @Input() details!: Listado_Solicitud_Medico;
 
   constructor
     (public activedRoute: ActivatedRoute,

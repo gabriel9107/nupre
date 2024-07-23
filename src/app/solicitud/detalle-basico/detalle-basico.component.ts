@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
 
 @Component({
@@ -7,7 +7,12 @@ import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_M
 
 })
 export class DetalleBasicoComponent {
-  @Input() listadoLicencias: Listado_Solicitud_Medico[] = [];
+
+  @Input() details!: Listado_Solicitud_Medico;
+
+
+  // @Input() item!: string;
+
 
 
 }

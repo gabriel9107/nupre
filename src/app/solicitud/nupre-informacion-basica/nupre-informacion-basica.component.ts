@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, input } from '@angular/core';
 import { Motivo_Rechazo, User } from '../../Models/Solicitudes_ViewModelt';
 import { ActivatedRoute, Router, Params } from "@angular/router";
 
@@ -20,6 +20,11 @@ export class NupreInformacionBasicaComponent implements OnInit {
   public solicitud_Fecha!: string;
   public checkSometidad = false;
 
+
+  @Input() listadoLicencias!: Listado_Solicitud_Medico;
+
+  // @Output() valueChange = EventEmitter<Listado_Solicitud_Medico> = new EventEmitter();
+
   constructor
     (public activedRoute: ActivatedRoute,
       private router: Router, private servicio: NupreService
@@ -38,7 +43,8 @@ export class NupreInformacionBasicaComponent implements OnInit {
   public getDetalleSolicitud() {
     this.loading = false;
     this.servicio.SolicitudDetalle(this.solicitudId).subscribe(resp =>
-      this.detalle = resp
-    )
+      this.listadoLicencias = resp)
+
+
   }
 }

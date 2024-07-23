@@ -75,7 +75,8 @@
                     <div class="content-title has-status">
                         <h3 class="title">
                             <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
-                            Solicitud núm. 48444 &#124; Gabriel Montero Terrero
+                            Solicitud núm. {{listadoLicencias.solicitudNumero}} &#124;
+                            {{listadoLicencias.profesionalNombreCompleto}}
 
 
                         </h3>
@@ -102,22 +103,22 @@
                     <div class="tab-content">
                         <!-- información básica -->
                         <div id="affiData" class="animate__animated animate__fadeIn is-active">
-                            <app-detalle-basico >
+                            <app-detalle-basico [details]="listadoLicencias">
                                 <!-- [listadoLicencias]="listadoLicencias" -->
                             </app-detalle-basico>
 
                         </div>
                         <!-- registro de documentacion -->
                         <div id="regLicen" class="animate_animated animate_fadeIn">
-                            <app-nupre-registrar-documentacion>
+                            <app-nupre-registrar-documentacion [details]="listadoLicencias">
 
                             </app-nupre-registrar-documentacion>
                         </div>
 
                         <div id="Asociaciones" class="animate_animated animate_fadeIn">
-                            <app-asociaciones>
+                            <!-- <app-asociaciones>
 
-                            </app-asociaciones>
+                            </app-asociaciones> -->
                         </div>
                         <div id="someter" class="animate_animated animate_fadeIn">
                             <app-nupre-someter-solicitud>

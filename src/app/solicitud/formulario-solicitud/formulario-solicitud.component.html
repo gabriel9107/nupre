@@ -1,0 +1,154 @@
+<div id="main-title">
+    <div class="container">
+        <h2>Solicitud de Registro de Medicos</h2>
+    </div>
+</div>
+
+<div class="body-content">
+    <div id="bread-crumbs">
+        <div class="container sm-width v2">
+            <ul class="no-style">
+                <li><a href="">Inicio</a></li>
+                <li>Consulta</li>
+                <li><a (click)="listSolicitud()">Solicitudes de NUPRE</a></li>
+                <!-- <li><a [routerLink]="['/Lactancia']">Solicitudes de Lactancia</a></li> -->
+                <li>Registro de Solicitudes de Medicos</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container topPadding sm-width v2">
+        <form (submit)="GuardarSolicitud()" [formGroup]="form" #aForm>
+            <section class="block-section">
+                <span class="goback-btn alone" (click)="regresar()"><i class="fas fa-chevron-left"></i> Regresar</span>
+
+                <div class="content-title">
+                    <h3 class="title">Datos Personales </h3>
+                </div>
+                <div class="form-field">
+                    <strong class="caption">NSS / Cedula </strong>
+                    <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
+                    <input formControlName="NSS" type="text" class="input form-input">
+                </div>
+
+                <div class="form-field">
+                    <strong class="caption">Nombre</strong>
+                    <input formControlName="Nombre" type="text" class="input form-input">
+                </div>
+                <div class="row form-field ">
+                    <div class="col-w6 ">
+                        <strong class="captinon">Sexo :</strong>
+                        <div>
+                            <!-- <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span> -->
+                            <input type="text" formControlName="Sexo" class="input form-input">
+                        </div>
+                    </div>
+                    <div class="col-w6 ">
+                        <strong class="captinon">Exequátur :</strong>
+                        <div>
+                            <!-- <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span> -->
+                            <input type="text" formControlName="Exequatur" class="input form-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-field">
+                    <div class="col-w6 ">
+                        <strong class="captinon">Nacionalidad :</strong>
+                        <div>
+                            <!-- <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span> -->
+                            <input type="text" formControlName="Nacionalidad" class="input form-input">
+                        </div>
+                    </div>
+
+                    <div class="col-w6">
+                        <strong class="captinon">Municipio (donde reside) : <span
+                                class="required-field">*</span>:</strong>
+                        <div>
+                            <span class="error-text">
+                            </span>
+                            <input type="text" formControlName="Municipio" class="input form-input">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-field">
+                    <strong class="captinon">Direccion Residencial : <span class="required-field">*</span>:</strong>
+                    <div>
+                        <span class="error-text">
+                        </span>
+                        <input type="text" formControlName="Direccion" class="input form-input">
+                    </div>
+                </div>
+
+                <div class="content-title">
+                    <h3 class="title">Contacto</h3>
+                </div>
+
+                <div class="row form-field">
+                    <div class="col-w6">
+                        <strong class="caption"> Celular : </strong>
+                        <input type="text" formControlName="Celular" class="input form-input">
+
+                    </div>
+                    <div class="col-w6">
+                        <strong class="caption"> Telefono 1</strong>
+                        <input type="text" formControlName="Telefono" class="input form-input">
+                    </div>
+                    <!-- <span class="error-text"  -->
+
+                </div>
+                <div class="row form-field">
+                    <div class="col-w6">
+                        <strong class="captinon"> Telefono 2</strong>
+                        <input type="text" formControlName="Telefono2" class="input form-input">
+                    </div>
+                    <div class="col-w6">
+                        <strong class="captinon">Correo Electronico</strong>
+                        <input type="email" formControlName="CorreoElectronico" class="input form-input">
+                    </div>
+                </div>
+
+
+                <div class="content-title">
+                    <h3> Requerimientos</h3>
+
+                </div>
+
+                <strong class="caption">Subir Copia de Cédula Identidad y Electoral o Pasaporte <span
+                        class="required-field">*</span></strong>
+                <div>
+                    <!-- class success cuando se suba el archivo -->
+                    <div class="upload_file input">
+                        <input type="file" formControlName="archivo" accept="application/pdf" />
+                        <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                        <button class="btn-search chambray-btn rounded">Buscar</button>
+                    </div>
+                </div>
+                <strong class="caption">Copia de Exequátur <span class="required-field">*</span></strong>
+                <div>
+
+
+                    <!-- class success cuando se suba el archivo -->
+                    <div class="upload_file input">
+                        <input type="file" formControlName="archivo" accept="application/pdf" />
+                        <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                        <button class="btn-search chambray-btn rounded">Buscar</button>
+                    </div>
+                </div>
+                <div class="required-field-cont">
+                    <span class="required-field">*</span>El formato del archivo debe ser en .JPG o PDF.
+                </div>
+            </section>
+
+            <div class="bottom-btn">
+                <button type="button" class="default-btn rounded lg-btn" (click)="regresar()"><i
+                        class="fas fa-times"></i>
+                    Cancelar</button>
+                <button type="button" [disabled]="form.invalid" class="primary-btn rounded lg-btn"
+                    (click)="GuardarSolicitud()"><i class="fas fa-check"></i> Enviar solicitud</button>
+            </div>
+
+        </form>
+
+
+    </div>

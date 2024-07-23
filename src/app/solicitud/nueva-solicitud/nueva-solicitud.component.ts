@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Solicitud_MedicoCreacionDTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
 
 
 
@@ -9,28 +11,17 @@ import { NupreService } from '../../Servicio/nupre.service';
   templateUrl: './nueva-solicitud.component.html'
 
 })
-export class NuevaSolicitudComponent implements OnInit {
+export class NuevaSolicitudComponent {
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  constructor
-    (public activedRoute: ActivatedRoute,
-      private router: Router, private servicio: NupreService
-    ) {
-
-
+  constructor(private router: Router, private solicitudServicio: NupreService) {
 
   }
+  GuardarSolicitud(solicitud: Solicitud_MedicoCreacionDTO) {
 
-  submitted = false;
-  public showErrorMessage: boolean = false;
-  public errorMessage: string = "";
-  public listSolicitud() {
-    this.router.navigate(['/NUPRE']);
+    this.solicitudServicio.crearSolicitud(solicitud).subscribe(() => {
+      this.router.navigate(['/solicitudes'])
+    }, error => console.error(error));
+
   }
-  buscarDatosAfiliado() { }
-  regresar() { }
-  public GuardarSolicitud() { }
 
 }

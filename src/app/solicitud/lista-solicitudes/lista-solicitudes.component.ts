@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgFor, NgIf } from '@angular/common';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-lista-solicitudes',

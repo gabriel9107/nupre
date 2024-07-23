@@ -142,7 +142,7 @@
 
 
                             <div id="register_list">
-                                
+
 
                             </div>
 
@@ -163,7 +163,7 @@
                                             <span><i class="far fa-calendar"></i> Cédula:
                                                 {{item.profesional_Documento}}</span>
                                             <span><i class="far fa-calendar"></i> Fecha de registro:
-                                                {{item.solicitud_Fecha }}</span>
+                                                {{item.solicitud_Fecha | date:'dd/MM/yyyy' }}</span>
 
                                             <span *ngIf="listado?.lactancia_Estado_Numero! > 0"><i
                                                     class="far fa-accessible-icon"></i>
