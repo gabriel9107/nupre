@@ -5,6 +5,7 @@ import { urlNUPRE } from '../rutas/Rutas';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Listado_Solicitud_Medico, Solicitud_MedicoCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
 import { environment } from "../environments/environment";
+import { Municipio, Provincias } from "../Models/Nupre/comun_models";
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +27,21 @@ export class NupreService {
 
     }
 
+    getProvincias(): Observable<Provincias[]> {
+        return this.http.get<Provincias[]>(
+            'https://localhost:7035/utilidades/obtenerProvincias'
+        )
+    }
+
+
+    getMunicipios(): Observable<Municipio[]> {
+        return this.http.get<Municipio[]>(
+            'https://localhost:7035/utilidades/obtenerMunicipios'
+        )
+    }
+
+
+
 
     getSolicitudesBasicas(): Observable<Listado_Solicitud_Medico[]> {
 
@@ -35,6 +51,8 @@ export class NupreService {
 
 
     }
+
+    
 
 
     SolicitudDetalle(Solicitud_Numero: any): Observable<any> {

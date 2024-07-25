@@ -22,7 +22,7 @@ export class FormularioSolicitudComponent implements OnInit {
 
       //En caso de que sea un usuario personal creando su solicitud, la misma va a traer el NSS por defecto
       NSS: ['', { validators: [Validators.required, Validators.minLength(2)] },],
-      Sexo: [''],
+      Sexo: ['Masculino'],
       Exequatur: '',
       Nacionalidad: '',
       Municipio: '',
