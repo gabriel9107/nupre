@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { FooterComponet } from './footer/footer.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -14,7 +16,6 @@ import { SolicitudesFormComponent } from './solicitud/detalle-basico/solicitudes
 import { NupreRegistrarDocumentacionComponent } from './solicitud/nupre-registrar-documentacion/nupre-registrar-documentacion.component';
 import { NupreSometerSolicitudComponent } from './solicitud/nupre-someter-solicitud/nupre-someter-solicitud.component';
 import { AsociacionesComponent } from './solicitud/asociaciones/asociaciones.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,6 +24,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NuevaSolicitudComponent } from './solicitud/nueva-solicitud/nueva-solicitud.component';
 import { FormularioSolicitudComponent } from './solicitud/formulario-solicitud/formulario-solicitud.component';
 import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulario-solicitud/editar-formulario-solicitud.component';
+
 
 
 
@@ -49,12 +51,13 @@ import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulari
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule, NgIf,
-    ReactiveFormsModule
-    , FormsModule, AutoCompleteModule, BrowserAnimationsModule, InputTextModule
-
-
-
+    HttpClientModule,
+    NgIf,
+    ReactiveFormsModule,
+    FormsModule,
+    // NgSelectModule,
+    BrowserAnimationsModule,
+    InputTextModule
   ],
 
   providers: [

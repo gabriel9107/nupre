@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 
+
 @Component({
   selector: 'app-formulario-solicitud',
   templateUrl: './formulario-solicitud.component.html',
@@ -16,21 +17,62 @@ export class FormularioSolicitudComponent implements OnInit {
 
   @Input()
   modelo!: Solicitud_MedicoCreacionDTO;
-
+  cities = [
+    { id: 1, name: 'Vilnius' },
+    { id: 2, name: 'Kaunas' },
+    { id: 3, name: 'Pavilnys', disabled: true },
+    { id: 4, name: 'Pabradė' },
+    { id: 5, name: 'Klaipėda' }
+  ];
+  selectedCity: any;
   ngOnInit(): void {
+
+
+
+
     this.form = this.formBuider.group({
 
+      // solicitudNumero?: number
+      // solicitudFecha?: string
+      // profesionalDocumento?: string
+      // profesionalNombreCompleto?: string
+      // nacionalidadNumero?: number
+      // profesionalSexo?: string
+      // profesionalExequatur?: string
+      // profesionalDireccion?: string
+      // municipioNumero?: number
+      // profesionalTelefono1?: string
+      // profesionalTelefono2?: string
+      // profesionalTelefono3?: string
+      // profesionalMail?: string
+      // solicitudEstadoNumero?: number
+      // solicitudEstadoFecha?: string
+      // solicitudEstadoNota?: string
+      // solicitudUsuarioCuenta?: string
+      // solicitudActualizarDatos?: string
+      // asociacionRegistroPatronal?: number
+      // motivoNumero?: number
+      // solicitudCertificadoNumero?: string
+      // registroEstado?: string
+      // registroUsuario?: string
+      // registroFecha?: string
+
+
+
       //En caso de que sea un usuario personal creando su solicitud, la misma va a traer el NSS por defecto
-      NSS: ['', { validators: [Validators.required, Validators.minLength(2)] },],
-      Sexo: ['Masculino'],
-      Exequatur: '',
-      Nacionalidad: '',
-      Municipio: '',
-      Direccion: '',
-      Celular: '',
-      Telefono: '',
-      Telefono2: '',
-      CorreoElectronico: ''
+      profesionalDocumento: ['40221025725', { validators: [Validators.required, Validators.minLength(2)] },],
+      profesionalNombreCompleto: 'Gabriel Montero',
+      profesionalSexo: ['Masculino'],
+      profesionalExequatur: '454847',
+      nacionalidadNumero: '1',
+      municipioNumero: '1',
+      profesionalDireccion: 'Nicolas Ramon #31',
+      profesionalTelefono1: '829940978',
+      profesionalTelefono2: '80955',
+      profesionalTelefono3: '4888',
+      profesionalMail: 'prueba@gmail.com',
+      archivoCedula: '',
+      archivoExequatur: ''
     });
     if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo)
@@ -57,6 +99,8 @@ export class FormularioSolicitudComponent implements OnInit {
   }
   public GuardarSolicitud() {
 
+    console.log('valores del formulario');
+    console.log(this.form.value);
     this.submit.emit(this.form.value);
   }
 

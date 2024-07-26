@@ -52,7 +52,7 @@ export class NupreService {
 
     }
 
-    
+
 
 
     SolicitudDetalle(Solicitud_Numero: any): Observable<any> {
@@ -63,7 +63,8 @@ export class NupreService {
 
 
     public crearSolicitud(solicitud: Solicitud_MedicoCreacionDTO) {
-
+        console.log('servicios');
+        console.log(solicitud);
         return this.http.post('https://localhost:7035/solicitudes', solicitud)
     }
 
