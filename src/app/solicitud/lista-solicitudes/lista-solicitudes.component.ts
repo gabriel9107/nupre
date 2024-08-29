@@ -1,5 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
+
+
 import { Solicitudes_listado } from '../../Models/Solicitudes_Listado';
 import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
@@ -7,7 +9,7 @@ import { Solicitudes_Estados } from '../../Models/Solicitudes_Estados';
 import { Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgFor, NgIf } from '@angular/common';
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
@@ -18,6 +20,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ListaSolicitudesComponent implements OnInit {
   //dato de pruebas
   data: any[] = [];
+
+  lista = false;
 
 
 
@@ -145,12 +149,22 @@ export class ListaSolicitudesComponent implements OnInit {
     //   console.log(this.details);
     // });
 
-    this.servicio.getAllSoliciudes().subscribe({
-      next: (todos) => {
-        console.log(todos);
-        this.details = todos;
-      }
-    })
+    // this.servicio.getAllSoliciudes().subscribe({
+    //   next: (todos) => {
+    //     this.loading = true;
+    //     console.log(todos);
+    //     this.details = todos;
+    //   },
+    // },)
+
+    this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
+      this.loading = true;
+      this.details = res;
+    }, error => {
+      this.ValidarError = true;
+      this.loading = false;
+    }
+    )
   }
 
   public getestados() {

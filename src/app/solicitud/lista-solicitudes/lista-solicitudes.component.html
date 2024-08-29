@@ -83,6 +83,7 @@
                                         </select>
                                     </div>
                                     <div>
+
                                         <button class="primary-btn rounded " (click)="nuevasolicitud()">
                                             <i class="fas fa-plus icon"></i> Nuevo
                                         </button>
@@ -96,6 +97,17 @@
                                 </div>
                             </div>
 
+                            <div *ngIf="lista">
+                                Hola mundo
+                            </div>
+                            <!-- <div *ngIf="(detalle?.length ?? 0) <= 0 && !ValidarError"> -->
+                            <!-- <div *ngIf="(loading)">
+                                <div class="blue-alert">
+                                    <div class="content">
+                                        <i class="fas fa-info-circle"></i> No existen registros a consultar.
+                                    </div>
+                                </div>
+                            </div> -->
 
                             <!-- Loading -->
                             <div class="skeleton slst animate__animated animate__fadeIn" *ngIf="loading">
@@ -115,7 +127,8 @@
                             <div *ngIf="details.length === 0">
                                 <div class="blue-alert">
                                     <div class="content">
-                                        <i class="fas fa-info-circle"></i> No existen registros de NUPRE a consultar.
+                                        <i class="fas fa-info-circle"></i> No existen registros de NUPRE a
+                                        consultar.
                                     </div>
                                 </div>
                                 <button class="primary-btn rounded" (click)="nuevasolicitud()"><i

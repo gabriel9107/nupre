@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterComponet } from './footer/footer.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule, NgIf } from '@angular/common';
 import { NupreInformacionBasicaComponent } from './solicitud/nupre-informacion-basica/nupre-informacion-basica.component';
 
 import { DetalleBasicoComponent } from './solicitud/detalle-basico/detalle-basico.component';
@@ -49,10 +50,11 @@ import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulari
 
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgIf,
+
     ReactiveFormsModule,
     FormsModule,
     // NgSelectModule,
