@@ -57,7 +57,7 @@ import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulari
 
     ReactiveFormsModule,
     FormsModule,
-    // NgSelectModule,
+    NgSelectModule,
     BrowserAnimationsModule,
     InputTextModule
   ],

@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 import { ciudadano_consulta_DTOs } from '../../Models/Nupre/ciudadano_mastert';
+import { Provincias_Cata } from '../../Models/Direccion';
+import { Nacionalidad, Provincias } from '../../Models/Nupre/comun_models';
 
 
 @Component({
@@ -17,23 +19,28 @@ export class FormularioSolicitudComponent implements OnInit {
   public datatosCiudadano!: ciudadano_consulta_DTOs
   public files: File[] = [];
 
+  public nacionalidades: Nacionalidad[] = [];
+  selectNacionalidad: number | undefined;
+
+
+  public provincias: Provincias[] = [];
+
+  selectprovincias: number | undefined;
+
+
 
   @Output()
   submit: EventEmitter<Solicitud_MedicoCreacionDTO> = new EventEmitter<Solicitud_MedicoCreacionDTO>();
 
   @Input()
   modelo!: Solicitud_MedicoCreacionDTO;
-  cities = [
-    { id: 1, name: 'Vilnius' },
-    { id: 2, name: 'Kaunas' },
-    { id: 3, name: 'Pavilnys', disabled: true },
-    { id: 4, name: 'Pabradė' },
-    { id: 5, name: 'Klaipėda' }
-  ];
-  selectedCity: any;
+
   ngOnInit(): void {
 
 
+
+    this.getProvinciasCata();
+    this.getNacionalidades();
 
 
     this.form = this.formBuider.group({
@@ -82,16 +89,16 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
       profesionalDocumento: ['', { validators: [Validators.required, Validators.minLength(2)] },],
-      profesionalNombreCompleto: '',
-      profesionalSexo: '',
-      profesionalExequatur: '',
-      nacionalidadNumero: '',
-      municipioNumero: '',
-      profesionalDireccion: '',
-      profesionalTelefono1: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
-      profesionalTelefono2: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
-      profesionalTelefono3: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
-      profesionalMail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]],
+      profesionalNombreCompleto: ['', { Validators: [Validators.required] }],
+      profesionalSexo: ['', { Validators: [Validators.required] }],
+      profesionalExequatur: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
+      nacionalidadNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
+      municipioNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
+      profesionalDireccion: ['', { Validators: [Validators.required, Validators.minLength(7)] }],
+      profesionalTelefono1: '',
+      profesionalTelefono2: '',
+      profesionalTelefono3: '',
+      profesionalMail: '',
       archivoCedula: '',
       archivoExequatur: ''
 
@@ -205,6 +212,19 @@ export class FormularioSolicitudComponent implements OnInit {
       console.log(this.files);
       this.files.push(files[i]);
     }
+
+  }
+
+
+  getProvinciasCata() {
+
+    this.servicio.getProvincias().
+      subscribe(resp => this.provincias = resp);
+
+  }
+  getNacionalidades() {
+
+    this.servicio.getNacionalidades().subscribe(res => this.nacionalidades = res);
 
   }
 

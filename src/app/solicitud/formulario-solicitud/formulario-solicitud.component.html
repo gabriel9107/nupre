@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-field">
-                    <strong class="caption">Nombre</strong>
+                    <strong class="caption">Nombre Completo</strong>
                     <input formControlName="profesionalNombreCompleto" type="text" class="input form-input">
                 </div>
                 <div class="row form-field ">
@@ -56,8 +56,14 @@
                     <div class="col-w6 ">
                         <strong class="captinon">Nacionalidad :</strong>
                         <div>
+                            <ng-select [items]="nacionalidades" placeholder="Selecione una nacionalidad "
+                                formControlName="nacionalidadNumero" bindLabel="nacionalidad_Pais_Nombre"
+                                bindValue="nacionalidadNumero" [clearable]="false" [searchable]="true"
+                                [(ngModel)]="selectNacionalidad">
+                            </ng-select>
+
                             <!-- <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span> -->
-                            <input type="text" formControlName="nacionalidadNumero" class="input form-input">
+                            <!-- <input type="text" formControlName="nacionalidadNumero" class="input form-input"> -->
                         </div>
                     </div>
 
@@ -67,7 +73,12 @@
                         <div>
                             <span class="error-text">
                             </span>
-                            <input type="text" formControlName="municipioNumero" class="input form-input">
+
+                            <ng-select [items]="provincias" placeholder="Selecione una proviencia "
+                                formControlName="municipioNumero" bindLabel="provinciaNombre"
+                                bindValue="provinciaNumero" [clearable]="false" [searchable]="false"
+                                [(ngModel)]="selectprovincias">
+                            </ng-select>
                         </div>
                     </div>
 
