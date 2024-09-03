@@ -137,11 +137,15 @@ export class FormularioSolicitudComponent implements OnInit {
 
   public AsignarValores(res: ciudadano_consulta_DTOs) {
 
+    console.log(res);
     this.form.patchValue({
       // profesionalDocumento: res.ciudadanoNoDocumento,
       profesionalNombreCompleto: res.ciudadanoNombreCompleto,
       profesionalSexo: res.ciudadanoSexo,
-      nacionalidadNumero: res.nacionalidadNumero
+      nacionalidadNumero: res.nacionalidadNumero,
+      municipioNumero: res.ciudadanoActaNacimientoMunicipio
+
+
     })
 
   }

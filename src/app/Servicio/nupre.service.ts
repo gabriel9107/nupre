@@ -3,7 +3,7 @@ import { Observable, map, tap } from "rxjs";
 import { Solicitudes_listado } from '../Models/Solicitudes_Listado';
 import { urlNUPRE } from '../rutas/Rutas';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Listado_Solicitud_Medico, Solicitud_MedicoCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
+import { Listado_Solicitud_Medico, Solicitud_Medico_Detalle_View, Solicitud_MedicoCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
 import { environment } from "../environments/environment";
 import { Municipio, Nacionalidad, Provincias } from "../Models/Nupre/comun_models";
 import { ciudadano_consulta_DTOs } from "../Models/Nupre/ciudadano_mastert";
@@ -56,6 +56,13 @@ export class NupreService {
     }
 
 
+
+    nupreSolicitudDetalle(solicitudNumero: number): Observable<Solicitud_Medico_Detalle_View> {
+
+        const url: string = this.baseUrl + '/solicitudes';
+
+        return this.http.get<Solicitud_Medico_Detalle_View>('https://localhost:7035/solicitudes');
+    }
 
 
 
