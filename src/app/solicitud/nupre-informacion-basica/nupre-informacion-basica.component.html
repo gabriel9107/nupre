@@ -75,12 +75,12 @@
                     <div class="content-title has-status">
                         <h3 class="title">
                             <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
-                            Solicitud núm. {{listadoLicencias.solicitudNumero}} &#124;
-                            {{listadoLicencias.profesionalNombreCompleto}}
+                            Solicitud núm. {{detalleSolicitud.solicitudNumero}} &#124;
+                            {{detalleSolicitud.profesionalNombreCompleto}}
 
 
                         </h3>
-                        <!-- <div class="status_request">
+                        <div class="status_request">
                             <div class="progress-outer">
                                 <div class="progress-inner"></div>
 
@@ -97,20 +97,20 @@
                                 </div>
 
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <!-- tabs -->
                     <div class="tab-content">
                         <!-- información básica -->
                         <div id="affiData" class="animate__animated animate__fadeIn is-active">
-                            <app-detalle-basico [details]="listadoLicencias">
+                            <app-detalle-basico [details]="detalleSolicitud">
                                 <!-- [listadoLicencias]="listadoLicencias" -->
                             </app-detalle-basico>
 
                         </div>
                         <!-- registro de documentacion -->
                         <div id="regLicen" class="animate_animated animate_fadeIn">
-                            <app-nupre-registrar-documentacion [details]="listadoLicencias">
+                            <app-nupre-registrar-documentacion [details]="detalleSolicitud">
 
                             </app-nupre-registrar-documentacion>
                         </div>

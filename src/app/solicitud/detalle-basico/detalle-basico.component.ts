@@ -55,7 +55,8 @@ export class DetalleBasicoComponent implements OnInit {
     private progressBarService: ProgressBarService
   ) {
     let params: any = this.activedRoute.snapshot.params;
-    this.solicitudId = params.id;
+    // this.solicitudId   this.solicitudId = params.id;= params.id;
+    this.solicitudId = 3;
   }
 
 
@@ -92,9 +93,10 @@ export class DetalleBasicoComponent implements OnInit {
 
   public getDetalleDelaSolicitud() {
 
-    this.service.nupreSolicitudDetalle(this.solicitudId).subscribe(resp =>{
+    console.log('wrk');
+    this.service.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
       this.detalleSolicitud = resp
-    }  );
+    });
   }
 
   get user() {

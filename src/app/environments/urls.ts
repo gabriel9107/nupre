@@ -3,10 +3,15 @@ import { environment } from "./environment.desarrollo";
 
 
 export let urlNupre = {
+
+    solicitudes: {
+        getDetalleSolicitud: environment.baseUrlLocal + "api/ObtenerPorId/"
+    },
+
     master: {
-        GetHistorico: environment.baseUrl + "api/GetHistorico?",
-        PostProgressBar: environment.baseUrl + "api/PostProgressBar",
-        ProgressBar: environment.baseUrl + "api/GetProgressBar?solicitudNumero=",
+        GetHistorico: environment.baseUrlLocal + "api/GetHistorico?",
+        PostProgressBar: environment.baseUrlLocal + "api/PostProgressBar",
+        ProgressBar: environment.baseUrlLocal + "api/GetProgressBar?solicitudNumero=",
 
 
     }

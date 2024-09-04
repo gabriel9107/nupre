@@ -3,7 +3,7 @@ import { Motivo_Rechazo, User } from '../../Models/Solicitudes_ViewModelt';
 import { ActivatedRoute, Router, Params } from "@angular/router";
 
 import { NupreService } from '../../Servicio/nupre.service';
-import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
+import { Listado_Solicitud_Medico, Solicitud_Medico_Detalle_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
 
 @Component({
   selector: 'app-nupre-informacion-basica',
@@ -12,7 +12,7 @@ import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_M
 })
 export class NupreInformacionBasicaComponent implements OnInit {
 
-  public detalle = Listado_Solicitud_Medico;
+  public detalle = Solicitud_Medico_Detalle_DTO;
   public solicitudId!: number;
   public loading = true;
   public estado_Numero!: number;
@@ -21,7 +21,7 @@ export class NupreInformacionBasicaComponent implements OnInit {
   public checkSometidad = false;
 
 
-  @Input() listadoLicencias!: Listado_Solicitud_Medico;
+  @Input() detalleSolicitud!: Solicitud_Medico_Detalle_DTO;
 
   // @Output() valueChange = EventEmitter<Listado_Solicitud_Medico> = new EventEmitter();
 
@@ -32,6 +32,9 @@ export class NupreInformacionBasicaComponent implements OnInit {
     let params: any = this.activedRoute.snapshot.params;
     this.solicitudId = params.id;
 
+    // console.log(this.solicitudId + 'Numero de solicitud ');
+    // console.log(this.detalleSolicitud);
+
   }
 
   ngOnInit(): void {
@@ -40,11 +43,20 @@ export class NupreInformacionBasicaComponent implements OnInit {
   public listSolicitud() {
     this.router.navigate(['/NUPRE']);
   }
+
+
   public getDetalleSolicitud() {
-    this.loading = false;
-    this.servicio.SolicitudDetalle(this.solicitudId).subscribe(resp =>
-      this.listadoLicencias = resp)
+    console.log('llamando al detalle');
+    this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
+      console.log(resp);
+    });
 
 
   }
+  //   this.loading = false;
+  //   this.servicio.SolicitudDetalle(this.solicitudId).subscribe(resp =>
+  //     this.listadoLicencias = resp)
+
+  // }
+  // }
 }
