@@ -1,3 +1,14 @@
+<style>
+    .info-section {
+        padding-left: 0px !important;
+
+    }
+
+    .red-alert h4 {
+        background-color: rgba(0, 0, 0, 0) !important;
+        color: #474d56;
+    }
+</style>
 <div class="row">
     <div class="col-w9">
         <div class="yellow-alert" *ngIf="solicitudRechazoParcial">
@@ -38,23 +49,23 @@
             <div class="row">
                 <div class="col-w4">
                     <label class="label-text">Nombre</label>
-                    <strong>{{details.profesionalNombreCompleto}} </strong>
+                    <strong>{{details?.profesionalNombreCompleto}} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Cédula</label>
-                    <strong>{{details.profesionalDocumento}} </strong>
+                    <strong>{{details?.profesionalDocumento}} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Teléfono residencial</label>
-                    <strong>{{details.profesionalTelefono1}} </strong>
+                    <strong>{{details?.profesionalTelefono1}} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Celular</label>
-                    <strong> {{details.profesionalTelefono2}}</strong>
+                    <strong> {{details?.profesionalTelefono2}}</strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Correo electrónico</label>
-                    <strong>{{details.profesionalMail}} </strong>
+                    <strong>{{details?.profesionalMail}} </strong>
                 </div>
             </div>
 
@@ -72,7 +83,7 @@
         </fieldset>
     </div>
     <div class="col-w3 info-section">
-        <div class="block m-top warning" *ngIf="details.solicitudEstadoNumero == 2">
+        <div class="block m-top warning" *ngIf="details?.solicitudEstadoNumero == 2">
             <h4> </h4>
             <div>Diríjase a la pestaña “Registro de Documentos para ver los errores.</div>
             <div class="form-field" *ngFor="let motivos of motivos_Rechazo">
@@ -93,7 +104,7 @@
         <div class="block m-top">
             <div class="form-field">
                 <label class="label-text">Fecha de registro</label>
-                <strong>{{details.registroFecha | date:'dd/MM/yyyy'}} </strong>
+                <strong>{{details?.registroFecha | date:'dd/MM/yyyy'}} </strong>
             </div>
         </div>
 

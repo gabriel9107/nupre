@@ -5,7 +5,10 @@ import { environment } from "./environment.desarrollo";
 export let urlNupre = {
 
     solicitudes: {
-        getDetalleSolicitud: environment.baseUrlLocal + "api/ObtenerPorId/"
+        obtenerTodasLasSolicitudes: environment.baseUrl + "solicitudes",
+        getDetalleSolicitud: environment.baseUrlLocal + "solicitudes/obtenerSolicitudPorId/",
+
+
     },
 
     master: {

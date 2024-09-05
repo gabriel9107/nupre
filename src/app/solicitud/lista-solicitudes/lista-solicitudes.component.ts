@@ -34,33 +34,6 @@ export class ListaSolicitudesComponent implements OnInit {
 
   public details: Listado_Solicitud_Medico[] = [];
 
-  // [{
-  //   profesionalesSolicitudesTranId: 1,
-  //   solicitudNumero: 1,
-  //   solicitudFecha: "2024-06-11T17:46:25.365",
-  //   profesionalDocumento: "string",
-  //   profesionalNombreCompleto: "string",
-  //   nacionalidadNumero: 0,
-  //   profesionalSexo: "string",
-  //   profesionalExequatur: "string",
-  //   profesionalDireccion: "string",
-  //   municipioNumero: 0,
-  //   profesionalTelefono1: "string",
-  //   profesionalTelefono2: "string",
-  //   profesionalTelefono3: "string",
-  //   profesionalMail: "string",
-  //   solicitudEstadoNumero: 0,
-  //   solicitudEstadoFecha: "2024-06-11T17:46:25.365",
-  //   solicitudEstadoNota: "string",
-  //   solicitudUsuarioCuenta: "string",
-  //   solicitudActualizarDatos: "string",
-  //   asociacionRegistroPatronal: 0,
-  //   motivoNumero: 0,
-  //   solicitudCertificadoNumero: "string",
-  //   registroEstado: "string",
-  //   registroUsuario: "string",
-  //   registroFecha: "2024-06-11T17:46:25.365"
-  // }];
   public loading = true;
   public loading2 = false;
   public validafiltro = false;

@@ -93,7 +93,6 @@ export class DetalleBasicoComponent implements OnInit {
 
   public getDetalleDelaSolicitud() {
 
-    console.log('wrk');
     this.service.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
       this.detalleSolicitud = resp
     });

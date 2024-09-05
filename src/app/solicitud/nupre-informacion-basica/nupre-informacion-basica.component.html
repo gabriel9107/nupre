@@ -44,12 +44,10 @@
 
                                 </ul>
                             </nav>
-
-                            <!-- Se debe de agregar le historial a medida de que se vaya avanzando con el tema
-                             <div class="bottom-btn">
+                            <div class="bottom-btn">
                                 <button class="default-btn rounded open-modal" data-target="historico"><i
                                         class="fas fa-history"></i> Histórico</button>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,9 +73,7 @@
                     <div class="content-title has-status">
                         <h3 class="title">
                             <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
-                            Solicitud núm. {{detalleSolicitud.solicitudNumero}} &#124;
-                            {{detalleSolicitud.profesionalNombreCompleto}}
-
+                            Solicitud núm. {{solicitudId}} &#124; {{profesionalNombreCompleto}}
 
                         </h3>
                         <div class="status_request">
@@ -142,7 +138,7 @@
             <button class="close-btn dismiss"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body-content">
-            <!-- <div class="tracking-item" *ngFor="let grupos of historicos">
+            <div class="tracking-item" *ngFor="let grupos of historicos">
                 <h4>
                     {{grupos[0].evento_Historico_Fecha | date: "d MMM, y"}}
                 </h4>
@@ -156,7 +152,7 @@
                         <small>Realizado por: <i class="far fa-user"></i> {{actividad.usuario_Cuenta}}</small>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

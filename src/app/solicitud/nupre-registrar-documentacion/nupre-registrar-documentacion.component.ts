@@ -8,7 +8,7 @@ import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_M
   templateUrl: './nupre-registrar-documentacion.component.html',
 
 })
-export class NupreRegistrarDocumentacionComponent implements OnInit {
+export class NupreRegistrarDocumentacionComponent {
   public solicitudId!: number;
   public titulo: boolean = false;
   @Input() details!: Listado_Solicitud_Medico;
@@ -21,12 +21,11 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
     this.solicitudId = params.id;
 
   }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  detalleNuevasolicitud() {
-    this.router.navigate(['/RegistrarTitulo/']);
 
+
+  public detalleNuevasolicitud(solicitudId = 0) {
+
+    this.router.navigate(['/RegistrarTitulo/' + solicitudId]);
   }
 
 }

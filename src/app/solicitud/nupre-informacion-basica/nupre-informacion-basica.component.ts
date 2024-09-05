@@ -3,7 +3,9 @@ import { Motivo_Rechazo, User } from '../../Models/Solicitudes_ViewModelt';
 import { ActivatedRoute, Router, Params } from "@angular/router";
 
 import { NupreService } from '../../Servicio/nupre.service';
-import { Listado_Solicitud_Medico, Solicitud_Medico_Detalle_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
+import { Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
+import { Historico } from '../../Models/SolicitudActividades';
+
 
 @Component({
   selector: 'app-nupre-informacion-basica',
@@ -12,18 +14,19 @@ import { Listado_Solicitud_Medico, Solicitud_Medico_Detalle_DTO } from '../../Mo
 })
 export class NupreInformacionBasicaComponent implements OnInit {
 
-  public detalle = Solicitud_Medico_Detalle_DTO;
+  public detalleSolicitud!: Solicitud_Medico_Detalle_DTO;
+
   public solicitudId!: number;
   public loading = true;
   public estado_Numero!: number;
   public estado_Descripcion!: string;
   public solicitud_Fecha!: string;
   public checkSometidad = false;
+  public historicos !: [Historico[]];
 
 
-  @Input() detalleSolicitud!: Solicitud_Medico_Detalle_DTO;
+  public profesionalNombreCompleto!: string;
 
-  // @Output() valueChange = EventEmitter<Listado_Solicitud_Medico> = new EventEmitter();
 
   constructor
     (public activedRoute: ActivatedRoute,
@@ -45,11 +48,20 @@ export class NupreInformacionBasicaComponent implements OnInit {
   }
 
 
+
   public getDetalleSolicitud() {
-    console.log('llamando al detalle');
-    this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
-      console.log(resp);
+
+    this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe((resp: Solicitud_Medico_Detalle_DTO) => {
+      this.detalleSolicitud = resp;
+      this.detalleSolicitud.profesionalNombreCompleto = resp.profesionalNombreCompleto
+
+      this.loading = false;
     });
+
+
+    // this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
+
+    // });
 
 
   }
