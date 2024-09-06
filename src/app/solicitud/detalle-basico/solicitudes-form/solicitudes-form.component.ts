@@ -44,8 +44,8 @@ export class SolicitudesFormComponent implements OnInit {
   }
 
 
-  obtenerListadoProfesiones() {
-    return this.servicio.obtenerListadoDeProfesiones(this.selectTipo).subscribe((resp: Especialidades[]) => {
+  obtenerListadoProfesiones(tipo: number) {
+    return this.servicio.obtenerListadoDeProfesiones(tipo).subscribe((resp: Especialidades[]) => {
       this.listadoEspecialidades = resp
     });
   }
@@ -61,9 +61,6 @@ export class SolicitudesFormComponent implements OnInit {
     console.log(this.list_TipoEspecilidades);
   }
 
-  GetValues(btntype = false, changeEstado = false) {
-
-  }
   search($event: any) {
 
   }

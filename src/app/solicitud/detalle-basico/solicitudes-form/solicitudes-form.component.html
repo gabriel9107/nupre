@@ -31,7 +31,8 @@
                                 <div class="item" *ngFor="let tyeOfTitulo of list_TipoEspecilidades">
                                     <label class="square-rdb form-control">
                                         <input type="radio" name="LicenciaTipoN" id="LicenciaTipoN"
-                                            value="{{tyeOfTitulo.especialidad_Tipo_Numero}}" />
+                                            value="{{tyeOfTitulo.especialidad_Tipo_Numero}}"
+                                            (change)="obtenerListadoProfesiones(tyeOfTitulo.especialidad_Tipo_Numero)" />
                                         <span class="elem"></span> {{tyeOfTitulo.especialidad_Tipo_Descripcion}}
 
                                     </label>
@@ -61,8 +62,8 @@
                             <div class="form-control">
 
                                 <ng-select [items]="listadoEspecialidades" placeholder="Selecione una {{ titulo}} "
-                                    formControlName="nacionalidadNumero" bindLabel="nacionalidad_Pais_Nombre"
-                                    bindValue="nacionalidad_Numero" [clearable]="false" [searchable]="true"
+                                    formControlName="especialidad_Descripcion" bindLabel="especialidad_Descripcion"
+                                    bindValue="especialidad_Numero" [clearable]="false" [searchable]="true"
                                     [(ngModel)]="selectedProfesion">
                                 </ng-select>
                             </div>

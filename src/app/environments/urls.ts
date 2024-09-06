@@ -15,7 +15,7 @@ export let urlNupre = {
 
 
     master: {
-        obtenerProfesiones_Especialidades: environment.baseUrlLocal + "profesiones/obtenerTodasLasProfesiones/",
+        obtenerProfesiones_Especialidades: environment.baseUrlLocal + "profesiones/obtenerProfesionesPorTipo/",
         obtenerTodasLosTiposProfesiones: environment.baseUrlLocal + "profesiones/obtenerTipoProfesiones",
         GetHistorico: environment.baseUrlLocal + "api/GetHistorico?",
         PostProgressBar: environment.baseUrlLocal + "api/PostProgressBar",
