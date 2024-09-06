@@ -8,6 +8,7 @@ import { environment } from "../environments/environment";
 import { Municipio, Nacionalidad, Provincias } from "../Models/Nupre/comun_models";
 import { ciudadano_consulta_DTOs } from "../Models/Nupre/ciudadano_mastert";
 import { urlNupre } from "../environments/urls";
+import { Especialidades, Tipo_Especialidades } from "../Models/Nupre/Especialidades";
 
 @Injectable({
     providedIn: 'root'
@@ -111,7 +112,14 @@ export class NupreService {
     }
 
 
-    getprofesionalesList(): Observable<any[]> {
-        return this.http.get<any[]>(this.baseUrl + 'solicitudes/obtenertodas');
+    obtenerListadoDeProfesiones(tipo: number): Observable<Especialidades[]> {
+        return this.http.get<Especialidades[]>(urlNupre.master.obtenerProfesiones_Especialidades + tipo);
     }
+
+    obtenerTipoDeprofesiones(): Observable<Tipo_Especialidades[]> {
+
+        return this.http.get<Tipo_Especialidades[]>(urlNupre.master.obtenerTodasLosTiposProfesiones);
+
+    }
+
 }

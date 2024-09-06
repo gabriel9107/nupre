@@ -24,12 +24,26 @@
                         <div class="content-title">
                             <h3 class="title">Detalle del Titulo</h3>
                         </div>
+
                         <div class="form-field">
+                            <div class="form-field">
+                                <strong class="caption">Tipo de Registro <span class="required-field">*</span>:</strong>
+                                <div class="item" *ngFor="let tyeOfTitulo of list_TipoEspecilidades">
+                                    <label class="square-rdb form-control">
+                                        <input type="radio" name="LicenciaTipoN" id="LicenciaTipoN"
+                                            value="{{tyeOfTitulo.especialidad_Tipo_Numero}}" />
+                                        <span class="elem"></span> {{tyeOfTitulo.especialidad_Tipo_Descripcion}}
+
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-field">
                             <strong class="caption">Tipo de Registro <span class="required-field">*</span>:</strong>
-                            <!-- <span class="inline-error">Este
-                                campo es requerido</span>-->
+                            
                             <label class="square-rdb">
-                                <input type="radio" name="LicenciaTipoN" id="LicenciaTipoN"
+                                <input type="radio" name="LicenciaTipoN" id="LicenciaTipoN" value="0"
                                     formControlName="LicenciaTipoN">
                                 <span>Profesion </span>
                             </label>
@@ -38,16 +52,19 @@
                                     formControlName="LicenciaTipoN">
                                 <span>Especialidad </span>
                             </label>
-                        </div>
+                        </div> -->
                         <div class="form-field">
                             <strong class="caption">Profesion <span class="required-field">*</span>:
                                 <!--<span class="required-field">*</span>-->
                             </strong>
 
                             <div class="form-control">
-                                <!-- 
-                                <p-autoComplete [(ngModel)]="selectedCity" [suggestions]="cities"
-                                    (completeMethod)="search($event)" class="form-control" /> -->
+
+                                <ng-select [items]="listadoEspecialidades" placeholder="Selecione una {{ titulo}} "
+                                    formControlName="nacionalidadNumero" bindLabel="nacionalidad_Pais_Nombre"
+                                    bindValue="nacionalidad_Numero" [clearable]="false" [searchable]="true"
+                                    [(ngModel)]="selectedProfesion">
+                                </ng-select>
                             </div>
                             <div>
                                 <span class="error-text">Este

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Especialidades } from '../../../Models/Nupre/Especialidades';
+import { Especialidades, Tipo_Especialidades } from '../../../Models/Nupre/Especialidades';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, TitleStrategy } from '@angular/router';
 import { NupreService } from '../../../Servicio/nupre.service';
 import { NgModule, ViewChild, EventEmitter } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,11 +17,21 @@ import { StyleClassModule } from 'primeng/styleclass';
 })
 export class SolicitudesFormComponent implements OnInit {
 
-  public listadoDiscapacidad!: Especialidades[];
+  public titulo!: string;
+  public selectedProfesion!: number;
+  public listadoEspecialidades!: Especialidades[];
+  public list_TipoEspecilidades!: Tipo_Especialidades[];
   public listLicencitTipo!: any[]
+  public selectTipo!: number;
+
+
+
   ngOnInit(): void {
-    this.buscarProfesiones()
+    // this.obtenerListadoProfesiones()
+    this.obtenerTipoProfesiones()
   }
+
+
 
   buscarProfesiones() { }
 
@@ -33,21 +43,32 @@ export class SolicitudesFormComponent implements OnInit {
     this.router.navigate(['/NupreInformacionBasicaComponent']);
   }
 
+
+  obtenerListadoProfesiones() {
+    return this.servicio.obtenerListadoDeProfesiones(this.selectTipo).subscribe((resp: Especialidades[]) => {
+      this.listadoEspecialidades = resp
+    });
+  }
+
+  obtenerTipoProfesiones() {
+    console.log('llamado');
+    return this.servicio.obtenerTipoDeprofesiones().subscribe((resp: Tipo_Especialidades[]) => {
+      this.list_TipoEspecilidades = resp;
+      console.log(resp);
+    });
+
+    console.log('lista');
+    console.log(this.list_TipoEspecilidades);
+  }
+
+  GetValues(btntype = false, changeEstado = false) {
+
+  }
   search($event: any) {
 
   }
   out = new EventEmitter();
 
-
-  selectedCity: any;
-
-  cities = [
-    { id: 1, name: 'Vilnius' },
-    { id: 2, name: 'Kaunas' },
-    { id: 3, name: 'Pavilnys', disabled: true },
-    { id: 4, name: 'Pabradė' },
-    { id: 5, name: 'Klaipėda' }
-  ];
   public getlisttipoRegistro() {
     this.listLicencitTipo = [{
       values: "N",
@@ -58,19 +79,7 @@ export class SolicitudesFormComponent implements OnInit {
       licencia_Tipo_Descripcion: "Especialidad"
 
     }]
-    // this.ModalidadTipo = [{
-    //   values: "A",
-    //   licencia_Tipo_Descripcion: "Ambulatorio"
 
-    // }, {
-    //   values: "H",
-    //   licencia_Tipo_Descripcion: "Hospitalización"
-
-    // }, {
-    //   values: "AM",
-    //   licencia_Tipo_Descripcion: "Ambas"
-
-    // }]
   }
 
 }
