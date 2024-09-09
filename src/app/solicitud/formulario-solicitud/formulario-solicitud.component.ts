@@ -124,7 +124,7 @@ export class FormularioSolicitudComponent implements OnInit {
   }
   buscarDatosAfiliado(no_cedula: any) {
 
-    console.log(no_cedula)
+
     this.servicio.getCiudadano(no_cedula).subscribe((res: ciudadano_consulta_DTOs) => {
       this.datatosCiudadano = res
 
@@ -137,7 +137,6 @@ export class FormularioSolicitudComponent implements OnInit {
 
   public AsignarValores(res: ciudadano_consulta_DTOs) {
 
-    console.log(res);
     this.form.patchValue({
       // profesionalDocumento: res.ciudadanoNoDocumento,
       profesionalNombreCompleto: res.ciudadanoNombreCompleto,

@@ -47,18 +47,19 @@
                             <section>
                                 <h4>Filtrar por estado</h4>
                                 <div class="register-list">
-                                    <label class="form-rdb form-control">
-                                        <input type="radio" name="tipoest" id="idtypestatus" value="0" checked
-                                            (change)="GetSolicitudes()" />
-                                        <span class="elem"></span> Todos
-                                    </label>
-                                    <div class="item" *ngFor="let typestatus of TipoEstado">
+                                    @for (item of TipoEstado; track item; let i = $index ) {
+                                    <div class="item">
                                         <label class="form-rdb form-control">
                                             <input type="radio" name="tipoest" id="idtypestatus"
-                                                value={{typestatus.estado_Numero}} (change)="GetSolicitudes()" />
-                                            <span class="elem"></span> {{typestatus.estado_Descripcion}}
+                                                value={{item.Profesional_Estado_Numero}} (change)="GetSolicitudes()" />
+                                            <span class="elem"></span> {{item.profesional_EstadoDescripcion}}
                                         </label>
                                     </div>
+                                    }
+
+  
+
+                             
                                 </div>
                             </section>
                             <div class="bottom-btn">

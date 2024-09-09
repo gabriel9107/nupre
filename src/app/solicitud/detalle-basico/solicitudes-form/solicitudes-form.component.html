@@ -18,19 +18,17 @@
                 </div>
             </div>
             <div class="content">
-                <form action="">
-                    <!-- detalle de la licencia -->
+                <form [formGroup]="registroTituloForm" #aFrom>
                     <section class="block-section">
                         <div class="content-title">
                             <h3 class="title">Detalle del Titulo</h3>
                         </div>
-
                         <div class="form-field">
                             <div class="form-field">
                                 <strong class="caption">Tipo de Registro <span class="required-field">*</span>:</strong>
                                 <div class="item" *ngFor="let tyeOfTitulo of list_TipoEspecilidades">
                                     <label class="square-rdb form-control">
-                                        <input type="radio" name="LicenciaTipoN" id="LicenciaTipoN"
+                                        <input type="radio" name="tipo_Registros" formControlName="tipo_Registros"
                                             value="{{tyeOfTitulo.especialidad_Tipo_Numero}}"
                                             (change)="obtenerListadoProfesiones(tyeOfTitulo.especialidad_Tipo_Numero)" />
                                         <span class="elem"></span> {{tyeOfTitulo.especialidad_Tipo_Descripcion}}
@@ -40,20 +38,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="form-field">
-                            <strong class="caption">Tipo de Registro <span class="required-field">*</span>:</strong>
-                            
-                            <label class="square-rdb">
-                                <input type="radio" name="LicenciaTipoN" id="LicenciaTipoN" value="0"
-                                    formControlName="LicenciaTipoN">
-                                <span>Profesion </span>
-                            </label>
-                            <label class="square-rdb">
-                                <input type="radio" name="LicenciaTipoN" id="LicenciaTipoN"
-                                    formControlName="LicenciaTipoN">
-                                <span>Especialidad </span>
-                            </label>
-                        </div> -->
+
                         <div class="form-field">
                             <strong class="caption">Profesion <span class="required-field">*</span>:
                                 <!--<span class="required-field">*</span>-->
@@ -62,7 +47,7 @@
                             <div class="form-control">
 
                                 <ng-select [items]="listadoEspecialidades" placeholder="Selecione una {{ titulo}} "
-                                    formControlName="especialidad_Descripcion" bindLabel="especialidad_Descripcion"
+                                    formControlName="especialidad_Numero" bindLabel="especialidad_Descripcion"
                                     bindValue="especialidad_Numero" [clearable]="false" [searchable]="true"
                                     [(ngModel)]="selectedProfesion">
                                 </ng-select>
@@ -73,14 +58,12 @@
 
                             </div>
                         </div>
-
                         <div class="form-field">
 
                             <strong class="caption"> Fecha Otorgado<span class="required-field">*</span>:</strong>
-                            <input type="date" formControlName="Solicitud_Diagnostico_Fecha" class="input form-input"
+                            <input type="date" formControlName="solicitud_Fecha_Otorgado" class="input form-input"
                                 appMaxLenDate>
                         </div>
-
                         <section class="block-section">
 
 
@@ -89,26 +72,32 @@
                             <div>
                                 <!-- class success cuando se suba el archivo -->
                                 <div class="upload_file input">
-                                    <input type="file" formControlName="archivo" accept="application/pdf" />
+                                    <input type="file" formControlName="documento_adjunto" accept="application/pdf" />
                                     <span class="file-name check-icon" id="spanImportarArchivo"></span>
                                     <button class="btn-search chambray-btn rounded">Buscar</button>
                                 </div>
                             </div>
 
                         </section>
+
+
+
                     </section>
-                    <div class="bottom-btn right">
-                        <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
-                            Cancelar</button>
-                        <button class="primary-btn rounded lg-btn">
+                    <div class="bottom-btn right"></div>
+                    <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
+                        Cancelar</button>
+                    <button class="primary-btn rounded lg-btn" (click)="guardarSolicitud()">
 
 
-                            <i class="fas fa-check">Agregar</i>
+                        <i class="fas fa-check">Agregar</i>
 
-                        </button>
-                    </div>
+                    </button>
+
+
                 </form>
+
             </div>
+
 
         </div>
     </div>

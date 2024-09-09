@@ -1,16 +1,18 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, CSP_NONCE, OnInit } from '@angular/core';
 
 
 import { Solicitudes_listado } from '../../Models/Solicitudes_Listado';
-import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
+import { Listado_Solicitud_Medico, Solicitud_basic_Informacion_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Solicitudes_Estados } from '../../Models/Solicitudes_Estados';
-import { Router } from '@angular/router';
+import { Router, Routes } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { Pipe, PipeTransform } from '@angular/core';
+import { Profesionales_Estado_Solicitud } from '../../Models/Profesionales_Estado_Solicitud';
+
 
 @Component({
   selector: 'app-lista-solicitudes',
@@ -20,20 +22,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ListaSolicitudesComponent implements OnInit {
   //dato de pruebas
   data: any[] = [];
-
   lista = false;
-
-
-
-
   public headerSolicitud!: Solicitudes_listado;
-
-
-
-
-
   public details: Listado_Solicitud_Medico[] = [];
-
   public loading = true;
   public loading2 = false;
   public validafiltro = false;
@@ -42,10 +33,11 @@ export class ListaSolicitudesComponent implements OnInit {
   public TextoFiltro = "No existen registros dentro de estos parámetros.";
   public date = new Date();
   public busquedaForm!: FormGroup;
-  public TipoEstado!: Solicitudes_Estados[]
-  //public Afiliado_NSS = 154252036;
+  listado!: any[];
+  public TipoEstado!: Solicitudes_Estados[];
   public ValidarError = false;
   public ErrorMessage: string = '';
+
 
 
   paginate: any =
@@ -66,8 +58,12 @@ export class ListaSolicitudesComponent implements OnInit {
   }
 
 
+
+
+
   ngOnInit(): void {
     this.buscarSolicitudes();
+    this.obtenerEstados();
   }
 
   createFormActive() {
@@ -99,37 +95,6 @@ export class ListaSolicitudesComponent implements OnInit {
 
   buscarSolicitudes() {
 
-
-    // this.servicio.getData().subscribe(datos => this.details = datos);
-
-
-    // this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
-    //   this.details = res;
-    //   console.log(res);
-    // });
-
-
-    // this.servicio.getData().subscribe(data => {
-    //   this.details = data;
-    //   console.log(data);
-    // })
-
-
-    // this.servicio.getSolicitudesBasicas().subscribe((res: Listado_Solicitud_Medico[]) => {
-    //   this.details = res;
-
-    //   console.log("Arrys");
-    //   console.log(this.details);
-    // });
-
-    // this.servicio.getAllSoliciudes().subscribe({
-    //   next: (todos) => {
-    //     this.loading = true;
-    //     console.log(todos);
-    //     this.details = todos;
-    //   },
-    // },)
-
     this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
       this.loading = true;
       this.details = res;
@@ -140,11 +105,15 @@ export class ListaSolicitudesComponent implements OnInit {
     )
   }
 
-  public getestados() {
-    // this.service.getMaternidadEstados().subscribe((res: Solicitudes_Estados[]) => {
-    //   this.TipoEstado = res;
-    // });
+  obtenerEstados() {
+    this.servicio.obtenerListadoEstado().subscribe((res: Solicitudes_Estados[]) => {
+      this.TipoEstado = res;
+    });
   }
+
+
+
+
   getParamFiltro() {
     let param = "";
     let statusnumber = 0;
@@ -180,6 +149,13 @@ export class ListaSolicitudesComponent implements OnInit {
     this.loading = false;
     this.loading2 = true;
 
+
+    // this.servicio.getSolicitudesListadoFiltro(parameter).subscribe()
+
   }
 
 }
+function resp(value: Profesionales_Estado_Solicitud): void {
+  throw new Error('Function not implemented.');
+}
+

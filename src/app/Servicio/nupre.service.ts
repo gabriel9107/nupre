@@ -9,6 +9,9 @@ import { Municipio, Nacionalidad, Provincias } from "../Models/Nupre/comun_model
 import { ciudadano_consulta_DTOs } from "../Models/Nupre/ciudadano_mastert";
 import { urlNupre } from "../environments/urls";
 import { Especialidades, Tipo_Especialidades } from "../Models/Nupre/Especialidades";
+import { Profesionales_Estado_Solicitud } from "../Models/Profesionales_Estado_Solicitud";
+import { Solicitudes_Estados } from "../Models/Solicitudes_Estados";
+import { Profesionales_Solicitudes_Filtro_Listado } from "../Models/Profesionales_Solicitudes_Filtro_Listado";
 
 @Injectable({
     providedIn: 'root'
@@ -29,6 +32,18 @@ export class NupreService {
     constructor(private http: HttpClient) {
 
     }
+
+
+
+    //Solicitudes 
+
+    // public getSolicitudesListadoFiltro(param: Profesionales_Solicitudes_Filtro_Listado): Observable<any> {
+    public getSolicitudesListadoFiltro(param: any): Observable<any> {
+        var myJsonString = JSON.stringify(param);
+        return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas, { headers: this.httpOptions.headers });
+
+    }
+
 
 
     // ----Informacion relacionada el empleador 
@@ -97,8 +112,7 @@ export class NupreService {
 
 
     public crearSolicitud(solicitud: Solicitud_MedicoCreacionDTO) {
-        console.log('servicios');
-        console.log(solicitud);
+
         return this.http.post('https://localhost:7035/solicitudes', solicitud)
     }
 
@@ -120,6 +134,18 @@ export class NupreService {
 
         return this.http.get<Tipo_Especialidades[]>(urlNupre.master.obtenerTodasLosTiposProfesiones);
 
+    }
+
+
+    //Generico 
+
+    obtenerListadoEstado(): Observable<Solicitudes_Estados[]> {
+        return this.http.get<Solicitudes_Estados[]>(urlNupre.Utilidades.obtener_Profesionales_Estado_Solicitudes);
+
+    }
+
+    obtenerDescripcionEstado(estado_numero: number): Observable<Solicitudes_Estados> {
+        return this.http.get<Solicitudes_Estados>(urlNupre.Utilidades.obtener_Profesionales_Estado_Solicitudes_Descripcion + estado_numero);
     }
 
 }

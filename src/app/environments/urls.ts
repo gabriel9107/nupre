@@ -6,6 +6,7 @@ export let urlNupre = {
 
     solicitudes: {
         obtenerTodasLasSolicitudes: environment.baseUrl + "solicitudes",
+        obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudesFiltro",
 
         getDetalleSolicitud: environment.baseUrlLocal + "solicitudes/obtenerSolicitudPorId/",
 
@@ -17,11 +18,15 @@ export let urlNupre = {
     master: {
         obtenerProfesiones_Especialidades: environment.baseUrlLocal + "profesiones/obtenerProfesionesPorTipo/",
         obtenerTodasLosTiposProfesiones: environment.baseUrlLocal + "profesiones/obtenerTipoProfesiones",
+
         GetHistorico: environment.baseUrlLocal + "api/GetHistorico?",
         PostProgressBar: environment.baseUrlLocal + "api/PostProgressBar",
         ProgressBar: environment.baseUrlLocal + "api/GetProgressBar?solicitudNumero=",
+
+
     },
     Utilidades: {
-
+        obtener_Profesionales_Estado_Solicitudes: environment.baseUrlLocal + "utilidades/obtenerListadoEstado",
+        obtener_Profesionales_Estado_Solicitudes_Descripcion: environment.baseUrlLocal + "utilidades//ObtenerDescripcionEstado/",
     }
 }

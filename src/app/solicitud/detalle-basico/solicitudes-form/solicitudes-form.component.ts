@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Especialidades, Tipo_Especialidades } from '../../../Models/Nupre/Especialidades';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router, TitleStrategy } from '@angular/router';
 import { NupreService } from '../../../Servicio/nupre.service';
 import { NgModule, ViewChild, EventEmitter } from '@angular/core';
@@ -25,10 +25,15 @@ export class SolicitudesFormComponent implements OnInit {
   public selectTipo!: number;
 
 
+  public registroTituloForm!: FormGroup;
+
+
+
 
   ngOnInit(): void {
     // this.obtenerListadoProfesiones()
     this.obtenerTipoProfesiones()
+    this.createFromActive();
   }
 
 
@@ -37,6 +42,17 @@ export class SolicitudesFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private router: Router, private servicio: NupreService) {
 
+  }
+
+
+  createFromActive() {
+    this.registroTituloForm = this.fb.group({
+      tipo_Registros: ['', Validators.required],
+      especialidad_Numero: ['', Validators.required],
+      solicitud_Fecha_Otorgado: ['', Validators.required],
+      documento_adjunto: ['', Validators.required],
+
+    })
   }
 
   guardarCambios() {
@@ -51,14 +67,12 @@ export class SolicitudesFormComponent implements OnInit {
   }
 
   obtenerTipoProfesiones() {
-    console.log('llamado');
     return this.servicio.obtenerTipoDeprofesiones().subscribe((resp: Tipo_Especialidades[]) => {
       this.list_TipoEspecilidades = resp;
-      console.log(resp);
+
     });
 
-    console.log('lista');
-    console.log(this.list_TipoEspecilidades);
+
   }
 
   search($event: any) {
@@ -66,17 +80,12 @@ export class SolicitudesFormComponent implements OnInit {
   }
   out = new EventEmitter();
 
-  public getlisttipoRegistro() {
-    this.listLicencitTipo = [{
-      values: "N",
-      licencia_Tipo_Descripcion: "Profesion"
 
-    }, {
-      values: "S",
-      licencia_Tipo_Descripcion: "Especialidad"
+  public guardarSolicitud() {
 
-    }]
-
+    console.log(this.registroTituloForm.value);
   }
+
+
 
 }
