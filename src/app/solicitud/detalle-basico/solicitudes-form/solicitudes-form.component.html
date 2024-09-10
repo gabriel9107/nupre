@@ -26,6 +26,9 @@
                         <div class="form-field">
                             <div class="form-field">
                                 <strong class="caption">Tipo de Registro <span class="required-field">*</span>:</strong>
+                                <div [ngClass]="{'has-error':validarCampo('tipo_Registros')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('tipo_Registros')">Este
+                                    campo es requerido</span>
                                 <div class="item" *ngFor="let tyeOfTitulo of list_TipoEspecilidades">
                                     <label class="square-rdb form-control">
                                         <input type="radio" name="tipo_Registros" formControlName="tipo_Registros"
@@ -45,7 +48,9 @@
                             </strong>
 
                             <div class="form-control">
-
+                                <div [ngClass]="{'has-error':validarCampo('especialidad_Numero')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('especialidad_Numero')">Este
+                                    campo es requerido</span>
                                 <ng-select [items]="listadoEspecialidades" placeholder="Selecione una {{ titulo}} "
                                     formControlName="especialidad_Numero" bindLabel="especialidad_Descripcion"
                                     bindValue="especialidad_Numero" [clearable]="false" [searchable]="true"
@@ -53,13 +58,14 @@
                                 </ng-select>
                             </div>
                             <div>
-                                <span class="error-text">Este
-                                    campo es requerido</span>
+
 
                             </div>
                         </div>
                         <div class="form-field">
-
+                            <div [ngClass]="{'has-error':validarCampo('solicitud_Fecha_Otorgado')}"></div>
+                            <span class="error-text" *ngIf="validarCampo('solicitud_Fecha_Otorgado')">Este
+                                campo es requerido</span>
                             <strong class="caption"> Fecha Otorgado<span class="required-field">*</span>:</strong>
                             <input type="date" formControlName="solicitud_Fecha_Otorgado" class="input form-input"
                                 appMaxLenDate>
@@ -70,9 +76,13 @@
                             <strong class="caption">Documento<span class="required-field">*</span></strong>
 
                             <div>
+                                <div [ngClass]="{'has-error':validarCampo('documento_adjunto')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('documento_adjunto')">Este
+                                    campo es requerido</span>
                                 <!-- class success cuando se suba el archivo -->
                                 <div class="upload_file input">
-                                    <input type="file" formControlName="documento_adjunto" accept="application/pdf" />
+                                    <input type="file" formControlName="documento_adjunto" accept="application/pdf"
+                                        (change)="uploadSingleFile($any($event.target).files)" />
                                     <span class="file-name check-icon" id="spanImportarArchivo"></span>
                                     <button class="btn-search chambray-btn rounded">Buscar</button>
                                 </div>

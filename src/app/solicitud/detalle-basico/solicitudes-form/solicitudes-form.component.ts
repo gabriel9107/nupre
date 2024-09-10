@@ -23,7 +23,10 @@ export class SolicitudesFormComponent implements OnInit {
   public list_TipoEspecilidades!: Tipo_Especialidades[];
   public listLicencitTipo!: any[]
   public selectTipo!: number;
+  public files: File[] = [];
 
+  public showErrorMessage: boolean = false;
+  public errorMessage: string = "";
 
   public registroTituloForm!: FormGroup;
 
@@ -74,7 +77,43 @@ export class SolicitudesFormComponent implements OnInit {
 
 
   }
+  uploadSingleFile(files: File[]) {
+    //this.files = files;
 
+    this.files = [];
+    this.errorMessage = "";
+    this.showErrorMessage = false;
+
+    if (files === null && files === undefined)
+      return;
+
+    if (files.length > 2) {
+      this.errorMessage = "No debe subir más de dos (2) archivos."
+      this.showErrorMessage = true;
+      this.registroTituloForm.controls['documento_adjunto'].setValue('');
+      return;
+    }
+
+    for (var i = 0; i < files.length; i++) {
+      let file = files[i];
+      if (file.size > 5000000) {
+        this.errorMessage = "El archivo '" + file.name + "' es demasiado grande. Para poder procesarlo correctamente, asegúrate de que su tamaño sea inferior a 5 MB"
+        this.showErrorMessage = true;
+        this.registroTituloForm.controls['documento_adjunto'].setValue('');
+        console.log('dentro');
+        console.log(this.errorMessage);
+        return;
+      }
+    }
+
+
+    //console.log('files', files);
+
+    for (var i = 0; i < files.length; i++) {
+      this.files.push(files[i]);
+    }
+    //console.log('this.files', this.files);
+  }
   search($event: any) {
 
   }
@@ -87,5 +126,14 @@ export class SolicitudesFormComponent implements OnInit {
   }
 
 
+
+  validarCampo(campo: string) {
+    return (this.registroTituloForm.get(campo)?.touched && this.registroTituloForm.get(campo)?.errors);
+  }
+
+
+  regresar() {
+    window.history.back();
+  }
 
 }

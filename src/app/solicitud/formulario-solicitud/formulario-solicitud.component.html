@@ -47,7 +47,7 @@
                     <div class="col-w6 ">
                         <strong class="captinon">Exequátur :</strong>
                         <div>
-                            <!-- <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span> -->
+                            <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
                             <input type="text" formControlName="profesionalExequatur" class="input form-input">
                         </div>
                     </div>
@@ -98,13 +98,13 @@
 
                 <div class="row form-field">
                     <div class="col-w6">
-                        <strong class="caption"> Celular : </strong>
+                        <strong class="caption"> Celular :<span class="required-field">*</span>: </strong>
                         <input type="text" formControlName="profesionalTelefono1" mask="(000) 000-0000"
                             class="input form-input">
 
                     </div>
                     <div class="col-w6">
-                        <strong class="caption"> Telefono 1</strong>
+                        <strong class="caption"> Telefono 1 </strong>
                         <input type="text" formControlName="profesionalTelefono2" mask="(000) 000-0000"
                             class="input form-input">
                     </div>
@@ -118,7 +118,7 @@
                             class="input form-input">
                     </div>
                     <div class="col-w6">
-                        <strong class="captinon">Correo Electronico</strong>
+                        <strong class="captinon">Correo Electronico <span class="required-field">*</span>:</strong>
                         <input type="email" formControlName="profesionalMail" class="input form-input">
                     </div>
                 </div>

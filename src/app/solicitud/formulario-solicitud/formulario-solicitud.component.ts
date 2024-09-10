@@ -95,12 +95,12 @@ export class FormularioSolicitudComponent implements OnInit {
       nacionalidadNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       municipioNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       profesionalDireccion: ['', { Validators: [Validators.required, Validators.minLength(7)] }],
-      profesionalTelefono1: '',
+      profesionalTelefono1: ['', { Validators: [Validators.required] }],
       profesionalTelefono2: '',
       profesionalTelefono3: '',
-      profesionalMail: '',
-      archivoCedula: '',
-      archivoExequatur: ''
+      profesionalMail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]],
+      archivoCedula: ['', { Validators: [Validators.required] }],
+      archivoExequatur: ['', { Validators: [Validators.required] }],
 
     });
     if (this.modelo !== undefined) {
