@@ -12,6 +12,7 @@ import { Especialidades, Tipo_Especialidades } from "../Models/Nupre/Especialida
 import { Profesionales_Estado_Solicitud } from "../Models/Profesionales_Estado_Solicitud";
 import { Solicitudes_Estados } from "../Models/Solicitudes_Estados";
 import { Profesionales_Solicitudes_Filtro_Listado } from "../Models/Profesionales_Solicitudes_Filtro_Listado";
+import { Profesional_titulacion } from "../Models/Nupre/Profesional_titulacion";
 
 @Injectable({
     providedIn: 'root'
@@ -135,6 +136,16 @@ export class NupreService {
         return this.http.get<Tipo_Especialidades[]>(urlNupre.master.obtenerTodasLosTiposProfesiones);
 
     }
+
+
+
+    //Titulacion 
+    public guardarTitulacion(titulacion: Profesional_titulacion) {
+
+        return this.http.post(urlNupre.titulacion.guardartitulacion, titulacion);
+    }
+
+
 
 
     //Generico 

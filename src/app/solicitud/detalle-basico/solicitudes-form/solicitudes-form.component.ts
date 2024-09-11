@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Especialidades, Tipo_Especialidades } from '../../../Models/Nupre/Especialidades';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router, TitleStrategy } from '@angular/router';
+import { Router, TitleStrategy, Params } from '@angular/router';
 import { NupreService } from '../../../Servicio/nupre.service';
 import { NgModule, ViewChild, EventEmitter } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { StyleClassModule } from 'primeng/styleclass';
+import { Profesional_titulacion } from '../../../Models/Nupre/Profesional_titulacion';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 })
 export class SolicitudesFormComponent implements OnInit {
 
+  public solicitudId!: number;
   public titulo!: string;
   public selectedProfesion!: number;
   public listadoEspecialidades!: Especialidades[];
@@ -24,6 +26,8 @@ export class SolicitudesFormComponent implements OnInit {
   public listLicencitTipo!: any[]
   public selectTipo!: number;
   public files: File[] = [];
+
+
 
   public showErrorMessage: boolean = false;
   public errorMessage: string = "";
@@ -122,7 +126,14 @@ export class SolicitudesFormComponent implements OnInit {
 
   public guardarSolicitud() {
 
-    console.log(this.registroTituloForm.value);
+    if (this.registroTituloForm.invalid) {
+
+    }
+    let param = this.obtenerParametros()
+
+    this.servicio.guardarTitulacion(param).subscribe(() => {
+      this.router.navigate(['/Detalle/' + this.solicitudId])
+    }, error => console.error(error));
   }
 
 
@@ -134,6 +145,18 @@ export class SolicitudesFormComponent implements OnInit {
 
   regresar() {
     window.history.back();
+  }
+
+  obtenerParametros() {
+
+    let param = new Profesional_titulacion();
+    param.Solicitud_Numero = this.solicitudId;
+    // param.tipoTitulacion = this.registroTituloForm.get('tipo_Registros')?.value;
+    param.Especialidad_Numero = this.registroTituloForm.get('especialidad_Numero')?.value;
+    param.Especialidad_Periodo = this.registroTituloForm.get('solicitud_Fecha_Otorgado')?.value;
+    param.documento = this.files;
+    return param;
+
   }
 
 }

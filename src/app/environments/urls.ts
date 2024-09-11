@@ -13,8 +13,11 @@ export let urlNupre = {
 
     },
 
+    titulacion: {
+        guardartitulacion: environment.baseUrlLocal + "titulacion/guardarTitulacion/",
+        obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "getListadoTitulacion",
 
-
+    },
     master: {
         obtenerProfesiones_Especialidades: environment.baseUrlLocal + "profesiones/obtenerProfesionesPorTipo/",
         obtenerTodasLosTiposProfesiones: environment.baseUrlLocal + "profesiones/obtenerTipoProfesiones",
