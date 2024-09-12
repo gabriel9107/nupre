@@ -146,6 +146,13 @@ export class NupreService {
     }
 
 
+    public listadoTitulacionPorSolicitud(numero_solcitiud: number):Observable<Profesional_titulacion[]> {
+
+        return this.http.get<Profesional_titulacion[]>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud)
+    }
+
+
+
 
 
     //Generico 

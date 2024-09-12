@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Especialidades, Tipo_Especialidades } from '../../../Models/Nupre/Especialidades';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router, TitleStrategy, Params } from '@angular/router';
+import { Router, TitleStrategy, Params, ActivatedRoute } from '@angular/router';
 import { NupreService } from '../../../Servicio/nupre.service';
 import { NgModule, ViewChild, EventEmitter } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angul
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { StyleClassModule } from 'primeng/styleclass';
 import { Profesional_titulacion } from '../../../Models/Nupre/Profesional_titulacion';
+import { publishFacade } from '@angular/compiler';
 
 
 @Component({
@@ -47,7 +48,9 @@ export class SolicitudesFormComponent implements OnInit {
 
   buscarProfesiones() { }
 
-  constructor(private fb: FormBuilder, private router: Router, private servicio: NupreService) {
+  constructor(public activedRoute: ActivatedRoute, private fb: FormBuilder, private router: Router, private servicio: NupreService) {
+    let params: any = this.activedRoute.snapshot.params;
+    this.solicitudId = params.id;
 
   }
 
@@ -56,7 +59,7 @@ export class SolicitudesFormComponent implements OnInit {
     this.registroTituloForm = this.fb.group({
       tipo_Registros: ['', Validators.required],
       especialidad_Numero: ['', Validators.required],
-      solicitud_Fecha_Otorgado: ['', Validators.required],
+      especialidad_Periodo: ['', Validators.required],
       documento_adjunto: ['', Validators.required],
 
     })
@@ -131,6 +134,8 @@ export class SolicitudesFormComponent implements OnInit {
     }
     let param = this.obtenerParametros()
 
+    console.log(param);
+
     this.servicio.guardarTitulacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])
     }, error => console.error(error));
@@ -153,8 +158,15 @@ export class SolicitudesFormComponent implements OnInit {
     param.Solicitud_Numero = this.solicitudId;
     // param.tipoTitulacion = this.registroTituloForm.get('tipo_Registros')?.value;
     param.Especialidad_Numero = this.registroTituloForm.get('especialidad_Numero')?.value;
-    param.Especialidad_Periodo = this.registroTituloForm.get('solicitud_Fecha_Otorgado')?.value;
-    param.documento = this.files;
+    param.Especialidad_Periodo = this.registroTituloForm.get('especialidad_Periodo')?.value;
+    //Agregado por prueba hasta el momento 
+    param.Documento_Codigo = "0101";
+    // param.Disposicion_Numero = this.registroTituloForm.get('')?.value
+
+
+
+    //Pendiente de agregar 
+    // param.documento = this.files;
     return param;
 
   }

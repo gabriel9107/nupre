@@ -15,7 +15,7 @@ export let urlNupre = {
 
     titulacion: {
         guardartitulacion: environment.baseUrlLocal + "titulacion/guardarTitulacion/",
-        obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "getListadoTitulacion",
+        obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "listadoTitulacion",
 
     },
     master: {

@@ -9,18 +9,15 @@
 
 
 <div class="add-choices">
-    <!-- <div class="block">
-          <h4><i class="fas fa-download"></i> Descargar formulario</h4>
-          <span> Formulario de subsidio por licencia de enfermedad</span>
-      </div> -->
-    <div class="block" (click)="detalleNuevasolicitud()">
+
+    <div class="block" (click)="detalleNuevasolicitud(this.solicitudId)">
         <h4><i class="fas fa-edit"></i> Registrar Titulo</h4>
         <span>Registre los datos relacionados al medico (Copia del titulo , Copia de Exequátu ).</span>
     </div>
 </div>
 
 <br>
-<div class="row" *ngIf="titulo">
+<div class="row" *ngIf="listado">
     <div class="col-w9">
         <div class="register_list">
 
