@@ -29,7 +29,7 @@ const routes: Routes = [
     component: NuevaSolicitudComponent,
   },
   {
-    path: 'RegistrarTitulo/:id',
+    path: 'RegistrarTitulo/:id/:id2',
     component: SolicitudesFormComponent
 
   },

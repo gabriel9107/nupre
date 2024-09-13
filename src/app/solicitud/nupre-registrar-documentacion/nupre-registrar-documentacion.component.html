@@ -8,22 +8,24 @@
 </style>
 
 
-<div class="add-choices">
+<div class="add-choices" *ngIf="tituloProfesion">
 
     <div class="block" (click)="detalleNuevasolicitud(this.solicitudId)">
-        <h4><i class="fas fa-edit"></i> Registrar Titulo</h4>
+        <h4><i class="fas fa-edit"></i> Títulos de Profesiones </h4>
         <span>Registre los datos relacionados al medico (Copia del titulo , Copia de Exequátu ).</span>
     </div>
 </div>
 
 <br>
-<div class="row" *ngIf="listado">
+<div class="row">
     <div class="col-w9">
         <div class="register_list">
 
             <div class="register animate__animated animate__fadeIn list">
                 <div class="cel ">
                     <strong class="title">
+                        <!-- Profesion - Medico General -->
+                        Especialidad : Medico Especialista
                         <!-- {{listado.enfermedad_Padecimiento}} - {{listado.tipodelicencia}} -->
 
                     </strong>
@@ -35,25 +37,14 @@
 
 
                     <div class="relates">
-                        <span><i class="far fa-calendar"></i> Fecha Diagnostico: </span>
+                        <span><i class="far fa-calendar"></i> Fecha Registro: </span>
 
                         <span><i class="far fa-calendar"></i> Fecha
-                            Licencia: </span>
+                            del titulo: </span>
 
                         <span>
-                            <i class="far fa-calendar"></i> Fecha Hospitalización: </span>
+                            <i class="far fa-calendar"></i> Estatus Solicitud: </span>
 
-                        <!--
-              <span>
-                <i class="far fa-barcode"></i> Estado: {{listado.estado_Descripcion }}</span> -->
-
-
-                        <span><i class="far fa-file"></i>
-                            <a target="_blank">
-                            </a></span>
-
-                        <span><i class="far fa-file"></i> <a target="_blank">
-                            </a></span>
 
 
                     </div>
@@ -62,33 +53,9 @@
 
                 </div>
 
-                <div class="cel" id="statuslabel">
-
-
-                    <strong class="title relates">
-                        <span>
-                            <i class="far fast_forward"></i> Monto:
-                            |
-                            currency:'RD$ ':'symbol':'1.2-2'</span>
-
-                    </strong>
-                </div>
 
 
 
-                <div class="cel" id="btns">
-                    <div class="cel" id="btns">
-                        <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Descargar Formulario">
-                            <i class="fas fa-download"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="cel" id="btns">
-                    <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Cargar Formulario"
-                        data-target="upload_form">
-                        <i class="fas fa-upload"></i>
-                    </button>
-                </div>
                 <div class="cel" id="btns">
                     <button class="outline-btn icon tooltip  open-modal" data-tooltip="Ver Detalle"
                         data-target="Detail_form">
@@ -108,25 +75,19 @@
 
             </div>
         </div>
+
+
     </div>
     <div class="col-w3 info-section">
         <div class="block m-top">
             <h4>Acciones</h4>
             <div class="form-field">
-                <!-- <button class="default-btn rounded " (click)="cmabiartextoModal(0)" data-target="upload_form"
-                      data-target="upload_form">
-                      <i class="fas fa-edit"></i> Nueva Solicitud
-                  </button> -->
-                <button class="default-btn rounded ">
+                <button class="default-btn rounded " (click)="detalleNuevasolicitud(this.solicitudId)">
 
                     <i class="fas fa-edit"></i> Agregar Especialidad
                 </button>
             </div>
-            <!-- <div class="form-field">
-                  <button class="default-btn rounded fullw-btn " (click)="DescargarFormulario()">
-                      <i class="fas fa-download"></i> Descargar formulario
-                  </button>
-              </div> -->
+
         </div>
     </div>
 

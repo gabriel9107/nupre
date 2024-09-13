@@ -12,8 +12,17 @@ import { Profesional_titulacion } from '../../Models/Nupre/Profesional_titulacio
 export class NupreRegistrarDocumentacionComponent implements OnInit {
   public solicitudId!: number;
 
+
+  public tituloNombre!: string;
+  public tituloProfesion: boolean = false;
+
+
+
   public listado: Profesional_titulacion[] = [];
   public titulo: boolean = false;
+
+
+
   @Input() details!: Listado_Solicitud_Medico;
 
   constructor
@@ -31,13 +40,16 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
   consultarListadoTitulacion(solicitud_numero: number) {
     this.servicio.listadoTitulacionPorSolicitud(solicitud_numero).subscribe((resp: Profesional_titulacion[]) => {
       this.listado = resp;
+      if (this.listado.length > 0) {
+        this.tituloProfesion = true;
+      }
     });
   }
 
 
   public detalleNuevasolicitud(solicitudId: number) {
 
-    this.router.navigate(['/RegistrarTitulo/' + solicitudId]);
+    this.router.navigate(['/RegistrarTitulo/' + solicitudId + '/' + this.tituloProfesion]);
   }
 
 }

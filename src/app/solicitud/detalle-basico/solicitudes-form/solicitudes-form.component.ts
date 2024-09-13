@@ -19,6 +19,7 @@ import { publishFacade } from '@angular/compiler';
 })
 export class SolicitudesFormComponent implements OnInit {
 
+  public tituloProfesiona!: boolean;
   public solicitudId!: number;
   public titulo!: string;
   public selectedProfesion!: number;
@@ -39,7 +40,7 @@ export class SolicitudesFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // this.obtenerListadoProfesiones()
+
     this.obtenerTipoProfesiones()
     this.createFromActive();
   }
@@ -50,7 +51,9 @@ export class SolicitudesFormComponent implements OnInit {
 
   constructor(public activedRoute: ActivatedRoute, private fb: FormBuilder, private router: Router, private servicio: NupreService) {
     let params: any = this.activedRoute.snapshot.params;
+
     this.solicitudId = params.id;
+    this.tituloProfesiona = params.id2;
 
   }
 
@@ -72,7 +75,12 @@ export class SolicitudesFormComponent implements OnInit {
 
   obtenerListadoProfesiones(tipo: number) {
     return this.servicio.obtenerListadoDeProfesiones(tipo).subscribe((resp: Especialidades[]) => {
-      this.listadoEspecialidades = resp
+      if(this.tituloProfesiona == true)
+      {
+        this.listadoEspecialidades = resp
+      }
+      
+      
     });
   }
 
