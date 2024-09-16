@@ -114,7 +114,7 @@ export class NupreService {
 
     public crearSolicitud(solicitud: Solicitud_MedicoCreacionDTO) {
 
-        return this.http.post('https://localhost:7035/solicitudes', solicitud)
+        return this.http.post(urlNupre.solicitudes.crearSolicitud, solicitud)
     }
 
 

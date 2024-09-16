@@ -7,7 +7,7 @@ export class Listado_Solicitud_Medico {
     nacionalidadNumero?: number
     profesionalSexo?: string
     profesionalExequatur?: string
-    profesionalDireccion?: string
+    profesional_Direccion?: string
     municipioNumero?: number
     profesionalTelefono1?: string
     profesionalTelefono2?: string
@@ -38,7 +38,7 @@ export class Solicitud_basic_Informacion_DTO {
     nacionalidadNumero?: number
     profesionalSexo?: string
     profesionalExequatur?: string
-    profesionalDireccion?: string
+    profesional_Direccion?: string
     municipioNumero?: number
     profesionalTelefono1?: string
     profesionalTelefono2?: string
@@ -67,7 +67,7 @@ export class Solicitud_Medico_Detalle_DTO {
     nacionalidadNumero?: number
     profesionalSexo?: string
     profesionalExequatur?: string
-    profesionalDireccion?: string
+    profesional_Direccion?: string
     municipioNumero?: number
     profesionalTelefono1?: string
     profesionalTelefono2?: string
@@ -100,7 +100,7 @@ export class Solicitud_Medico_Detalle_View {
     nacionalidadNumero?: number
     profesionalSexo?: string
     profesionalExequatur?: string
-    profesionalDireccion?: string
+    profesional_Direccion?: string
     municipioNumero?: number
     profesionalTelefono1?: string
     profesionalTelefono2?: string
@@ -130,7 +130,7 @@ export class Solicitud_MedicoCreacionDTO {
     nacionalidadNumero?: number
     profesionalSexo?: string
     profesionalExequatur?: string
-    profesionalDireccion?: string
+    profesional_Direccion?: string
     municipioNumero?: number
     profesionalTelefono1?: string
     profesionalTelefono2?: string

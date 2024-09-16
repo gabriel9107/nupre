@@ -25,7 +25,7 @@ export class ListaSolicitudesComponent implements OnInit {
   lista = false;
   public headerSolicitud!: Solicitudes_listado;
   public details: Listado_Solicitud_Medico[] = [];
-  public loading = true;
+  public loading = false;
   public loading2 = false;
   public validafiltro = false;
   public ValidaFiltroBtn = false;
@@ -98,6 +98,7 @@ export class ListaSolicitudesComponent implements OnInit {
     this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
       this.loading = true;
       this.details = res;
+      console.log(this.details);
     }, error => {
       this.ValidarError = true;
       this.loading = false;

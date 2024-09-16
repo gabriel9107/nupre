@@ -5,6 +5,8 @@ import { environment } from "./environment.desarrollo";
 export let urlNupre = {
 
     solicitudes: {
+
+        crearSolicitud: environment.baseUrlLocal + "crearSolicituDocumento",
         obtenerTodasLasSolicitudes: environment.baseUrl + "solicitudes",
         obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudesFiltro",
 

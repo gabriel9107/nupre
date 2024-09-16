@@ -44,57 +44,14 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
     this.form = this.formBuider.group({
-
-      // solicitudNumero?: number
-      // solicitudFecha?: string
-      // profesionalDocumento?: string
-      // profesionalNombreCompleto?: string
-      // nacionalidadNumero?: number
-      // profesionalSexo?: string
-      // profesionalExequatur?: string
-      // profesionalDireccion?: string
-      // municipioNumero?: number
-      // profesionalTelefono1?: string
-      // profesionalTelefono2?: string
-      // profesionalTelefono3?: string
-      // profesionalMail?: string
-      // solicitudEstadoNumero?: number
-      // solicitudEstadoFecha?: string
-      // solicitudEstadoNota?: string
-      // solicitudUsuarioCuenta?: string
-      // solicitudActualizarDatos?: string
-      // asociacionRegistroPatronal?: number
-      // motivoNumero?: number
-      // solicitudCertificadoNumero?: string
-      // registroEstado?: string
-      // registroUsuario?: string
-      // registroFecha?: string
-
-
-
-      //En caso de que sea un usuario personal creando su solicitud, la misma va a traer el NSS por defecto
-      // profesionalDocumento: ['40221025725', { validators: [Validators.required, Validators.minLength(2)] },],
-      // profesionalNombreCompleto: 'Gabriel Montero',
-      // profesionalSexo: ['Masculino'],
-      // profesionalExequatur: '454847',
-      // nacionalidadNumero: '1',
-      // municipioNumero: '1',
-      // profesionalDireccion: 'Nicolas Ramon #31',
-      // profesionalTelefono1: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
-      // profesionalTelefono2: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
-      // profesionalTelefono3: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
-      // profesionalMail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]],
-      // archivoCedula: '',
-      // archivoExequatur: ''
-
-
+      
       profesionalDocumento: ['', { validators: [Validators.required, Validators.minLength(2)] },],
       profesionalNombreCompleto: ['', { Validators: [Validators.required] }],
       profesionalSexo: ['', { Validators: [Validators.required] }],
       profesionalExequatur: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       nacionalidadNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       municipioNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
-      profesionalDireccion: ['', { Validators: [Validators.required, Validators.minLength(7)] }],
+      profesional_Direccion: ['', { Validators: [Validators.required, Validators.minLength(7)] }],
       profesionalTelefono1: ['', { Validators: [Validators.required] }],
       profesionalTelefono2: '',
       profesionalTelefono3: '',
@@ -158,7 +115,7 @@ export class FormularioSolicitudComponent implements OnInit {
         profesionalExequatur: '',
         nacionalidadNumero: '',
         municipioNumero: '',
-        profesionalDireccion: '',
+        profesional_Direccion: '',
         profesionalTelefono1: '',
         profesionalTelefono2: '',
         profesionalTelefono3: '',
