@@ -6,6 +6,7 @@ import { NuevaSolicitudComponent } from './solicitud/nueva-solicitud/nueva-solic
 import { SolicitudesFormComponent } from './solicitud/detalle-basico/solicitudes-form/solicitudes-form.component';
 import { AsociacionesComponent } from './solicitud/asociaciones/asociaciones.component';
 import { NupreSometerSolicitudComponent } from './solicitud/nupre-someter-solicitud/nupre-someter-solicitud.component';
+import { FormularioSolicitudComponent } from './solicitud/formulario-solicitud/formulario-solicitud.component';
 
 
 
@@ -26,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'RegistrarSolicitud',
-    component: NuevaSolicitudComponent,
+    component: FormularioSolicitudComponent,
   },
   {
     path: 'RegistrarTitulo/:id/:id2',

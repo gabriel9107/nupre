@@ -18,37 +18,37 @@
     </div>
 
     <div class="container topPadding sm-width v2">
-        <form (submit)="GuardarSolicitud()" [formGroup]="form" #aForm (keydown.enter)="$event.preventDefault()">
-            <section class="block-section">
+        <form (submit)="GuardarSolicitud()" [formGroup]="form" #aForm (keydown.enter)="$event.preventDefault()"
+            enctype="multipart/form-data">
+            <section class=" block-section">
                 <span class="goback-btn alone" (click)="regresar()"><i class="fas fa-chevron-left"></i> Regresar</span>
 
                 <div class="content-title">
                     <h3 class="title">Datos Personales </h3>
                 </div>
                 <div class="form-field">
-                    <strong class="caption">NSS / Cedula </strong>
+                    <strong class="caption">NSS / Cedula <span class="required-field">*</span>:</strong>
                     <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
-                    <input #profesionalDocumento formControlName="profesionalDocumento" type="text"
+                    <input #profesionalDocumento formControlName="profesional_Documento" type="text"
                         class="input form-input" (keyup.enter)="buscarDatosAfiliado(profesionalDocumento.value)">
                 </div>
 
                 <div class="form-field">
                     <strong class="caption">Nombre Completo</strong>
-                    <input formControlName="profesionalNombreCompleto" type="text" class="input form-input">
+                    <input formControlName="profesional_Nombre_Completo" type="text" class="input form-input">
                 </div>
                 <div class="row form-field ">
                     <div class="col-w6 ">
                         <strong class="captinon">Sexo :</strong>
                         <div>
-                            <!-- <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span> -->
-                            <input type="text" formControlName="profesionalSexo" class="input form-input">
+                            <input type="text" formControlName="profesional_Sexo" class="input form-input">
                         </div>
                     </div>
                     <div class="col-w6 ">
-                        <strong class="captinon">Exequátur :</strong>
+                        <strong class="captinon">Exequátur :<span class="required-field">*</span>:</strong>
                         <div>
                             <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
-                            <input type="text" formControlName="profesionalExequatur" class="input form-input">
+                            <input type="text" formControlName="profesional_Exequatur" class="input form-input">
                         </div>
                     </div>
                 </div>
@@ -57,13 +57,12 @@
                         <strong class="captinon">Nacionalidad :</strong>
                         <div>
                             <ng-select [items]="nacionalidades" placeholder="Selecione una nacionalidad "
-                                formControlName="nacionalidadNumero" bindLabel="nacionalidad_Pais_Nombre"
+                                formControlName="nacionalidad_Numero" bindLabel="nacionalidad_Pais_Nombre"
                                 bindValue="nacionalidad_Numero" [clearable]="false" [searchable]="true"
                                 [(ngModel)]="selectNacionalidad">
                             </ng-select>
 
-                            <!-- <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span> -->
-                            <!-- <input type="text" formControlName="nacionalidadNumero" class="input form-input"> -->
+
                         </div>
                     </div>
 
@@ -75,8 +74,8 @@
                             </span>
 
                             <ng-select [items]="provincias" placeholder="Selecione una proviencia "
-                                formControlName="municipioNumero" bindLabel="provinciaNombre"
-                                bindValue="provinciaNumero" [clearable]="false" [searchable]="false"
+                                formControlName="municipio_Numero" bindLabel="provinciaNombre"
+                                bindValue="municipio_Numero" [clearable]="false" [searchable]="false"
                                 [(ngModel)]="selectprovincias">
                             </ng-select>
                         </div>
@@ -99,27 +98,26 @@
                 <div class="row form-field">
                     <div class="col-w6">
                         <strong class="caption"> Celular :<span class="required-field">*</span>: </strong>
-                        <input type="text" formControlName="profesionalTelefono1" mask="(000) 000-0000"
+                        <input type="text" formControlName="profesional_Telefono1" mask="(000) 000-0000"
                             class="input form-input">
 
                     </div>
                     <div class="col-w6">
                         <strong class="caption"> Telefono 1 </strong>
-                        <input type="text" formControlName="profesionalTelefono2" mask="(000) 000-0000"
+                        <input type="text" formControlName="profesional_Telefono2" mask="(000) 000-0000"
                             class="input form-input">
                     </div>
-                    <!-- <span class="error-text"  -->
 
                 </div>
                 <div class="row form-field">
                     <div class="col-w6">
                         <strong class="captinon"> Telefono 2</strong>
-                        <input type="text" formControlName="profesionalTelefono3" mask="(000) 000-0000"
+                        <input type="text" formControlName="profesional_Telefono3" mask="(000) 000-0000"
                             class="input form-input">
                     </div>
                     <div class="col-w6">
                         <strong class="captinon">Correo Electronico <span class="required-field">*</span>:</strong>
-                        <input type="email" formControlName="profesionalMail" class="input form-input">
+                        <input type="email" formControlName="profesional_Mail" class="input form-input">
                     </div>
                 </div>
 
@@ -132,9 +130,8 @@
                 <strong class="caption">Subir Copia de Cédula Identidad y Electoral o Pasaporte <span
                         class="required-field">*</span></strong>
                 <div>
-                    <!-- class success cuando se suba el archivo -->
                     <div class="upload_file input">
-                        <input type="file" formControlName="archivoCedula" accept="application/pdf"
+                        <input type="file" formControlName="archivo_Cedula" accept="application/pdf"
                             (change)="uploadFile($any($event.target).files, 1)" />
                         <span class="file-name check-icon" id="spanImportarArchivo"></span>
                         <button class="btn-search chambray-btn rounded">Buscar</button>
@@ -144,9 +141,8 @@
                 <div>
 
 
-                    <!-- class success cuando se suba el archivo -->
                     <div class="upload_file input">
-                        <input type="file" formControlName="archivoExequatur" accept="application/pdf"
+                        <input type="file" formControlName="archivo_Exequatur" accept="application/pdf"
                             (change)="uploadFile($any($event.target).files, 2)" />
                         <span class="file-name check-icon" id="spanImportarArchivo"></span>
                         <button class="btn-search chambray-btn rounded">Buscar</button>

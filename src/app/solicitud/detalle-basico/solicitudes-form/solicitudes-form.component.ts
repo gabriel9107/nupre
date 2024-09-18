@@ -115,8 +115,7 @@ export class SolicitudesFormComponent implements OnInit {
         this.errorMessage = "El archivo '" + file.name + "' es demasiado grande. Para poder procesarlo correctamente, asegúrate de que su tamaño sea inferior a 5 MB"
         this.showErrorMessage = true;
         this.registroTituloForm.controls['documento_adjunto'].setValue('');
-        console.log('dentro');
-        console.log(this.errorMessage);
+ 
         return;
       }
     }
@@ -141,9 +140,7 @@ export class SolicitudesFormComponent implements OnInit {
 
     }
     let param = this.obtenerParametros()
-
-    console.log(param);
-
+ 
     this.servicio.guardarTitulacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])
     }, error => console.error(error));

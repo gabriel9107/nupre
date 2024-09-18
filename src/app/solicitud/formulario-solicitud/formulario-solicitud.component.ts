@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, input, OnInit, Output } from '@angular/core';
-import { Solicitud_MedicoCreacionDTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
+import { Solicitud_MedicoCreacionDTO, Solicitud_MedicoCreacionPruebaDTO, solicitudCreacionDTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 import { ciudadano_consulta_DTOs } from '../../Models/Nupre/ciudadano_mastert';
 import { Provincias_Cata } from '../../Models/Direccion';
 import { Nacionalidad, Provincias } from '../../Models/Nupre/comun_models';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -17,6 +18,9 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
   public datatosCiudadano!: ciudadano_consulta_DTOs
+  public cedula!: File;
+  public certificado!: File
+
   public files: File[] = [];
 
   public nacionalidades: Nacionalidad[] = [];
@@ -29,11 +33,11 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
 
-  @Output()
-  submit: EventEmitter<Solicitud_MedicoCreacionDTO> = new EventEmitter<Solicitud_MedicoCreacionDTO>();
+  // @Output()
+  // submit: EventEmitter<solicitudCreacionDTO> = new EventEmitter<solicitudCreacionDTO>();
 
   @Input()
-  modelo!: Solicitud_MedicoCreacionDTO;
+  modelo!: solicitudCreacionDTO;
 
   ngOnInit(): void {
 
@@ -44,20 +48,20 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
     this.form = this.formBuider.group({
-      
-      profesionalDocumento: ['', { validators: [Validators.required, Validators.minLength(2)] },],
-      profesionalNombreCompleto: ['', { Validators: [Validators.required] }],
-      profesionalSexo: ['', { Validators: [Validators.required] }],
-      profesionalExequatur: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
-      nacionalidadNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
-      municipioNumero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
+
+      profesional_Documento: ['', { validators: [Validators.required, Validators.minLength(2)] },],
+      profesional_Nombre_Completo: ['', { Validators: [Validators.required] }],
+      archivo_Cedula: ['', { Validators: [Validators.required] }],
+      archivo_Exequatur: ['', { Validators: [Validators.required] }],
+      profesional_Sexo: ['', { Validators: [Validators.required] }],
+      profesional_Exequatur: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
+      nacionalidad_Numero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
+      municipio_Numero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       profesional_Direccion: ['', { Validators: [Validators.required, Validators.minLength(7)] }],
-      profesionalTelefono1: ['', { Validators: [Validators.required] }],
-      profesionalTelefono2: '',
-      profesionalTelefono3: '',
-      profesionalMail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]],
-      archivoCedula: ['', { Validators: [Validators.required] }],
-      archivoExequatur: ['', { Validators: [Validators.required] }],
+      profesional_Telefono1: ['', { Validators: [Validators.required] }],
+      profesional_Telefono2: '',
+      profesional_Telefono3: '',
+      profesional_Mail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]],
 
     });
     if (this.modelo !== undefined) {
@@ -66,7 +70,7 @@ export class FormularioSolicitudComponent implements OnInit {
   }
   constructor
     (public activedRoute: ActivatedRoute,
-      private router: Router, private servicio: NupreService, private formBuider: FormBuilder
+      private router: Router, private servicio: NupreService, private formBuider: FormBuilder, private http: HttpClient,
     ) {
   }
   form!: FormGroup;
@@ -96,15 +100,17 @@ export class FormularioSolicitudComponent implements OnInit {
 
     this.form.patchValue({
       // profesionalDocumento: res.ciudadanoNoDocumento,
-      profesionalNombreCompleto: res.ciudadanoNombreCompleto,
-      profesionalSexo: res.ciudadanoSexo,
-      nacionalidadNumero: res.nacionalidadNumero,
-      municipioNumero: res.ciudadanoActaNacimientoMunicipio
+      profesional_Nombre_Completo: res.ciudadanoNombreCompleto,
+      profesional_Sexo: res.ciudadanoSexo,
+      nacionalidad_Numero: res.nacionalidadNumero,
+      municipio_Numero: res.ciudadanoActaNacimientoMunicipio
 
 
     })
 
   }
+
+
 
   public limpiarValueNSS(error = "") {
     this.form.patchValue(
@@ -129,14 +135,44 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
 
+  obtenerParametros() {
+    var resultado = new Solicitud_MedicoCreacionPruebaDTO();
+    resultado.profesional_Nombre_Completo = this.form.get('profesional_Nombre_Completo')?.value;
+    resultado.profesional_Documento = this.form.get('profesional_Documento')?.value;
+
+    resultado.nacionalidad_Numero = this.form.get('nacionalidad_Numero')?.value;
+    resultado.profesional_Sexo = this.form.get('profesional_Sexo')?.value;
+    resultado.profesional_Exequatur = this.form.get('profesional_Exequatur')?.value;
+    resultado.municipio_Numero = this.form.get('municipio_Numero')?.value;
+    resultado.profesional_Direccion = this.form.get('profesional_Direccion')?.value;
+    resultado.profesional_Telefono1 = this.form.get('profesional_Telefono1')?.value;
+    resultado.profesional_Telefono2 = this.form.get('profesional_Telefono2')?.value;
+    resultado.profesional_Telefono3 = this.form.get('profesional_Telefono3')?.value;
+    resultado.profesional_Mail = this.form.get('profesional_Mail')?.value;
+    resultado.profesional_Telefono3 = this.form.get('profesional_Telefono3')?.value;
+
+    resultado.archivo_Cedula = this.cedula
+    resultado.archivo_Exequatur = this.certificado;
+
+
+
+    return resultado;
+  }
+
+
   regresar() {
     this.router.navigate(['/NUPRE']);
   }
   public GuardarSolicitud() {
 
-    console.log('valores del formulario');
-    console.log(this.form.value);
-    this.submit.emit(this.form.value);
+
+    var solicitud = this.obtenerParametros();
+    this.servicio.crearSolicitud3(solicitud, this.cedula!, this.certificado!).subscribe(() => {
+      this.router.navigate(['/solicitudes'])
+    }, error => console.error(error));
+
+
+    // this.submit.emit(this.form.value);
   }
 
 
@@ -144,6 +180,7 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
     this.files = [];
+
     this.errorMessage = "";
     this.showErrorMessage = false;
 
@@ -167,11 +204,20 @@ export class FormularioSolicitudComponent implements OnInit {
       }
     }
 
+    if (tipo == 1) {
 
-    for (var i = 0; i < files.length; i++) {
-      console.log(this.files);
-      this.files.push(files[i]);
-    }
+      this.cedula = files[0];
+
+    } else {
+
+      this.certificado = files[0]
+    };
+
+
+    // for (var i = 0; i < files.length; i++) {
+    //   console.log(this.files);
+    //   this.files.push(files[i]);
+    // }
 
   }
 

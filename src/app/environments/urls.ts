@@ -6,7 +6,9 @@ export let urlNupre = {
 
     solicitudes: {
 
-        crearSolicitud: environment.baseUrlLocal + "crearSolicituDocumento",
+        crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
+
+        crearSolicitudprueba: environment.baseUrlLocal + "solicitudes/prueba",
         obtenerTodasLasSolicitudes: environment.baseUrl + "solicitudes",
         obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudesFiltro",
 
