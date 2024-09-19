@@ -10,7 +10,7 @@
 
 <div class="add-choices" *ngIf="tituloProfesion">
 
-    <div class="block" (click)="detalleNuevasolicitud(this.solicitudId)">
+    <div class="block" (click)="Nuevasolicitud(this.solicitudId)">
         <h4><i class="fas fa-edit"></i> Títulos de Profesiones </h4>
         <span>Registre los datos relacionados al medico (Copia del titulo , Copia de Exequátu ).</span>
     </div>
@@ -82,7 +82,7 @@
         <div class="block m-top">
             <h4>Acciones</h4>
             <div class="form-field">
-                <button class="default-btn rounded " (click)="detalleNuevasolicitud(this.solicitudId)">
+                <button class="default-btn rounded " (click)="Nuevasolicitud(this.solicitudId)">
 
                     <i class="fas fa-edit"></i> Agregar Especialidad
                 </button>

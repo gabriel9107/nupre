@@ -47,7 +47,7 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
   }
 
 
-  public detalleNuevasolicitud(solicitudId: number) {
+  public Nuevasolicitud(solicitudId: number) {
 
     this.router.navigate(['/RegistrarTitulo/' + solicitudId + '/' + this.tituloProfesion]);
   }

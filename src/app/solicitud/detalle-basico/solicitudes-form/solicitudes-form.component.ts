@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { StyleClassModule } from 'primeng/styleclass';
-import { Profesional_titulacion } from '../../../Models/Nupre/Profesional_titulacion';
+import { Profesional_titulacion, Profesional_TitulacionDTO } from '../../../Models/Nupre/Profesional_titulacion';
 import { publishFacade } from '@angular/compiler';
 
 
@@ -29,6 +29,8 @@ export class SolicitudesFormComponent implements OnInit {
   public selectTipo!: number;
   public files: File[] = [];
 
+
+  public certificado!: File
 
 
   public showErrorMessage: boolean = false;
@@ -75,12 +77,8 @@ export class SolicitudesFormComponent implements OnInit {
 
   obtenerListadoProfesiones(tipo: number) {
     return this.servicio.obtenerListadoDeProfesiones(tipo).subscribe((resp: Especialidades[]) => {
-      if(this.tituloProfesiona == true)
-      {
-        this.listadoEspecialidades = resp
-      }
-      
-      
+      this.listadoEspecialidades = resp
+
     });
   }
 
@@ -92,7 +90,7 @@ export class SolicitudesFormComponent implements OnInit {
 
 
   }
-  uploadSingleFile(files: File[]) {
+  uploadSingleFile(files: File) {
     //this.files = files;
 
     this.files = [];
@@ -102,31 +100,20 @@ export class SolicitudesFormComponent implements OnInit {
     if (files === null && files === undefined)
       return;
 
-    if (files.length > 2) {
-      this.errorMessage = "No debe subir más de dos (2) archivos."
+
+    if (files.size > 5000000) {
+      this.errorMessage = "El archivo '" + files.name + "' es demasiado grande. Para poder procesarlo correctamente, asegúrate de que su tamaño sea inferior a 5 MB"
       this.showErrorMessage = true;
       this.registroTituloForm.controls['documento_adjunto'].setValue('');
+
       return;
     }
 
-    for (var i = 0; i < files.length; i++) {
-      let file = files[i];
-      if (file.size > 5000000) {
-        this.errorMessage = "El archivo '" + file.name + "' es demasiado grande. Para poder procesarlo correctamente, asegúrate de que su tamaño sea inferior a 5 MB"
-        this.showErrorMessage = true;
-        this.registroTituloForm.controls['documento_adjunto'].setValue('');
- 
-        return;
-      }
-    }
 
 
-    //console.log('files', files);
+    this.certificado == files
 
-    for (var i = 0; i < files.length; i++) {
-      this.files.push(files[i]);
-    }
-    //console.log('this.files', this.files);
+
   }
   search($event: any) {
 
@@ -140,7 +127,7 @@ export class SolicitudesFormComponent implements OnInit {
 
     }
     let param = this.obtenerParametros()
- 
+
     this.servicio.guardarTitulacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])
     }, error => console.error(error));
@@ -159,21 +146,14 @@ export class SolicitudesFormComponent implements OnInit {
 
   obtenerParametros() {
 
-    let param = new Profesional_titulacion();
+    let param = new Profesional_TitulacionDTO();
     param.Solicitud_Numero = this.solicitudId;
-    // param.tipoTitulacion = this.registroTituloForm.get('tipo_Registros')?.value;
-    param.Especialidad_Numero = this.registroTituloForm.get('especialidad_Numero')?.value;
+
+    param.Especialidad_Tipo_Numero = this.selectTipo;
+    param.Especialidad_Profesion_Numero = this.registroTituloForm.get('especialidad_Numero')?.value;
     param.Especialidad_Periodo = this.registroTituloForm.get('especialidad_Periodo')?.value;
-    //Agregado por prueba hasta el momento 
-    param.Documento_Codigo = "0101";
-    // param.Disposicion_Numero = this.registroTituloForm.get('')?.value
-
-
-
-    //Pendiente de agregar 
-    // param.documento = this.files;
+    param.Documento_Codigo = this.certificado;
     return param;
-
   }
 
 }

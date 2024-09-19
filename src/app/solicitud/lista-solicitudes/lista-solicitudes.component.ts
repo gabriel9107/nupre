@@ -95,7 +95,9 @@ export class ListaSolicitudesComponent implements OnInit {
 
   buscarSolicitudes() {
 
+    console.log('listado de solicitudes')
     this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
+      console.log(res);
       this.loading = true;
       this.details = res;
     }, error => {
