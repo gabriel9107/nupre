@@ -1,5 +1,5 @@
 import { Injectable, signal } from "@angular/core";
-import { Observable, map, tap } from "rxjs";
+import { Observable, from, map, retry, tap } from "rxjs";
 import { Solicitudes_listado } from '../Models/Solicitudes_Listado';
 import { urlNUPRE } from '../rutas/Rutas';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -164,23 +164,6 @@ export class NupreService {
 
         const formData = this.constuirFormData(solicitud);
 
-        // var formData = new FormData();
-
-
-        // for (const key in solicitud) {
-        //     if (solicitud.hasOwnProperty(key)) {
-        //         const value = solicitud[key as keyof solicitudCreacionDTO];
-        //         if (key == "") {
-        //             formData.append('files', String(value));
-        //         }
-        //         formData.append(key, String(value));
-        //         // console.log('formato');
-        //         // console.log(value);
-        //         // console.log(key);
-        //         // console.log(String(value));
-
-        //     }
-        // }
         const headers = new HttpHeaders({
             'Accept': 'application/json'
         });
@@ -193,11 +176,8 @@ export class NupreService {
 
     public crearSolicitud3(solicitud: Solicitud_MedicoCreacionPruebaDTO, cedula: File, certificado: File) {
 
-
         const formData = this.constuirFormData2(solicitud, cedula, certificado);
-
         console.log(formData);
-
 
 
 
@@ -293,10 +273,52 @@ export class NupreService {
 
 
 
-    //Titulacion 
-    public guardarTitulacion(titulacion: Profesional_TitulacionDTO) {
 
-        return this.http.post(urlNupre.titulacion.guardartitulacion, titulacion);
+
+
+    //Titulacion 
+
+
+    private constuirformDataTitulacion(titulacion: Profesional_TitulacionDTO) {
+
+
+        const formData = new FormData();
+        if (titulacion.Solicitud_Numero) {
+
+            formData.append('solicitud_Numero', String(titulacion.Solicitud_Numero));
+        }
+        if (titulacion.Especialidad_Tipo_Numero) {
+            formData.append('especialidad_Tipo_Numero', String(titulacion.Especialidad_Tipo_Numero));
+        }
+        if (titulacion.Especialidad_Profesion_Numero) {
+            formData.append('especialidad_Numero', String(titulacion.Especialidad_Profesion_Numero));
+        }
+        if (titulacion.Especialidad_Periodo) {
+            formData.append('especialidad_Periodo', titulacion.Especialidad_Periodo);
+        }
+        if (titulacion.Documento_Codigo) {
+
+            formData.append('documento_Codigo', titulacion.Documento_Codigo);
+        }
+
+        return formData;
+
+    }
+
+    public guardarTitulacion(param: Profesional_TitulacionDTO) {
+
+        // const header = new HttpHeaders({
+        //     'Accept': 'multipart/form-data'
+        // });
+        const formData = this.constuirformDataTitulacion(param);
+
+
+        console.log(param);
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+        return this.http.post(urlNupre.titulacion.guardartitulacion, formData, { headers: headers });
     }
 
 

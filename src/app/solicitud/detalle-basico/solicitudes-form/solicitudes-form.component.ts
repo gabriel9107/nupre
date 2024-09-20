@@ -90,29 +90,44 @@ export class SolicitudesFormComponent implements OnInit {
 
 
   }
-  uploadSingleFile(files: File) {
-    //this.files = files;
+  uploadFile(files: File[]) {
+
 
     this.files = [];
+
     this.errorMessage = "";
     this.showErrorMessage = false;
 
     if (files === null && files === undefined)
       return;
 
-
-    if (files.size > 5000000) {
-      this.errorMessage = "El archivo '" + files.name + "' es demasiado grande. Para poder procesarlo correctamente, asegúrate de que su tamaño sea inferior a 5 MB"
+    if (files.length > 1) {
+      this.errorMessage = "No debe subir más de dos (2) archivos."
       this.showErrorMessage = true;
       this.registroTituloForm.controls['documento_adjunto'].setValue('');
-
       return;
+    }
+
+    for (var i = 0; i < files.length; i++) {
+      let file = files[i];
+      if (file.size > 5000000) {
+        this.errorMessage = "El archivo '" + file.name + "' es demasiado grande. Para poder procesarlo correctamente, asegúrate de que su tamaño sea inferior a 5 MB"
+        this.showErrorMessage = true;
+        this.registroTituloForm.controls['documento_adjunto'].setValue('');
+        return;
+      }
     }
 
 
 
-    this.certificado == files
+    this.certificado = files[0]
 
+
+
+    // for (var i = 0; i < files.length; i++) {
+    //   console.log(this.files);
+    //   this.files.push(files[i]);
+    // }
 
   }
   search($event: any) {
@@ -152,8 +167,16 @@ export class SolicitudesFormComponent implements OnInit {
     param.Especialidad_Tipo_Numero = this.selectTipo;
     param.Especialidad_Profesion_Numero = this.registroTituloForm.get('especialidad_Numero')?.value;
     param.Especialidad_Periodo = this.registroTituloForm.get('especialidad_Periodo')?.value;
+
+
+
     param.Documento_Codigo = this.certificado;
+
+
+
+
     return param;
+
   }
 
 }

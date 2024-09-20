@@ -104,7 +104,7 @@
                                 <!-- class success cuando se suba el archivo -->
                                 <div class="upload_file input">
                                     <input type="file" formControlName="documento_adjunto" accept="application/pdf"
-                                        (change)="uploadSingleFile($any($event.target).files)" />
+                                        (change)="uploadFile($any($event.target).files)" />
                                     <span class="file-name check-icon" id="spanImportarArchivo"></span>
                                     <button class="btn-search chambray-btn rounded">Buscar</button>
                                 </div>
