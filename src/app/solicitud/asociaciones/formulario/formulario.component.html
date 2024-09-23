@@ -1,0 +1,116 @@
+<!-- <section class="animate__animated animate__fadeIn">
+    <div id="main-title">
+        <div class="container">
+
+        </div>
+    </div>
+    <div class="body-content">
+        <div class="sm-width single-elem has-breadcrumbns">
+            <div id="bread-crumbs">
+                <div class="container">
+                    <ul class="no-style">
+                        <li><a href="">Inicio</a></li>
+                        <li>Consulta</li>
+                        <li><a>Solicitudes NUPRE</a></li>
+                        <li><a>Detalle solicitud</a></li>
+                        <li>Registro de Titulo</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <form [formGroup]="registroTituloForm" #aFrom>
+                    <section class="block-section">
+                        <div class="content-title">
+                            <h3 class="title">Detalle del Titulo</h3>
+                        </div>
+                        <div class="form-field">
+                            <div class="form-field">
+                                <strong class="caption">Tipo de Registro <span class="required-field">*</span>:</strong>
+                                <div [ngClass]="{'has-error':validarCampo('tipo_Registros')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('tipo_Registros')">Este
+                                    campo es requerido</span>
+                                <div class="item" *ngFor="let tyeOfTitulo of list_TipoEspecilidades">
+                                    <label class="square-rdb form-control">
+                                        <input type="radio" name="tipo_Registros" formControlName="tipo_Registros"
+                                            value="{{tyeOfTitulo.especialidad_Tipo_Numero}}"
+                                            (change)="obtenerListadoProfesiones(tyeOfTitulo.especialidad_Tipo_Numero)" />
+                                        <span class="elem"></span> {{tyeOfTitulo.especialidad_Tipo_Descripcion}}
+
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-field">
+                            <strong class="caption">Titulo <span class="required-field">*</span>:
+
+                            </strong>
+
+                            <div class="form-control">
+                                <div [ngClass]="{'has-error':validarCampo('especialidad_Numero')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('especialidad_Numero')">Este
+                                    campo es requerido</span>
+                                <ng-select [items]="listadoEspecialidades" placeholder="Selecione una {{ titulo}} "
+                                    formControlName="especialidad_Numero" bindLabel="especialidad_Descripcion"
+                                    bindValue="especialidad_Numero" [clearable]="false" [searchable]="true"
+                                    [(ngModel)]="selectedProfesion">
+                                </ng-select>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="caption">Periodo <span class="required-field">*</span>:
+                                
+                            </strong>
+
+                            <div class="form-control">
+                                <input type="text" formControlName="especialidad_Periodo" class="input form-input">
+
+                            </div>
+                        </div>
+
+
+                        <section class="block-section">
+
+
+                            <strong class="caption">Documento<span class="required-field">*</span></strong>
+
+                            <div>
+                                <div [ngClass]="{'has-error':validarCampo('documento_adjunto')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('documento_adjunto')">Este
+                                    campo es requerido</span>
+                                
+                                <div class="upload_file input">
+                                    <input type="file" formControlName="documento_adjunto" accept="application/pdf"
+                                        (change)="uploadFile($any($event.target).files)" />
+                                    <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                                    <button class="btn-search chambray-btn rounded">Buscar</button>
+                                </div>
+                            </div>
+
+                        </section>
+
+
+
+                    </section>
+                    <div class="bottom-btn right"></div>
+                    <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
+                        Cancelar</button>
+                    <button class="primary-btn rounded lg-btn" (click)="guardarSolicitud()">
+
+
+                        <i class="fas fa-check">Agregar</i>
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+
+        </div>
+    </div>
+</section> -->

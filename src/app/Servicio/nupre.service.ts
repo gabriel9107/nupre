@@ -12,7 +12,7 @@ import { Especialidades, Tipo_Especialidades } from "../Models/Nupre/Especialida
 import { Profesionales_Estado_Solicitud } from "../Models/Profesionales_Estado_Solicitud";
 import { Solicitudes_Estados } from "../Models/Solicitudes_Estados";
 import { Profesionales_Solicitudes_Filtro_Listado } from "../Models/Profesionales_Solicitudes_Filtro_Listado";
-import { Profesional_titulacion, Profesional_TitulacionDTO } from "../Models/Nupre/Profesional_titulacion";
+import { Profesional_Listado_titulacionDTO, Profesional_titulacion, Profesional_TitulacionDTO } from "../Models/Nupre/Profesional_titulacion";
 
 @Injectable({
     providedIn: 'root'
@@ -322,9 +322,9 @@ export class NupreService {
     }
 
 
-    public listadoTitulacionPorSolicitud(numero_solcitiud: number): Observable<Profesional_titulacion[]> {
+    public listadoTitulacionPorSolicitud(numero_solcitiud: number): Observable<Profesional_Listado_titulacionDTO[]> {
 
-        return this.http.get<Profesional_titulacion[]>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + numero_solcitiud)
+        return this.http.get<Profesional_Listado_titulacionDTO[]>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + numero_solcitiud)
     }
 
 

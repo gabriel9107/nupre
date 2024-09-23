@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 import { Listado_Solicitud_Medico } from '../../Models/Nupre/Listado_Solicitud_Medico';
-import { Profesional_titulacion } from '../../Models/Nupre/Profesional_titulacion';
+import { Profesional_Listado_titulacionDTO, Profesional_titulacion } from '../../Models/Nupre/Profesional_titulacion';
 
 @Component({
   selector: 'app-nupre-registrar-documentacion',
@@ -16,6 +16,8 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
   public tituloNombre!: string;
   public tituloProfesion: boolean = false;
 
+
+  public listadoDto: Profesional_Listado_titulacionDTO[] = [];
 
 
   public listado: Profesional_titulacion[] = [];
@@ -38,8 +40,9 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
   }
 
   consultarListadoTitulacion(solicitud_numero: number) {
-    this.servicio.listadoTitulacionPorSolicitud(solicitud_numero).subscribe((resp: Profesional_titulacion[]) => {
-      this.listado = resp;
+    this.servicio.listadoTitulacionPorSolicitud(solicitud_numero).subscribe((resp: Profesional_Listado_titulacionDTO[]) => {
+      this.listadoDto = resp;
+      console.log(this.listado);
       if (this.listado.length > 0) {
         this.tituloProfesion = true;
       }

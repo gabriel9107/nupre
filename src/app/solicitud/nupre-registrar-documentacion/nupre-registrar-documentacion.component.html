@@ -21,29 +21,30 @@
     <div class="col-w9">
         <div class="register_list">
 
+            @for (item of listadoDto; track $index) {
             <div class="register animate__animated animate__fadeIn list">
                 <div class="cel ">
                     <strong class="title">
                         <!-- Profesion - Medico General -->
-                        Especialidad : Medico Especialista
+                        Titulo : {{item.especialidad_Descripcion}}
                         <!-- {{listado.enfermedad_Padecimiento}} - {{listado.tipodelicencia}} -->
 
                     </strong>
 
 
                     <!-- <span class="status-label approved">
-                  ({{listado.estado_Descripcion}})
-                </span> -->
+                      ({{listado.estado_Descripcion}})
+                    </span> -->
 
 
                     <div class="relates">
-                        <span><i class="far fa-calendar"></i> Fecha Registro: </span>
+                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha}} </span>
 
                         <span><i class="far fa-calendar"></i> Fecha
-                            del titulo: </span>
+                            del titulo: {{item.especialidad_Periodo}} </span>
 
                         <span>
-                            <i class="far fa-calendar"></i> Estatus Solicitud: </span>
+                            <i class="far fa-calendar"></i> Estatus Solicitud: {{item.registro_Estado}}</span>
 
 
 
@@ -62,9 +63,9 @@
                         <i class="fas fa-eye"></i>
                     </button>
                     <!-- <button class="outline-btn icon tooltip  open-modal" data-tooltip="Ver Detalle" data-target="Detail_form"
-              (click)="getdetailLicencia(listado)">
-              <i class="fas fa-eye"></i>
-            </button> -->
+                  (click)="getdetailLicencia(listado)">
+                  <i class="fas fa-eye"></i>
+                </button> -->
                 </div>
                 <div class="cel" id="btns">
                     <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro">
@@ -74,6 +75,8 @@
 
 
             </div>
+            }
+
         </div>
 
 

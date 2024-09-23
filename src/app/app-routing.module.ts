@@ -7,6 +7,7 @@ import { SolicitudesFormComponent } from './solicitud/detalle-basico/solicitudes
 import { AsociacionesComponent } from './solicitud/asociaciones/asociaciones.component';
 import { NupreSometerSolicitudComponent } from './solicitud/nupre-someter-solicitud/nupre-someter-solicitud.component';
 import { FormularioSolicitudComponent } from './solicitud/formulario-solicitud/formulario-solicitud.component';
+import { FormularioComponent } from './solicitud/asociaciones/formulario/formulario.component';
 
 
 
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'Asociaciones/:id',
     component: AsociacionesComponent
+  },
+  {
+    path: 'RegistrarAsociacion:id',
+    component: FormularioComponent
   },
   {
     path: 'SometerSolicitud/:id',

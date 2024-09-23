@@ -20,8 +20,8 @@ export class EditarFormularioSolicitudComponent implements OnInit {
   }
 
   GuardarSolicitud(solicitud: solicitudCreacionDTO) {
- 
-    this.router.navigate(['/Solicitudes']);
+
+    this.router.navigate(['/RegistrarAsociacion/' + solicitud + '/']);
 
   }
 }

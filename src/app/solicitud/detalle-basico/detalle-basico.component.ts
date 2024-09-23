@@ -55,8 +55,8 @@ export class DetalleBasicoComponent implements OnInit {
     private progressBarService: ProgressBarService
   ) {
     let params: any = this.activedRoute.snapshot.params;
-    // this.solicitudId   this.solicitudId = params.id;= params.id;
-    this.solicitudId = 3;
+    this.solicitudId = params.id;
+    // this.solicitudId = 3;
   }
 
 

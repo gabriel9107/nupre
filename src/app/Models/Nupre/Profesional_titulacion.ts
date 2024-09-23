@@ -11,6 +11,17 @@ export class Profesional_titulacion {
 }
 
 
+export class Profesional_Listado_titulacionDTO {
+    public solicitud_Numero!: number;
+    public especialidad_Descripcion!: string;
+    public registro_Fecha!: Date;
+    public registro_Estado!: string;
+    public especialidad_Periodo!: string;
+    public sspecialidad_Tipo_Numero!: string;
+
+}
+
+
 export class Profesional_TitulacionDTO {
     public Solicitud_Numero!: number;
     public Especialidad_Tipo_Numero!: number;
