@@ -32,8 +32,22 @@ export let urlNupre = {
 
 
     },
+    asociaciones: {
+
+        crearSolicitudAsociaciones: environment.baseUrlLocal + "asociaciones/",
+
+
+        obtener_tipo_Asociaciones: environment.baseUrlLocal + "asociaciones/obtenerListadoAsociaciones",
+        obterAsociacion: environment.baseUrlLocal + "asociacion/obtenerAsociacionesPorId",
+
+        obtenerListadoAsociaciones: environment.baseUrlLocal + "asociaciones/ListadoAsociaciones"
+
+    },
+
+
     Utilidades: {
         obtener_Profesionales_Estado_Solicitudes: environment.baseUrlLocal + "utilidades/obtenerListadoEstado",
         obtener_Profesionales_Estado_Solicitudes_Descripcion: environment.baseUrlLocal + "utilidades//ObtenerDescripcionEstado/",
     }
+
 }

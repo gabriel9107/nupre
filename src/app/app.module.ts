@@ -25,6 +25,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { NuevaSolicitudComponent } from './solicitud/nueva-solicitud/nueva-solicitud.component';
 import { FormularioSolicitudComponent } from './solicitud/formulario-solicitud/formulario-solicitud.component';
 import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulario-solicitud/editar-formulario-solicitud.component';
+import { FormularioComponent } from './solicitud/asociaciones/formulario/formulario.component';
 
 
 
@@ -46,7 +47,8 @@ import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulari
     NupreSometerSolicitudComponent,
     AsociacionesComponent,
     FormularioSolicitudComponent,
-    EditarFormularioSolicitudComponent
+    EditarFormularioSolicitudComponent,
+    FormularioComponent
 
   ],
   imports: [

@@ -40,7 +40,7 @@ const routes: Routes = [
     component: AsociacionesComponent
   },
   {
-    path: 'RegistrarAsociacion:id',
+    path: 'RegistrarAsociacion',
     component: FormularioComponent
   },
   {

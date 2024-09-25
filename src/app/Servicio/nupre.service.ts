@@ -13,6 +13,7 @@ import { Profesionales_Estado_Solicitud } from "../Models/Profesionales_Estado_S
 import { Solicitudes_Estados } from "../Models/Solicitudes_Estados";
 import { Profesionales_Solicitudes_Filtro_Listado } from "../Models/Profesionales_Solicitudes_Filtro_Listado";
 import { Profesional_Listado_titulacionDTO, Profesional_titulacion, Profesional_TitulacionDTO } from "../Models/Nupre/Profesional_titulacion";
+import { CrearProfesionalesAsociaciones_DTO, ProfesionalesAsociaciones, ProfesionalesAsociacionesTipoCata } from "../Models/asosiaciones";
 
 @Injectable({
     providedIn: 'root'
@@ -138,6 +139,10 @@ export class NupreService {
 
 
     }
+
+
+
+
 
     private constuirFormData(solicitud: solicitudCreacionDTO) {
 
@@ -327,6 +332,22 @@ export class NupreService {
         return this.http.get<Profesional_Listado_titulacionDTO[]>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + numero_solcitiud)
     }
 
+
+    //Asociaciones 
+
+    obtenerListadoAsociaciones(): Observable<ProfesionalesAsociacionesTipoCata[]> {
+        return this.http.get<ProfesionalesAsociacionesTipoCata[]>(urlNupre.asociaciones.obtener_tipo_Asociaciones);
+    }
+
+    guardarAsociacion(param: CrearProfesionalesAsociaciones_DTO) {
+        const formData = new FormData();
+
+
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+        return this.http.post(urlNupre.asociaciones.crearSolicitudAsociaciones, formData, { headers: headers })
+    }
 
 
 

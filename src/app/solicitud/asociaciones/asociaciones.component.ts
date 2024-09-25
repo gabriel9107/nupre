@@ -30,7 +30,7 @@ export class AsociacionesComponent implements OnInit {
 
   NuevaAsociacion(solicitud_numero: string) {
 
-    this.router.navigate(['/Solicitudes']);
+    this.router.navigate(['/RegistrarAsociacion/']);
   }
 
   listDeAsociaciones() {
