@@ -17,9 +17,14 @@ import { HttpClient } from '@angular/common/http';
 export class FormularioSolicitudComponent implements OnInit {
 
 
+  public textoBase = "Ingrese el NSS o cédula del Profesional Medico  y luego presione el botón con la lupa para poder registrar las informaciones relacionadas";
+
   public datatosCiudadano!: ciudadano_consulta_DTOs
   public cedula!: File;
   public certificado!: File
+  public validaIdentidad = false;
+  public TextIdentidad = this.textoBase;
+
 
   public files: File[] = [];
 
@@ -58,7 +63,7 @@ export class FormularioSolicitudComponent implements OnInit {
       nacionalidad_Numero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       municipio_Numero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       profesional_Direccion: ['', { Validators: [Validators.required, Validators.minLength(7)] }],
-      profesional_Telefono1: ['', { Validators: [Validators.required] }],
+      profesional_Telefono1: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]), //['', { Validators: [Validators.required] }],
       profesional_Telefono2: '',
       profesional_Telefono3: '',
       profesional_Mail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]],
@@ -91,13 +96,23 @@ export class FormularioSolicitudComponent implements OnInit {
 
       this.AsignarValores(res);
     }, error => {
+
+
       this.limpiarValueNSS(error.error)
+
+
+
+      this.validaIdentidad = true;
+      this.TextIdentidad = this.textoBase;
+
     })
   }
 
 
   public AsignarValores(res: ciudadano_consulta_DTOs) {
 
+    console.log('verificando resultado')
+    console.log(res)
     this.form.patchValue({
       // profesionalDocumento: res.ciudadanoNoDocumento,
       profesional_Nombre_Completo: res.ciudadanoNombreCompleto,
@@ -107,6 +122,11 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
     })
+    if (res.ciudadanoNombreCompleto != "")
+
+
+      this.validaIdentidad = false;
+    this.TextIdentidad = this.textoBase;
 
   }
 

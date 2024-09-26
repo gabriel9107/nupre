@@ -8,11 +8,12 @@
 </style>
 
 
-<div class="add-choices" *ngIf="tituloProfesion">
+<div class="add-choices" *ngIf="asociaciones == false">
 
-    <div class="block" (click)="NuevaAsociacion(this.solicitudId)">
-        <h4><i class="fas fa-edit"></i> Títulos de Profesiones </h4>
-        <span>Registre los datos relacionados al medico (Copia del titulo , Copia de Exequátu ).</span>
+    <div class="block" (click)="NuevaAsociacion()">
+        <h4><i class="fas fa-edit"></i> Agregar Asociaciones </h4>
+        <span>Registre los datos relacionados a las Asociaciones a las que pertenece
+        </span>
     </div>
 </div>
 
@@ -21,49 +22,30 @@
     <div class="col-w9">
         <div class="register_list">
 
-            @for (item of listadoDto; track $index) {
+            @for (item of listado; track $index) {
             <div class="register animate__animated animate__fadeIn list">
-                <div class="cel ">
+                <div class="cel">
                     <strong class="title">
-                        <!-- Profesion - Medico General -->
-                        Titulo : {{item.especialidad_Descripcion}}
-                        <!-- {{listado.enfermedad_Padecimiento}} - {{listado.tipodelicencia}} -->
-
+                        Asociacion : {{item.profesional_Asociacion_Codigo}}
                     </strong>
-
-
-                    <!-- <span class="status-label approved">
-                      ({{listado.estado_Descripcion}})
-                    </span> -->
-
+                    <span class="status-label approved">
+                        Registro Patronal : ({{item.asociacion_Registro_Patronal}})
+                    </span>
 
                     <div class="relates">
                         <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha}} </span>
-
                         <span><i class="far fa-calendar"></i> Fecha
-                            del titulo: {{item.especialidad_Periodo}} </span>
-
+                            del titulo: {{item.asociacion_Asociado_Estado_Nota}} </span>
                         <span>
                             <i class="far fa-calendar"></i> Estatus Solicitud: {{item.registro_Estado}}</span>
-
                     </div>
-
-
-
                 </div>
-
-
-
 
                 <div class="cel" id="btns">
                     <button class="outline-btn icon tooltip  open-modal" data-tooltip="Ver Detalle"
                         data-target="Detail_form">
                         <i class="fas fa-eye"></i>
                     </button>
-                    <!-- <button class="outline-btn icon tooltip  open-modal" data-tooltip="Ver Detalle" data-target="Detail_form"
-                  (click)="getdetailLicencia(listado)">
-                  <i class="fas fa-eye"></i>
-                </button> -->
                 </div>
                 <div class="cel" id="btns">
                     <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro">
@@ -79,19 +61,13 @@
 
 
     </div>
-    <div class="col-w3 info-section">
+    <div class="col-w3 info-section" *ngIf="asociaciones == true">
         <div class="block m-top">
             <h4>Acciones</h4>
             <div class="form-field">
-                <button class="default-btn rounded " (click)="NuevaAsociacion(this.solicitudId)">
+                <button class="default-btn rounded " (click)="NuevaAsociacion()">
 
-                    <i class="fas fa-edit"></i> Agregar Asociacion
-                </button>
-            </div>
-            <div class="form-field">
-                <button class="default-btn rounded " (click)="NuevaAsociacion(this.solicitudId)">
-
-                    <i class="fas fa-edit"></i> Agregar Localidad
+                    <i class="fas fa-edit"></i> Agregar Especialidad
                 </button>
             </div>
 

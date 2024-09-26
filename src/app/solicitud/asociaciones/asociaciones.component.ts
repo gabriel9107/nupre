@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Profesional_Listado_titulacionDTO } from '../../Models/Nupre/Profesional_titulacion';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NupreService } from '../../Servicio/nupre.service';
+import { ProfesionalesAsociaciones } from '../../Models/asosiaciones';
 
 @Component({
   selector: 'app-asociaciones',
@@ -13,9 +14,12 @@ import { NupreService } from '../../Servicio/nupre.service';
 export class AsociacionesComponent implements OnInit {
 
 
-  public tituloProfesion: boolean = false;
+
+  public asociaciones: boolean = false;
+  public localidades: boolean = false;
   public solicitudId!: string;
-  public listadoDto: Profesional_Listado_titulacionDTO[] = [];
+  public listado: ProfesionalesAsociaciones[] = [];
+
   public loading: boolean = false;
 
   ngOnInit(): void {
@@ -26,11 +30,15 @@ export class AsociacionesComponent implements OnInit {
   constructor(public activedRoute: ActivatedRoute,
     private router: Router, private servicio: NupreService, private formBuider: FormBuilder, private http: HttpClient,) {
 
+    let params: any = this.activedRoute.snapshot.params;
+
+    this.solicitudId = params.id
+
   }
 
-  NuevaAsociacion(solicitud_numero: string) {
+  NuevaAsociacion() {
 
-    this.router.navigate(['/RegistrarAsociacion/']);
+    this.router.navigate(['/RegistrarAsociacion/' + this.solicitudId]);
   }
 
   listDeAsociaciones() {

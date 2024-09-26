@@ -39,7 +39,7 @@ export class FormularioComponent implements OnInit {
       private router: Router, private servicio: NupreService
     ) {
     let params: any = this.activedRoute.snapshot.params;
-    // this.solicitudId = params.id;
+    this.solicitudId = params.id;
 
   }
 
@@ -133,18 +133,16 @@ export class FormularioComponent implements OnInit {
     let param = new CrearProfesionalesAsociaciones_DTO();
     param.solicitud_Numero = this.solicitudId;
 
-    param.asociacion_Codigo = this.form.get('asociacion_Numero')?.value
-    param.profesional_Asociacion_Codigo = this.form.get('profesional_Asociacion_Codigo')?.value
+    param.asociacion_Codigo = this.registroAsociaciones.get('asociacion_Numero')?.value
+    param.profesional_Asociacion_Codigo = this.registroAsociaciones.get('profesional_Asociacion_Codigo')?.value
     param.Documento = this.certificado;
     return param;
   }
 
   guardarSolicitud() {
-    if (this.form.invalid) {
-
-    }
 
     let param = this.obtenerParametros();
+    console.log(param);
 
     this.servicio.guardarAsociacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])

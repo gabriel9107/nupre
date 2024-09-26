@@ -342,6 +342,12 @@ export class NupreService {
     guardarAsociacion(param: CrearProfesionalesAsociaciones_DTO) {
         const formData = new FormData();
 
+        formData.append('solicitud_Numero', String(param.solicitud_Numero));
+        formData.append('asociacion_Numero', String(param.profesional_Asociacion_Codigo));
+        formData.append('profesional_Asociacion_Codigo', String(param.asociacion_Codigo));
+        formData.append('Documento', param.Documento);
+
+
 
         const headers = new HttpHeaders({
             'Accept': 'application/json'

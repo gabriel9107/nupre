@@ -32,6 +32,12 @@
                     <input #profesionalDocumento formControlName="profesional_Documento" type="text"
                         class="input form-input" (keyup.enter)="buscarDatosAfiliado(profesionalDocumento.value)">
                 </div>
+                <div class="blue-alert" *ngIf="validaIdentidad">
+                    <div class="content">
+                        <p><i class="fas fa-info-circle"></i> {{TextIdentidad}}
+                        </p>
+                    </div>
+                </div>
 
                 <div class="form-field">
                     <strong class="caption">Nombre Completo</strong>
@@ -98,8 +104,8 @@
                 <div class="row form-field">
                     <div class="col-w6">
                         <strong class="caption"> Celular :<span class="required-field">*</span>: </strong>
-                        <input type="text" formControlName="profesional_Telefono1" mask="(000) 000-0000"
-                            class="input form-input">
+                        <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono1"
+                            mask="(000) 000-0000" class="input form-input">
 
                     </div>
                     <div class="col-w6">

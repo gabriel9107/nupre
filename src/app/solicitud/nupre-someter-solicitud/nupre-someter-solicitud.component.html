@@ -1,1 +1,90 @@
-<p>nupre-someter-solicitud works!</p>
+<div class="skeleton slst animate__animated animate__fadeIn" *ngIf="loading">
+    <h3 class="color-accent">Estamos procesando su solicitud. Por favor, espere...</h3>
+    <div class="tpln clm2 fd">
+        <div><span class="sqr"></span></div>
+        <div><span class="rnd"></span><span class="ln"></span><span class="rnd"></span>
+        </div>
+    </div>
+    <div class="lst fd">
+        <div class="sqr wd mhg wvs pst"></div>
+        <div class="sqr wd mhg wvs pst"></div>
+        <div class="sqr wd mhg wvs pst"></div>
+    </div>
+</div>
+<div *ngIf="!loading">
+    <h3 class="color-accent">Resumen de Solicitud - Pendientes de Someter</h3>
+
+    <div class="yellow-alert" *ngIf="!checkTitulos">
+        <div class="content has-icon">
+            <div class="icon"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="text">Debe completar el registro de titulos antes de someter esta solicitud.</div>
+        </div>
+    </div>
+
+    <div class="yellow-alert" *ngIf="checkTitulos && !checkAsociaciones">
+        <div class="content has-icon">
+            <div class="icon"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="text">Debe de cargar el documento en el registro de la licencia antes de someter esta solicitud
+            </div>
+        </div>
+    </div>
+
+
+    <section class="block-section">
+        <p>La fecha de creacion de la solicitud es el <strong>{{fechasolicitud | date: 'dd MMM yyyy'}}</strong>. </p>
+        <p>Afiliado <strong>{{afiliado_Nombre_Completo}}</strong> Cédula <strong>{{afiliado_Celular}}</strong>.
+        </p>
+    </section>
+    <!-- <section class="block-section">
+      <h4>1. Envío de informe de Enfermedad - <span class="color-accent">
+        Compleado
+      </span></h4>
+  </section> -->
+    <section class="block-section">
+        <h4 style="margin-bottom: -10px">Registro de  Asociaciones a las que pertenece            -
+            <span *ngIf="checkAsociaciones && checkTitulos" class="color-accent">Completado</span>
+            <span *ngIf="!checkAsociaciones || !checkTitulos" class="color-red">No completado</span>
+
+
+        </h4>
+        <!-- <div class="register " *ngFor="let listado of listadoAsociacion">
+            <p><strong> No. {{listado.enfermedad_Licencia_Secuencia}} </strong> el tipo de licencia registrado es
+                <strong>{{listado.tipodelicencia}} </strong> Modalidad <strong> ({{listado.modalidad}})</strong>
+            </p>
+            <ul>
+                <li>Fecha de diagnóstico: {{listado.solicitud_Diagnostico_Fecha | date:
+                    'dd MMM yyyy'}}</li>
+                
+
+                <li> Certificado médico -
+                    <span
+                        *ngIf="(listado.estado_Numero === 1 || listado.estado_Numero === 16) &&  (listado.certificadoMedicoImagen?.length ?? 0) <= 0 "
+                        class="color-red">No completado - Debe cargar el certificado médico antes de someter esta
+                        solicitud</span>
+                    <span *ngIf="(listado.certificadoMedicoImagen?.length ?? 0) > 0 "
+                        class="color-accent">Completado</span>
+                </li>
+
+                <li> Formulario de solicitud de Subsidio -
+                    <span
+                        *ngIf="(listado.estado_Numero === 1 || listado.estado_Numero === 16) &&  (listado.formularioImagen?.length ?? 0) <= 0 "
+                        class="color-red">No completado - Debe cargar el formulario de solicitud de subsidios antes de
+                        someter esta solicitud</span>
+                    <span *ngIf="(listado.formularioImagen?.length ?? 0) > 0 " class="color-accent">Completado</span>
+                </li>
+            </ul>
+        </div> -->
+    </section>
+    <section class="block-section">
+        <h4>Solicitud Enviadad -
+            <span *ngIf="checkAsociaciones && checkTitulos" class="color-accent">Completado</span>
+            <span *ngIf="!checkAsociaciones || !checkTitulos" class="color-grey">No enviada</span>
+        </h4>
+    </section>
+
+    <div class="bottom-btn" *ngIf="checkAsociaciones && checkTitulos">
+        <button [disabled]="this.submitCliked" class="primary-btn glow rounded lg-btn" (click)="Someter()">Enviar
+            solicitud</button>
+    </div>
+
+</div>
