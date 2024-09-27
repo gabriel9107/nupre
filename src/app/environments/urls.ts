@@ -9,8 +9,10 @@ export let urlNupre = {
         crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
 
         crearSolicitudprueba: environment.baseUrlLocal + "solicitudes/prueba",
+
+        obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudes/obtenerSolicitud/",
         obtenerTodasLasSolicitudes: environment.baseUrl + "solicitudes",
-        obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudesFiltro",
+
 
         getDetalleSolicitud: environment.baseUrlLocal + "solicitudes/obtenerSolicitudPorId/",
 

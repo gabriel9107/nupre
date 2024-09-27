@@ -26,6 +26,8 @@ import { NuevaSolicitudComponent } from './solicitud/nueva-solicitud/nueva-solic
 import { FormularioSolicitudComponent } from './solicitud/formulario-solicitud/formulario-solicitud.component';
 import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulario-solicitud/editar-formulario-solicitud.component';
 import { FormularioComponent } from './solicitud/asociaciones/formulario/formulario.component';
+import { Listado_Solicitud_Medico } from './Models/Nupre/Listado_Solicitud_Medico';
+import { ListaSolicitudesComponent } from './solicitud/lista-solicitudes/lista-solicitudes.component';
 
 
 
@@ -39,6 +41,7 @@ import { FormularioComponent } from './solicitud/asociaciones/formulario/formula
 @NgModule({
   declarations: [
     AppComponent, FooterComponet,
+    ListaSolicitudesComponent,
     DetalleBasicoComponent,
     NuevaSolicitudComponent,
     SolicitudesFormComponent,

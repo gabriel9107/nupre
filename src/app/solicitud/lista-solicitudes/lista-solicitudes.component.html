@@ -7,7 +7,7 @@
 
     <div class="body-content">
         <div class="reg_wrapper">
-            <form class="header_list">
+            <form [formGroup]="this.busquedaForm" class="header_list">
                 <div id="bread-crumbs">
                     <div class="container">
                         <ul class="no-style">
@@ -28,7 +28,7 @@
                                         placeholder="Buscar solicitud" />
                                 </div>
                                 <div class="addons button-icon">
-                                    <button (click)="GetSolicitudes(true)"><i class="fas fa-search"></i></button>
+                                    <button (click)="getApplications(true)"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
 
@@ -170,7 +170,7 @@
                                             <span><i class="far fa-calendar"></i> Fecha de registro:
                                                 {{item.solicitud_Fecha }}</span>
 
-                                            <span *ngIf="details?.estado_Numero! > 0"><i
+                                            <span *ngIf="item.solicitud_Estado_Numero"><i
                                                     class="far fa-accessible-icon"></i>
                                                 Solicitud Estado:
                                                 <!-- <span *ngIf="listado?.lactancia_Estado_Numero == 17" class="color-red">

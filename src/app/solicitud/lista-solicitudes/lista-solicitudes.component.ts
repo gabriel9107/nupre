@@ -3,15 +3,19 @@ import { Component, CSP_NONCE, OnInit } from '@angular/core';
 
 
 import { Solicitudes_listado } from '../../Models/Solicitudes_Listado';
-import { Listado_Solicitud_Medico, Solicitud_basic_Informacion_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
+import { Listado_Solicitud_Medico, Profesionales_Filtro_Listado, Solicitud_basic_Informacion_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Solicitudes_Estados } from '../../Models/Solicitudes_Estados';
-import { Router, Routes } from '@angular/router';
+import { Router, Routes, Params } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { Pipe, PipeTransform } from '@angular/core';
 import { Profesionales_Estado_Solicitud } from '../../Models/Profesionales_Estado_Solicitud';
+import { FiltroBase } from '../../Models/FiltroBase';
+
+import { User } from '../../auth/User';
+import getUserInfo from '../../auth/JWT';
 
 
 @Component({
@@ -39,32 +43,9 @@ export class ListaSolicitudesComponent implements OnInit {
   public ErrorMessage: string = '';
 
 
+  public currentUser: User | undefined;
+  public empresa: boolean = false;
 
-  paginate: any =
-    {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: 0
-    };
-  public listyear: any[] = [
-    { year: (new Date()).getFullYear() - 1 },
-    { year: (new Date()).getFullYear() },
-  ];
-
-  constructor(private fb: FormBuilder, private router: Router, private servicio: NupreService) {
-
-
-
-  }
-
-
-
-
-
-  ngOnInit(): void {
-    this.buscarSolicitudes();
-    this.obtenerEstados();
-  }
 
   createFormActive() {
     this.busquedaForm = this.fb.group({
@@ -77,6 +58,44 @@ export class ListaSolicitudesComponent implements OnInit {
       fechaFin: new Date().toISOString().slice(0, 10),
     });
   }
+
+
+  public filtro: FiltroBase = {
+    draw: 1,
+    PageIndex: 0,
+    PageSize: 10,
+    Cantidad_Registros: 0,
+  }
+
+  paginate: any =
+    {
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: 0
+    };
+  public listyear: any[] = [
+    { year: (new Date()).getFullYear() - 1 },
+    { year: (new Date()).getFullYear() },
+  ];
+
+
+  constructor(private fb: FormBuilder, private router: Router, private servicio: NupreService) {
+
+
+    this.createFormActive();
+  }
+
+
+
+
+
+  ngOnInit(): void {
+    this.currentUser = getUserInfo();
+    this.buscarSolicitudes();
+    this.obtenerEstados();
+  }
+
+
 
 
   public nuevasolicitud() {
@@ -93,9 +112,10 @@ export class ListaSolicitudesComponent implements OnInit {
     console.log('funcion pendeinte para exportar a excel');
   }
 
-  buscarSolicitudes() {
+  buscarSolicitudes(btntype = false, changeEstado = false) {
 
-    console.log('listado de solicitudes')
+    // var parameter = this.getfilterparamters();
+
     this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
       console.log(res);
       this.loading = true;
@@ -116,15 +136,26 @@ export class ListaSolicitudesComponent implements OnInit {
 
 
 
-  getParamFiltro() {
-    let param = "";
+  getfilterparamters() {
+    let param = new Profesionales_Filtro_Listado;
     let statusnumber = 0;
 
+    param.AnioInicio = this.busquedaForm.get('fechaInicio')?.value;
+    param.AnioFin = this.busquedaForm.get('fechaFin')?.value;
     let validarstatus = document.querySelector('input[name="tipoest"]:checked');
     if (validarstatus) {
       statusnumber = Number((validarstatus as HTMLInputElement).value);
     }
 
+
+    param.draw = this.filtro.draw!;
+    param.PageIndex = this.filtro.PageIndex;
+    param.Estado_Numero = statusnumber;
+    param.Cantidad_Registros = this.filtro.Cantidad_Registros;
+
+    param.Search = this.busquedaForm.get('Search')?.value;
+    this.filtro.PageSize = this.busquedaForm.get('pagesize')?.value;
+    param.PageSize = this.filtro.PageSize;
     return param;
   }
   public ValidadFiltros(btntype = false) {
@@ -146,10 +177,36 @@ export class ListaSolicitudesComponent implements OnInit {
   public pageIndexChange(draw: any) {
 
   }
+
+  public getApplications(btntype = false, changeEstado = false) {
+    var parameter = this.getfilterparamters()
+    this.loading = true;
+
+    if (btntype) {
+      parameter.draw = 1;
+      this.filtro.draw = 1
+    }
+
+    // if (this.currentUser!.UsuarioRegistroPatronal > 0) {
+    //   this.empresa = true;       
+    // }
+
+    this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
+      console.log(res);
+      this.details = res;
+
+    });
+
+
+  }
+
+  // Busqueda de solicitudes en la ventana princial 
   public GetSolicitudes(btntype = false) {
-    var parameter = this.getParamFiltro()
+
+    var parameter = this.getfilterparamters()
     this.loading = false;
-    this.loading2 = true;
+
+
 
 
     // this.servicio.getSolicitudesListadoFiltro(parameter).subscribe()

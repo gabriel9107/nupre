@@ -2,8 +2,8 @@ import { Injectable, signal } from "@angular/core";
 import { Observable, from, map, retry, tap } from "rxjs";
 import { Solicitudes_listado } from '../Models/Solicitudes_Listado';
 import { urlNUPRE } from '../rutas/Rutas';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Listado_Solicitud_Medico, Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO, Solicitud_Medico_Detalle_View, Solicitud_MedicoCreacionDTO, Solicitud_MedicoCreacionPruebaDTO, solicitudCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Listado_Solicitud_Medico, Profesionales_Filtro_Listado, Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO, Solicitud_Medico_Detalle_View, Solicitud_MedicoCreacionDTO, Solicitud_MedicoCreacionPruebaDTO, solicitudCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
 import { environment } from "../environments/environment";
 import { Municipio, Nacionalidad, Provincias } from '../Models/Nupre/comun_models';
 import { ciudadano_consulta_DTOs } from "../Models/Nupre/ciudadano_mastert";
@@ -14,6 +14,9 @@ import { Solicitudes_Estados } from "../Models/Solicitudes_Estados";
 import { Profesionales_Solicitudes_Filtro_Listado } from "../Models/Profesionales_Solicitudes_Filtro_Listado";
 import { Profesional_Listado_titulacionDTO, Profesional_titulacion, Profesional_TitulacionDTO } from "../Models/Nupre/Profesional_titulacion";
 import { CrearProfesionalesAsociaciones_DTO, ProfesionalesAsociaciones, ProfesionalesAsociacionesTipoCata } from "../Models/asosiaciones";
+import { JsonPipe } from "@angular/common";
+import { Params } from '@angular/router';
+import { Header } from "primeng/api";
 
 @Injectable({
     providedIn: 'root'
@@ -223,7 +226,7 @@ export class NupreService {
     // public getSolicitudesListadoFiltro(param: Profesionales_Solicitudes_Filtro_Listado): Observable<any> {
     public getSolicitudesListadoFiltro(param: any): Observable<any> {
         var myJsonString = JSON.stringify(param);
-        return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas, { headers: this.httpOptions.headers });
+        return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas + param, { headers: this.httpOptions.headers });
 
     }
 
@@ -264,6 +267,55 @@ export class NupreService {
     getAllSoliciudes(): Observable<Listado_Solicitud_Medico[]> {
         return this.http.get<Listado_Solicitud_Medico[]>('https://localhost:7035/solicitudes');
     }
+
+    // getApplications(param: Profesionales_Filtro_Listado): Observable<Listado_Solicitud_Medico[]> {
+    //     var myjsonreuslt = JSON.stringify(param);
+    //     return this.http.get<Listado_Solicitud_Medico[]>('https://localhost:7035/solicitudes', myjsonreuslt, { headers: this.httpOptions.headers });
+    // }
+
+
+    getApplications(filtro: Profesionales_Filtro_Listado): Observable<Listado_Solicitud_Medico[]> {
+
+
+
+        const params = new HttpParams()
+            .set('draw', filtro.draw!)
+            .set('pageIndex', filtro.PageIndex!)
+            .set('pageSize', filtro.PageSize!)
+            .set('cantidad_Registros', filtro.Cantidad_Registros!)
+
+            .set('orderBy0', filtro.orderBy0!)
+            .set('search', filtro.Search!)
+            .set('empleador_Registro_Patronal', filtro.Empleador_Registro_Patronal!)
+            .set('cedula', filtro.Cedula!)
+            .set('nombre', filtro.Nombre!)
+            .set('estado_Numero', filtro.Estado_Numero!)
+            .set('anioInicio', filtro.AnioInicio!)
+            .set('anioFin', filtro.AnioFin!)
+            .set('solicitud_Numero', filtro.Solicitud_Numero!);
+
+
+
+        // var formData = new FormData();
+
+        // formData.append('AnioFin', filtro.AnioFin!)
+
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+
+
+        return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas,
+            {
+                params: params
+                // headers: headers
+                // params: filtro, 
+            });
+
+
+    }
+
 
 
     obtenerListadoDeProfesiones(tipo: number): Observable<Especialidades[]> {

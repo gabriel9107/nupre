@@ -1,3 +1,5 @@
+import { FiltroBase } from "../FiltroBase"
+
 export class Listado_Solicitud_Medico {
     profesionales_SolicitudesTranId?: number
     solicitud_Numero?: number
@@ -26,6 +28,16 @@ export class Listado_Solicitud_Medico {
     registro_Fecha?: string
 }
 
+
+export class Profesionales_Filtro_Listado extends FiltroBase {
+    public Empleador_Registro_Patronal?: number;
+    public Cedula?: string;
+    public Nombre?: string;
+    public Estado_Numero?: number;
+    public AnioInicio?: string;
+    public AnioFin?: string;
+    public Solicitud_Numero?: string;
+}
 
 
 
