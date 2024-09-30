@@ -117,8 +117,7 @@ export class ListaSolicitudesComponent implements OnInit {
     // var parameter = this.getfilterparamters();
 
     this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
-      console.log(res);
-      this.loading = true;
+            
       this.details = res;
     }, error => {
       this.ValidarError = true;

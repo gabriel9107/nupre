@@ -3,10 +3,12 @@ import { Solicitud_MedicoCreacionDTO, Solicitud_MedicoCreacionPruebaDTO, solicit
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NupreService } from '../../Servicio/nupre.service';
-import { ciudadano_consulta_DTOs } from '../../Models/Nupre/ciudadano_mastert';
+import { ciudadano_consulta_DTOs, Ciudadano_FiltroDTO } from '../../Models/Nupre/ciudadano_mastert';
 import { Provincias_Cata } from '../../Models/Direccion';
 import { Nacionalidad, Provincias } from '../../Models/Nupre/comun_models';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../../auth/User';
+import getUserInfo from '../../auth/JWT';
 
 
 @Component({
@@ -24,6 +26,10 @@ export class FormularioSolicitudComponent implements OnInit {
   public certificado!: File
   public validaIdentidad = false;
   public TextIdentidad = this.textoBase;
+
+
+
+  public currentUser: User | undefined;
 
 
   public files: File[] = [];
@@ -45,7 +51,7 @@ export class FormularioSolicitudComponent implements OnInit {
   modelo!: solicitudCreacionDTO;
 
   ngOnInit(): void {
-
+    this.currentUser = getUserInfo();
 
 
     this.getProvinciasCata();
@@ -88,24 +94,40 @@ export class FormularioSolicitudComponent implements OnInit {
   public listSolicitud() {
     this.router.navigate(['/NUPRE']);
   }
-  buscarDatosAfiliado(no_cedula: any) {
+  buscarDatosAfiliado(no_cedula: string) {
+
+    let ciudadano: Ciudadano_FiltroDTO = {
+      cedula: no_cedula,
+      empleador_Registro_Patronal: this.currentUser?.UsuarioRegistroPatronal
+
+    }
 
 
-    this.servicio.getCiudadano(no_cedula).subscribe((res: ciudadano_consulta_DTOs) => {
+
+
+    this.servicio.obtenerCiudadanos(ciudadano).subscribe((res: ciudadano_consulta_DTOs) => {
+      // this.servicio.getCiudadano(no_cedula,).subscribe((res: ciudadano_consulta_DTOs) => {
       this.datatosCiudadano = res
 
       this.AsignarValores(res);
-    }, error => {
+    },
 
 
-      this.limpiarValueNSS(error.error)
+      error => {
+
+        console.log
+          (error)
+
+
+        this.limpiarValueNSS(error.error)
 
 
 
-      this.validaIdentidad = true;
-      this.TextIdentidad = this.textoBase;
+        this.validaIdentidad = true;
+        this.TextIdentidad = error.error;
+        //  this.textoBase;
 
-    })
+      })
   }
 
 

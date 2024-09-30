@@ -1,12 +1,14 @@
 export const actividad = {
-    Registrar_Solicitud: 28
-    , Registrar_Licencia: 29
-    , Registrar_Lactantes: 30
-    , Evaluacion: 31
-    , Evaluacion_Detallada: 32
-    , Aprobada: 33
-    , Rechazada: 34
-    , Pagada: 35
-    , SometerSolicitud: 36
-    , SometerLactantes: 37
+    Registrar_Solicitud: 1
+    , Registrar_titulos: 2
+    , Registrar_asociaciones: 3
+    , Registrar_localidades: 4
+    , SometerSolicitud: 5
+    , Someter_localidades: 6
+    , Evaluacion: 7
+    , Evaluacion_Detallada: 8
+    , Aprobada: 9
+    , Rechazo_parcial: 10
+    , Rechazada: 10
+
 }

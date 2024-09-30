@@ -30,3 +30,10 @@ export interface ciudadano_consulta_DTOs {
     registroUsuario: string
     registroFecha: string
 }
+
+
+export class Ciudadano_FiltroDTO {
+
+    empleador_Registro_Patronal?: number
+    cedula!: string
+}

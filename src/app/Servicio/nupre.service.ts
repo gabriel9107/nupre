@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Listado_Solicitud_Medico, Profesionales_Filtro_Listado, Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO, Solicitud_Medico_Detalle_View, Solicitud_MedicoCreacionDTO, Solicitud_MedicoCreacionPruebaDTO, solicitudCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
 import { environment } from "../environments/environment";
 import { Municipio, Nacionalidad, Provincias } from '../Models/Nupre/comun_models';
-import { ciudadano_consulta_DTOs } from "../Models/Nupre/ciudadano_mastert";
+import { ciudadano_consulta_DTOs, Ciudadano_FiltroDTO } from "../Models/Nupre/ciudadano_mastert";
 import { urlNupre } from "../environments/urls";
 import { Especialidades, Tipo_Especialidades } from "../Models/Nupre/Especialidades";
 import { Profesionales_Estado_Solicitud } from "../Models/Profesionales_Estado_Solicitud";
@@ -234,7 +234,52 @@ export class NupreService {
 
     // ----Informacion relacionada el empleador 
 
+    public obtenerCiudadanos(ciudadano: Ciudadano_FiltroDTO): Observable<ciudadano_consulta_DTOs> {
+
+        const params = new HttpParams()
+            .set('empleador_Registro_Patronal', ciudadano.empleador_Registro_Patronal!.toString())
+            .set('cedula', ciudadano.cedula!);
+
+
+
+        return this.http.get<ciudadano_consulta_DTOs>(urlNupre.ciudadano.obtenerCiudadano, {
+            params: params
+        })
+
+
+        // return this.http.post(urlNupre.ciudadano.obtenerCiudadano, ciudadano, {
+        //     headers: this.httpOptions.headers
+        // })
+    }
+
+    // obtenerCiudadanos(ciudadano: Ciudadano_FiltroDTO): Observable<ciudadano_consulta_DTOs> {
+    //     // const headers = new HttpHeaders({
+    //     //     'Accept': 'application/json'
+    //     // });
+    //     const formData = new FormData();
+
+    //     formData.append('cedula', ciudadano.cedula),
+    //         formData.append('empleador_Registro_Patronal', ciudadano.empleador_Registro_Patronal!.toString());
+
+    //     const headers = new HttpHeaders({
+    //         'Accept': 'application/json'
+    //     });
+
+
+
+
+    //     return this.http.post<ciudadano_consulta_DTOs>(urlNupre.ciudadano.obtenerCiudadano, formData, { headers: headers })
+    // }
+
+
+
+
     getCiudadano(No_cedula: any): Observable<ciudadano_consulta_DTOs> {
+
+
+
+
+
         return this.http.get<ciudadano_consulta_DTOs>('https://localhost:7035/utilidades/obtenerCiudadano/' + No_cedula)
     }
 

@@ -4,7 +4,12 @@ import { environment } from "./environment.desarrollo";
 
 export let urlNupre = {
 
+
+
+
     solicitudes: {
+
+
 
         crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
 
@@ -18,10 +23,15 @@ export let urlNupre = {
 
 
     },
+    ProgressBar: {
+        ProgressBar: environment.baseUrlLocal + "GetProgressBar",
+
+    },
 
     titulacion: {
         guardartitulacion: environment.baseUrlLocal + "titulacion/guardarTitulacion/",
         obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "titulacion/listadoTitulacion/",
+        
 
     },
     master: {
@@ -46,6 +56,9 @@ export let urlNupre = {
 
     },
 
+    ciudadano: {
+        obtenerCiudadano: environment.baseUrlLocal + "ciudadano/obtenerCiudadanoFiltro",
+    },
 
     Utilidades: {
         obtener_Profesionales_Estado_Solicitudes: environment.baseUrlLocal + "utilidades/obtenerListadoEstado",
