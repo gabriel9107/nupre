@@ -1,4 +1,5 @@
 import { FiltroBase } from "../FiltroBase"
+import { Profesionales_Estado_Solicitud } from "../Profesionales_Estado_Solicitud"
 
 export class Listado_Solicitud_Medico {
     profesionales_SolicitudesTranId?: number
@@ -16,6 +17,7 @@ export class Listado_Solicitud_Medico {
     profesional_Telefono3?: string
     profesional_Mail?: string
     solicitud_Estado_Numero?: number
+    // estado_Descripcion?: string
     solicitud_Estado_Fecha?: string
     solicitud_Estado_Nota?: string
     solicitud_Usuario_Cuenta?: string
@@ -26,6 +28,8 @@ export class Listado_Solicitud_Medico {
     registro_Estado?: string
     registro_Usuario?: string
     registro_Fecha?: string
+    solicitudEstadoNumeroNavigation?: Profesionales_Estado_Solicitud
+
 }
 
 

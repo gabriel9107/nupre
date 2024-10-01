@@ -114,16 +114,30 @@ export class ListaSolicitudesComponent implements OnInit {
 
   buscarSolicitudes(btntype = false, changeEstado = false) {
 
-    // var parameter = this.getfilterparamters();
+    var parameter = this.getfilterparamters();
 
-    this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
-            
+    //cambiando a implementar filtros 
+
+    this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
+
       this.details = res;
-    }, error => {
-      this.ValidarError = true;
-      this.loading = false;
-    }
-    )
+    },
+      error => {
+        this.ValidarError = true;
+        this.loading = false;
+      });
+
+
+
+    //funcional anteriormente 
+    // this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
+
+    //   this.details = res;
+    // }, error => {
+    //   this.ValidarError = true;
+    //   this.loading = false;
+    // }
+    // )
   }
 
   obtenerEstados() {
@@ -141,9 +155,11 @@ export class ListaSolicitudesComponent implements OnInit {
 
     param.AnioInicio = this.busquedaForm.get('fechaInicio')?.value;
     param.AnioFin = this.busquedaForm.get('fechaFin')?.value;
+    param.Empleador_Registro_Patronal = this.currentUser?.UsuarioRegistroPatronal;
     let validarstatus = document.querySelector('input[name="tipoest"]:checked');
     if (validarstatus) {
       statusnumber = Number((validarstatus as HTMLInputElement).value);
+      console.log(statusnumber);
     }
 
 

@@ -47,19 +47,19 @@
                             <section>
                                 <h4>Filtrar por estado</h4>
                                 <div class="register-list">
-                                    @for (item of TipoEstado; track item; let i = $index ) {
-                                    <div class="item">
+                                    <label class="form-rdb form-control">
+                                        <input type="radio" name="tipoest" id="idtypestatus" value="0" checked
+                                            (change)="GetSolicitudes()" />
+                                        <span class="elem"></span> Todos
+                                    </label>
+                                    <div class="item" *ngFor="let typestatus of TipoEstado">
                                         <label class="form-rdb form-control">
                                             <input type="radio" name="tipoest" id="idtypestatus"
-                                                value={{item.Profesional_Estado_Numero}} (change)="GetSolicitudes()" />
-                                            <span class="elem"></span> {{item.profesional_EstadoDescripcion}}
+                                                value={{typestatus.Profesional_Estado_Numero}}
+                                                (change)="GetSolicitudes()" />
+                                            <span class="elem"></span> {{typestatus.profesional_EstadoDescripcion}}
                                         </label>
                                     </div>
-                                    }
-
-
-
-
                                 </div>
                             </section>
                             <div class="bottom-btn">
@@ -180,7 +180,14 @@
                                             <!-- </span> -->
                                         </div>
                                     </div>
-
+                                    <div class="cel" id="statuslabel">
+                                        <span class="status pending"
+                                            *ngIf="item.solicitud_Estado_Numero===0 || item.solicitud_Estado_Numero===1 ||item.solicitud_Estado_Numero===8  ">{{item.solicitudEstadoNumeroNavigation?.profesional_EstadoDescripcion}}</span>
+                                        <span class="status approved"
+                                            *ngIf="item.solicitud_Estado_Numero===6 || item.solicitud_Estado_Numero===7">{{item.solicitudEstadoNumeroNavigation?.profesional_EstadoDescripcion}}</span>
+                                        <span class="status canceled"
+                                            *ngIf="item.solicitud_Estado_Numero===3  || item.solicitud_Estado_Numero===4  || item.solicitud_Estado_Numero===2">{{item.solicitudEstadoNumeroNavigation?.profesional_EstadoDescripcion}}</span>
+                                    </div>
                                     <div class="cel" id="statuslabel">
 
                                         <span class="status pending">
