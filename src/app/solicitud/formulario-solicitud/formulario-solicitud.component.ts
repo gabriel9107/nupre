@@ -179,6 +179,7 @@ export class FormularioSolicitudComponent implements OnInit {
 
   obtenerParametros() {
     var resultado = new Solicitud_MedicoCreacionPruebaDTO();
+
     resultado.profesional_Nombre_Completo = this.form.get('profesional_Nombre_Completo')?.value;
     resultado.profesional_Documento = this.form.get('profesional_Documento')?.value;
 
@@ -192,6 +193,9 @@ export class FormularioSolicitudComponent implements OnInit {
     resultado.profesional_Telefono3 = this.form.get('profesional_Telefono3')?.value;
     resultado.profesional_Mail = this.form.get('profesional_Mail')?.value;
     resultado.profesional_Telefono3 = this.form.get('profesional_Telefono3')?.value;
+
+    resultado.asociacion_Registro_Patronal = this.currentUser?.UsuarioRegistroPatronal;
+    resultado.solicitud_Usuario_Cuenta = this.currentUser?.UsuarioCuenta;
 
     resultado.archivo_Cedula = this.cedula
     resultado.archivo_Exequatur = this.certificado;

@@ -19,6 +19,7 @@ export class AsociacionesComponent implements OnInit {
   public localidades: boolean = false;
   public solicitudId!: string;
   public listado: ProfesionalesAsociaciones[] = [];
+  public Registrado : boolean = false; 
 
   public loading: boolean = false;
 

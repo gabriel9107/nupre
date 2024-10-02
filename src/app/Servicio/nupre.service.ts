@@ -109,7 +109,7 @@ export class NupreService {
 
 
         if (solicitud.profesional_Documento) {
-            formData.append('profesional_Documento', solicitud.profesional_Documento)
+            formData.append('profesional_Cedula', solicitud.profesional_Documento)
 
         }
         if (solicitud.profesional_Nombre_Completo) {
@@ -127,13 +127,12 @@ export class NupreService {
         if (solicitud.profesional_Exequatur) { formData.append('profesional_Exequatur', solicitud.profesional_Exequatur) }
         if (solicitud.profesional_Direccion) { formData.append('profesional_Direccion', solicitud.profesional_Direccion) }
         formData.append('municipio_Numero', "1")
-
-
-
         if (solicitud.profesional_Telefono1) { formData.append('profesional_Telefono1', solicitud.profesional_Telefono1) }
         if (solicitud.profesional_Telefono2) { formData.append('profesional_Telefono2', solicitud.profesional_Telefono2) }
         if (solicitud.profesional_Telefono3) { formData.append('profesional_Telefono3', solicitud.profesional_Telefono3) }
         if (solicitud.profesional_Mail) { formData.append('profesional_Mail', solicitud.profesional_Mail) }
+        if (solicitud.asociacion_Registro_Patronal) { formData.append('asociacion_Registro_Patronal', solicitud.asociacion_Registro_Patronal.toString()) }
+        if (solicitud.solicitud_Usuario_Cuenta) { formData.append('solicitud_Usuario_Cuenta', solicitud.solicitud_Usuario_Cuenta) }
 
 
 

@@ -6,6 +6,20 @@
         padding-left: 0% !important;
     }
 </style>
+<div class="skeleton slst animate__animated animate__fadeIn" *ngIf="loading">
+    <h3 class="color-accent">Estamos procesando su solicitud. Por favor, espere...</h3>
+    <div class="tpln clm2 fd">
+        <div><span class="sqr"></span></div>
+        <div><span class="rnd"></span><span class="ln"></span><span class="rnd"></span>
+        </div>
+    </div>
+    <div class="lst fd">
+        <div class="sqr wd mhg wvs pst"></div>
+        <div class="sqr wd mhg wvs pst"></div>
+        <div class="sqr wd mhg wvs pst"></div>
+    </div>
+</div>
+
 
 
 <div class="add-choices" *ngIf="asociaciones == false">

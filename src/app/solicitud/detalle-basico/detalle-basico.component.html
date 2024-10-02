@@ -9,6 +9,38 @@
         color: #474d56;
     }
 </style>
+<div class="skeleton slst animate__animated animate__fadeIn" *ngIf="loading == false">
+    <h3 class="color-accent">Estamos procesando su solicitud. Por favor, espere...</h3>
+    <div class="tpln clm2 fd">
+        <div><span class="sqr"></span></div>
+        <div><span class="rnd"></span><span class="ln"></span><span class="rnd"></span>
+        </div>
+    </div>
+    <div class="lst fd">
+        <div class="sqr wd mhg wvs pst"></div>
+        <div class="sqr wd mhg wvs pst"></div>
+        <div class="sqr wd mhg wvs pst"></div>
+    </div>
+</div>
+
+<div class="blue-alert"
+    *ngIf="loading == false && this.estado_Numero == 0 || this.estado_Numero == 1 || this.estado_Numero == 8 ">
+    <div class="content has-icon">
+        <div class="icon"><i class="fas fa-info-circle"></i></div>
+        <div><strong>No se ha formalizado la solicitud de Profesional de la salud (NUPRE) para este asociado.
+                Para continuar realice los siguientes pasos:</strong>
+            <p>1.rellenar con insturcion correctas
+            </p>
+            <p>2. .rellenar con insturcion correctas .</p>
+            <p>3..rellenar con insturcion correctas
+            </p>
+            <p>4..rellenar con insturcion correctas
+            </p>
+        </div>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col-w9">
         <div class="yellow-alert" *ngIf="solicitudRechazoParcial">
@@ -53,7 +85,7 @@
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Cédula</label>
-                    <strong>{{details?.profesional_Documento}} </strong>
+                    <strong>{{details?.profesional_Cedula}} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Teléfono residencial</label>

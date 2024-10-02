@@ -28,7 +28,7 @@
                                         placeholder="Buscar solicitud" />
                                 </div>
                                 <div class="addons button-icon">
-                                    <button (click)="getApplications(true)"><i class="fas fa-search"></i></button>
+                                    <button (click)="GetSolicitudes(true)"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
 
@@ -161,40 +161,32 @@
 
                                     <div class="cel no-border">
                                         <strong (click)="detallesolicitud(i)">
-                                            Numero Solicitud :{{item.solicitud_Numero}} | Nombre Solicitante
+                                            Numero Solicitud :{{item.solicitud_Numero}} | Nombre Solicitante :
                                             {{item.profesional_Nombre_Completo}}
                                         </strong>
                                         <div class="relates">
                                             <span><i class="far fa-calendar"></i> Cédula:
-                                                {{item.profesional_Documento}}</span>
+                                                {{item.profesional_Cedula}}</span>
                                             <span><i class="far fa-calendar"></i> Fecha de registro:
                                                 {{item.solicitud_Fecha }}</span>
 
                                             <span *ngIf="item.solicitud_Estado_Numero"><i
                                                     class="far fa-accessible-icon"></i>
                                                 Solicitud Estado:
-                                                <!-- <span *ngIf="listado?.lactancia_Estado_Numero == 17" class="color-red">
-                                {{item.lactancia_Estado_Descripcion }} </span>
-                              <span *ngIf="listado?.lactancia_Estado_Numero !== 17"> {{item.lactancia_Estado_Descripcion }} -->
+                                                {{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}
                                             </span>
-                                            <!-- </span> -->
+
                                         </div>
                                     </div>
                                     <div class="cel" id="statuslabel">
                                         <span class="status pending"
-                                            *ngIf="item.solicitud_Estado_Numero===0 || item.solicitud_Estado_Numero===1 ||item.solicitud_Estado_Numero===8  ">{{item.solicitudEstadoNumeroNavigation?.profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===0 || item.solicitud_Estado_Numero===1 ||item.solicitud_Estado_Numero===8  ">{{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}</span>
                                         <span class="status approved"
-                                            *ngIf="item.solicitud_Estado_Numero===6 || item.solicitud_Estado_Numero===7">{{item.solicitudEstadoNumeroNavigation?.profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===6 || item.solicitud_Estado_Numero===7">{{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}</span>
                                         <span class="status canceled"
-                                            *ngIf="item.solicitud_Estado_Numero===3  || item.solicitud_Estado_Numero===4  || item.solicitud_Estado_Numero===2">{{item.solicitudEstadoNumeroNavigation?.profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===3  || item.solicitud_Estado_Numero===4  || item.solicitud_Estado_Numero===2">{{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}</span>
                                     </div>
-                                    <div class="cel" id="statuslabel">
 
-                                        <span class="status pending">
-                                            Pendiente
-
-                                        </span>
-                                    </div>
                                     <div class="cel" id="btns">
                                         <button class="outline-btn icon edit tooltip"
                                             (click)="detallesolicitud(item?.solicitud_Numero)"

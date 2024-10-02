@@ -108,6 +108,10 @@ export class ListaSolicitudesComponent implements OnInit {
     this.router.navigate(['/Detalle/' + solicitudId]);
   }
 
+  retornarEstado() {
+    return 'jol';
+  }
+
   public exportarExcel() {
     console.log('funcion pendeinte para exportar a excel');
   }
@@ -193,7 +197,7 @@ export class ListaSolicitudesComponent implements OnInit {
 
   }
 
-  public getApplications(btntype = false, changeEstado = false) {
+  public GetSolicitudes(btntype = false, changeEstado = false) {
     var parameter = this.getfilterparamters()
     this.loading = true;
 
@@ -207,6 +211,7 @@ export class ListaSolicitudesComponent implements OnInit {
     // }
 
     this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
+      console.log('respuesta')
       console.log(res);
       this.details = res;
 
@@ -216,17 +221,17 @@ export class ListaSolicitudesComponent implements OnInit {
   }
 
   // Busqueda de solicitudes en la ventana princial 
-  public GetSolicitudes(btntype = false) {
+  //   public GetSolicitudes(btntype = false) {
 
-    var parameter = this.getfilterparamters()
-    this.loading = false;
-
-
+  //     var parameter = this.getfilterparamters()
+  //     this.loading = false;
 
 
-    // this.servicio.getSolicitudesListadoFiltro(parameter).subscribe()
 
-  }
+
+  //     // this.servicio.getSolicitudesListadoFiltro(parameter).subscribe()
+
+  //   }
 
 }
 function resp(value: Profesionales_Estado_Solicitud): void {

@@ -15,7 +15,7 @@ import { Solicitudes_Actividades_Progress } from '../../Models/SolicitudActivida
 })
 export class DetalleBasicoComponent implements OnInit {
   public solicitudId!: number;
-  public loading = true;
+  public loading = false;
   public estado_Numero!: number;
   public estado_Descripcion!: string;
   public solicitud_Fecha!: string;
@@ -70,8 +70,6 @@ export class DetalleBasicoComponent implements OnInit {
     this.getDetalleDelaSolicitud();
 
 
-    // this.currentUser = this.user;
-    // this.esEmpresa = this.currentUser.UsuarioRegistroPatronal > 0;
   }
 
   public AsignarValuesNSSAfiliado(res: any) {
@@ -95,6 +93,10 @@ export class DetalleBasicoComponent implements OnInit {
 
     this.service.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
       this.detalleSolicitud = resp
+      this.estado_Numero = resp.solicitud_Estado_Numero!
+      console.log('estado de la solicitud ')
+      console.log(this.estado_Numero)
+      this.loading = true;
     });
   }
 
