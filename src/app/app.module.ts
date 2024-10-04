@@ -28,12 +28,7 @@ import { EditarFormularioSolicitudComponent } from './solicitud/editar-formulari
 import { FormularioComponent } from './solicitud/asociaciones/formulario/formulario.component';
 import { Listado_Solicitud_Medico } from './Models/Nupre/Listado_Solicitud_Medico';
 import { ListaSolicitudesComponent } from './solicitud/lista-solicitudes/lista-solicitudes.component';
-
-
-
-
-
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -59,12 +54,12 @@ import { ListaSolicitudesComponent } from './solicitud/lista-solicitudes/lista-s
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
     BrowserAnimationsModule,
-    InputTextModule
+    InputTextModule,
+    ToastrModule.forRoot()
   ],
 
   providers: [

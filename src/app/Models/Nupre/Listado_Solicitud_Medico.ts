@@ -52,7 +52,7 @@ export class Solicitud_basic_Informacion_DTO {
     solicitud_Numero?: number
     solicitud_Fecha?: string
     profesional_Cedula?: string
-    profesional_Nombre_Completo?: string
+    Profesional_Nombre_Completo?: string
     nacionalidad_Numero?: number
     profesional_Sexo?: string
     profesional_Exequatur?: string

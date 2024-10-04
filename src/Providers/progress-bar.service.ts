@@ -38,12 +38,12 @@ export class ProgressBarService {
                 this.actividadesRealizadas = this._solicitud_Actividades_Progress.filter(actividad => actividad.actividad_Completada).length;
             })
     }
-    InsertActividadProgressBar(data: Solicitudes_Actividades_Trans_Set_ViewModel) {
-        return this.PostActividadProgressBar(data)
-            .subscribe(resp => {
-                this.ReadActividadProgressBar(data.solicitud_Numero, data.solicitud_Tipo_Numero);
-            })
-    }
+    // InsertActividadProgressBar(data: Solicitudes_Actividades_Trans_Set_ViewModel) {
+    //     return this.PostActividadProgressBar(data)
+    //         .subscribe(resp => {
+    //             this.ReadActividadProgressBar(data.solicitud_Numero, data.solicitud_Tipo_Numero);
+    //         })
+    // }
 
     GetHistorico(solicitud_Numero: number, solicitud_Tipo_Numero: number): Observable<[Historico[]]> {
         return this.http.get<[Historico[]]>(urlNupre.master.GetHistorico + `solicitud_Numero=${solicitud_Numero}&solicitud_Tipo_Numero=${solicitud_Tipo_Numero}`);

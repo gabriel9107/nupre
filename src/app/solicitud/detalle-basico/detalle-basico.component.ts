@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProgressBarService } from '../../../Providers/progress-bar.service';
 import { Solicitudes_Actividades_Progress } from '../../Models/SolicitudActividades';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detalle-basico',
@@ -48,26 +49,40 @@ export class DetalleBasicoComponent implements OnInit {
   public solicitudRechazoParcial: boolean = false;
 
 
-  constructor(public service: NupreService,
-    public activedRoute: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder,
-    private progressBarService: ProgressBarService
-  ) {
-    let params: any = this.activedRoute.snapshot.params;
-    this.solicitudId = params.id;
-    // this.solicitudId = 3;
-  }
 
+  get ProgressBarPorcent(): string {
+    return `width: ${this.actividades[0]?.porcentaje}%`;
+  }
+  get actividadesRealizadas(): number {
+    return this.progressBarService.actividadesRealizadas;
+  }
 
   get actividades(): Solicitudes_Actividades_Progress[] {
     return this.progressBarService.Actividades_Progress;
   }
 
+
+  constructor(public service: NupreService,
+    public activedRoute: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private progressBarService: ProgressBarService,
+
+  ) {
+    let params: any = this.activedRoute.snapshot.params;
+    this.solicitudId = params.id;
+
+    this.getDetalleDelaSolicitud();
+    // this.solicitudId = 3;
+  }
+
+
+
+
   ngOnInit(): void {
 
 
-    this.getDetalleDelaSolicitud();
 
 
   }

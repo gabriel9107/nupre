@@ -31,16 +31,16 @@ export let urlNupre = {
     titulacion: {
         guardartitulacion: environment.baseUrlLocal + "titulacion/guardarTitulacion/",
         obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "titulacion/listadoTitulacion/",
-        
+
 
     },
     master: {
         obtenerProfesiones_Especialidades: environment.baseUrlLocal + "profesiones/obtenerProfesionesPorTipo/",
         obtenerTodasLosTiposProfesiones: environment.baseUrlLocal + "profesiones/obtenerTipoProfesiones",
 
-        GetHistorico: environment.baseUrlLocal + "api/GetHistorico?",
-        PostProgressBar: environment.baseUrlLocal + "api/PostProgressBar",
-        ProgressBar: environment.baseUrlLocal + "api/GetProgressBar?solicitudNumero=",
+        GetHistorico: environment.baseUrlLocal + "Actividades/GetHistorico?",
+        PostProgressBar: environment.baseUrlLocal + "Actividades/PostProgressBar",
+        ProgressBar: environment.baseUrlLocal + "Actividades/GetProgressBar?solicitudNumero=",
 
 
     },

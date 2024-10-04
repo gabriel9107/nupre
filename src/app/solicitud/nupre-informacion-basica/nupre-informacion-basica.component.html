@@ -73,12 +73,12 @@
                     <div class="content-title has-status">
                         <h3 class="title">
                             <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
-                            Solicitud núm. {{solicitudId}} &#124; {{profesionalNombreCompleto}}
+                            Solicitud núm. {{solicitudId}} &#124;{{detalleSolicitud?.profesionalNombreCompleto}}
 
                         </h3>
                         <div class="status_request">
                             <div class="progress-outer">
-                                <div class="progress-inner"></div>
+
 
                             </div>
                             <div class="label-text">
@@ -122,9 +122,10 @@
                             </app-nupre-someter-solicitud>
                         </div>
                     </div>
-
                 </div>
             </div>
+
+
         </div>
     </div>
 </section>
