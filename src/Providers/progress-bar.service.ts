@@ -31,8 +31,8 @@ export class ProgressBarService {
     constructor(private http: HttpClient) { }
 
 
-    ReadActividadProgressBar(solicitud_Numero: number, solicitud_Tipo_Numero: number) {
-        return this.GetActividadProgressBar(solicitud_Numero, solicitud_Tipo_Numero)
+    ReadActividadProgressBar(solicitud_Numero: number) {
+        return this.GetActividadProgressBar(solicitud_Numero)
             .subscribe(resp => {
                 this._solicitud_Actividades_Progress = resp;
                 this.actividadesRealizadas = this._solicitud_Actividades_Progress.filter(actividad => actividad.actividad_Completada).length;
@@ -45,11 +45,11 @@ export class ProgressBarService {
     //         })
     // }
 
-    GetHistorico(solicitud_Numero: number, solicitud_Tipo_Numero: number): Observable<[Historico[]]> {
-        return this.http.get<[Historico[]]>(urlNupre.master.GetHistorico + `solicitud_Numero=${solicitud_Numero}&solicitud_Tipo_Numero=${solicitud_Tipo_Numero}`);
+    GetHistorico(solicitud_Numero: number): Observable<[Historico[]]> {
+        return this.http.get<[Historico[]]>(urlNupre.master.GetHistorico + `solicitud_Numero=${solicitud_Numero}`);
     }
-    GetActividadProgressBar(solicitud_Numero: number, solicitud_Tipo_Numero: number): Observable<Solicitudes_Actividades_Progress[]> {
-        return this.http.get<Solicitudes_Actividades_Progress[]>(urlNupre.master.ProgressBar + solicitud_Numero + `&solicitudTipoNumero=${solicitud_Tipo_Numero}`);
+    GetActividadProgressBar(solicitud_Numero: number): Observable<Solicitudes_Actividades_Progress[]> {
+        return this.http.get<Solicitudes_Actividades_Progress[]>(urlNupre.master.ProgressBar + solicitud_Numero);
     }
     PostActividadProgressBar(solicitudes_Actividades_Trans_Inserta: Solicitudes_Actividades_Trans_Set_ViewModel) {
         return this.http.post(

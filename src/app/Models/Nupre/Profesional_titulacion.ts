@@ -17,6 +17,7 @@ export class Profesional_Listado_titulacionDTO {
     public registro_Fecha!: Date;
     public registro_Estado!: string;
     public especialidad_Periodo!: string;
+    public especialidad_Estado_Numero!: number;
     public sspecialidad_Tipo_Numero!: string;
 
 }

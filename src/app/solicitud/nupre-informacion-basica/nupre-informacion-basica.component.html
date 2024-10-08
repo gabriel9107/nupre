@@ -29,15 +29,17 @@
                                         <span>Detalle de solicitud</span>
                                     </li>
                                     <li class="anchor" data-tab="regLicen">
-
+                                        <span class="circle check" *ngIf="this.checktitulacion">2</span>
                                         <span class="circle">2</span>
                                         <span>Titulos </span>
                                     </li>
                                     <li class="anchor" data-tab="Asociaciones">
+                                        <span class="circle check" *ngIf="this.checkasociaciones">3</span>
                                         <span class="circle">3</span>
                                         <span>Asociaciones </span>
                                     </li>
                                     <li class="anchor" data-tab="someter">
+                                        <span class="circle check" *ngIf="this.checkSometidad">4</span>
                                         <span class="circle">4</span>
                                         <span>Someter Solicitud</span>
                                     </li>
@@ -73,7 +75,7 @@
                     <div class="content-title has-status">
                         <h3 class="title">
                             <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
-                            Solicitud núm. {{solicitudId}} &#124;{{detalleSolicitud?.profesionalNombreCompleto}}
+                            Solicitud núm. {{solicitudId}} &#124;{{detalleSolicitud?.profesional_Nombre_Completo}}
 
                         </h3>
                         <div class="status_request">
@@ -117,7 +119,8 @@
                             </app-asociaciones>
                         </div>
                         <div id="someter" class="animate_animated animate_fadeIn">
-                            <app-nupre-someter-solicitud>
+                            <app-nupre-someter-solicitud *ngIf="titulosCargados" [detalle]="detalleSolicitud"
+                                [listadoTitulo]="this.listadoTitulo" [listadoAsociaciones]="this.listadoAsociaciones">
 
                             </app-nupre-someter-solicitud>
                         </div>

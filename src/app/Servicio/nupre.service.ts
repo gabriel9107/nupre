@@ -431,6 +431,11 @@ export class NupreService {
 
     //Asociaciones 
 
+    obtenerListadoAsociacionesBySolicitudId(numero_solicitud: number): Observable<ProfesionalesAsociaciones[]> {
+        return this.http.get<ProfesionalesAsociaciones[]>(urlNupre.asociaciones.obtenerListadoAsociaciones + numero_solicitud)
+    }
+
+
     obtenerListadoAsociaciones(): Observable<ProfesionalesAsociacionesTipoCata[]> {
         return this.http.get<ProfesionalesAsociacionesTipoCata[]>(urlNupre.asociaciones.obtener_tipo_Asociaciones);
     }
@@ -441,6 +446,7 @@ export class NupreService {
         formData.append('solicitud_Numero', String(param.solicitud_Numero));
         formData.append('asociacion_Numero', String(param.profesional_Asociacion_Codigo));
         formData.append('profesional_Asociacion_Codigo', String(param.asociacion_Codigo));
+        formData.append('asociacion_Registro_Patronal', String(param.asociacion_Registro_Patronal));
         formData.append('Documento', param.Documento);
 
 
@@ -451,6 +457,13 @@ export class NupreService {
         return this.http.post(urlNupre.asociaciones.crearSolicitudAsociaciones, formData, { headers: headers })
     }
 
+
+someterSolicitud(numero_solicitud: number):Observable<any> {
+
+    let param ='/'+ numero_solicitud; 
+
+    return this.http.get(urlNupre.solicitudes.SometeSolicitud  + param, { headers: this.httpOptions.headers });
+}
 
 
 

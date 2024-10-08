@@ -9,7 +9,7 @@ export let urlNupre = {
 
     solicitudes: {
 
-
+        SometeSolicitud: environment.baseUrlLocal + "solicitudes/someterSolicitud",
 
         crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
 
@@ -52,7 +52,7 @@ export let urlNupre = {
         obtener_tipo_Asociaciones: environment.baseUrlLocal + "asociaciones/obtenerListadoAsociaciones",
         obterAsociacion: environment.baseUrlLocal + "asociacion/obtenerAsociacionesPorId",
 
-        obtenerListadoAsociaciones: environment.baseUrlLocal + "asociaciones/ListadoAsociaciones"
+        obtenerListadoAsociaciones: environment.baseUrlLocal + "asociaciones/ListadoAsociaciones?solicitud_numero="
 
     },
 

@@ -17,6 +17,7 @@
                         </ul>
                     </div>
                 </div>
+                <!-- {1/1/2022 12:00:00 AM} -->
 
                 <div class="container">
                     <div class="grid-column-sys navigation">
@@ -47,23 +48,23 @@
                             <section>
                                 <h4>Filtrar por estado</h4>
                                 <div class="register-list">
-                                    <label class="form-rdb form-control">
+                                    <!-- <label class="form-rdb form-control">
                                         <input type="radio" name="tipoest" id="idtypestatus" value="0" checked
                                             (change)="GetSolicitudes()" />
                                         <span class="elem"></span> Todos
-                                    </label>
+                                    </label> -->
                                     <div class="item" *ngFor="let typestatus of TipoEstado">
                                         <label class="form-rdb form-control">
                                             <input type="radio" name="tipoest" id="idtypestatus"
-                                                value={{typestatus.Profesional_Estado_Numero}}
-                                                (change)="GetSolicitudes()" />
+                                                value={{typestatus.profesional_Estado_Numero}}
+                                                (change)="GetSolicitudes(false,true)" />
                                             <span class="elem"></span> {{typestatus.profesional_EstadoDescripcion}}
                                         </label>
                                     </div>
                                 </div>
                             </section>
                             <div class="bottom-btn">
-                                <button class="default-btn rounded">
+                                <button class="default-btn rounded" (click)="LimpiarFiltros()">
                                     <i class="fas fa-history"></i> Limpiar filtros
                                 </button>
                             </div>
@@ -160,7 +161,7 @@
                                 <div class="register animate__animated animate__fadeIn">
 
                                     <div class="cel no-border">
-                                        <strong (click)="detallesolicitud(i)">
+                                        <strong (click)="detallesolicitud(item.solicitud_Numero)">
                                             Numero Solicitud :{{item.solicitud_Numero}} | Nombre Solicitante :
                                             {{item.profesional_Nombre_Completo}}
                                         </strong>

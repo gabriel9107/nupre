@@ -109,8 +109,7 @@ export class DetalleBasicoComponent implements OnInit {
     this.service.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
       this.detalleSolicitud = resp
       this.estado_Numero = resp.solicitud_Estado_Numero!
-      console.log('estado de la solicitud ')
-      console.log(this.estado_Numero)
+
       this.loading = true;
     });
   }

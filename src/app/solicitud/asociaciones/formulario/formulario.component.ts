@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NupreService } from '../../../Servicio/nupre.service';
 import { ciudadano_consulta_DTOs } from '../../../Models/Nupre/ciudadano_mastert';
 import { solicitudCreacionDTO } from '../../../Models/Nupre/Listado_Solicitud_Medico';
+import { User } from '../../../Models/Solicitudes_ViewModelt';
+import getUserInfo from '../../../auth/JWT';
 
 @Component({
   selector: 'app-formulario',
@@ -18,7 +20,7 @@ export class FormularioComponent implements OnInit {
 
   registroAsociaciones!: FormGroup;
   files: File[] = [];
-
+  user: User = null!
   public certificado!: File
   errorMessage!: string;
   showErrorMessage: boolean = false;
@@ -32,6 +34,7 @@ export class FormularioComponent implements OnInit {
     this.ObtenerListadoAsociaciones();
 
     this.createFormActive();
+    this.user = getUserInfo()
   }
   constructor
     (public activedRoute: ActivatedRoute,
@@ -68,6 +71,7 @@ export class FormularioComponent implements OnInit {
 
     return this.servicio.obtenerListadoAsociaciones().subscribe((res: ProfesionalesAsociacionesTipoCata[]) => {
       this.listaAsociaciones = res;
+      console.log(res);
     });
 
   }
@@ -136,6 +140,7 @@ export class FormularioComponent implements OnInit {
     param.asociacion_Codigo = this.registroAsociaciones.get('asociacion_Numero')?.value
     param.profesional_Asociacion_Codigo = this.registroAsociaciones.get('profesional_Asociacion_Codigo')?.value
     param.Documento = this.certificado;
+    param.asociacion_Registro_Patronal = this.user.UsuarioRegistroPatronal;
     return param;
   }
 

@@ -20,7 +20,8 @@
     </div>
 </div>
 
-<div class="blue-alert" *ngIf="loading == false && this.estado_Numero == 0 || this.estado_Numero == 1 || this.estado_Numero == 8 ">
+<div class="blue-alert"
+    *ngIf="loading == false && this.estado_Numero == 0 || this.estado_Numero == 1 || this.estado_Numero == 8 ">
     <div class="content has-icon">
         <div class="icon"><i class="fas fa-info-circle"></i></div>
         <div><strong>No se ha formalizado la solicitud de Profesional de la salud (NUPRE) para este asociado.
@@ -37,7 +38,7 @@
 </div>
 
 
-<div class="add-choices" *ngIf="Registrado">
+<div class="add-choices" *ngIf="Registrado == false">
 
     <div class="block" (click)="Nuevasolicitud(this.solicitudId)">
         <h4><i class="fas fa-edit"></i> Títulos de Profesiones </h4>
@@ -134,7 +135,7 @@
     </div>
 
     <div class="col-w3 info-section">
-        <div class="block m-top" *ngIf="!Registrado">
+        <div class="block m-top" *ngIf="Registrado == true">
             <h4>Acciones</h4>
             <div class="form-field">
                 <button class="default-btn rounded " (click)="Nuevasolicitud(this.solicitudId)">

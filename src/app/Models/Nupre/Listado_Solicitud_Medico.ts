@@ -52,7 +52,7 @@ export class Solicitud_basic_Informacion_DTO {
     solicitud_Numero?: number
     solicitud_Fecha?: string
     profesional_Cedula?: string
-    Profesional_Nombre_Completo?: string
+    profesional_Nombre_Completo?: string
     nacionalidad_Numero?: number
     profesional_Sexo?: string
     profesional_Exequatur?: string
@@ -79,19 +79,20 @@ export class Solicitud_basic_Informacion_DTO {
 export class Solicitud_Medico_Detalle_DTO {
 
     solicitudNumero?: number
-    solicitudFecha?: string
-    profesionalDocumento?: string
-    profesionalNombreCompleto?: string
+    registro_Fecha?: string
+    profesional_Cedula?: string
+    profesional_Nombre_Completo?: string
     nacionalidadNumero?: number
     profesionalSexo?: string
     profesionalExequatur?: string
     profesional_Direccion?: string
     municipioNumero?: number
-    profesionalTelefono1?: string
+    profesional_Telefono1?: string
     profesionalTelefono2?: string
     profesionalTelefono3?: string
     profesionalMail?: string
-    solicitudEstadoNumero?: number
+    solicitud_Estado_Numero
+        ?: number
     solicitudEstadoFecha?: string
     solicitudEstadoNota?: string
     solicitudUsuarioCuenta?: string

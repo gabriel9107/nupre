@@ -17,14 +17,14 @@ export class AsociacionesComponent implements OnInit {
 
   public asociaciones: boolean = false;
   public localidades: boolean = false;
-  public solicitudId!: string;
+  public solicitudId!: number;
   public listado: ProfesionalesAsociaciones[] = [];
-  public Registrado : boolean = false; 
+  public Registrado: boolean = false;
 
   public loading: boolean = false;
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.obtenerListadoAsociaciones(this.solicitudId)
   }
 
 
@@ -35,6 +35,13 @@ export class AsociacionesComponent implements OnInit {
 
     this.solicitudId = params.id
 
+  }
+
+  obtenerListadoAsociaciones(solicitudId: number) {
+
+    this.servicio.obtenerListadoAsociacionesBySolicitudId(solicitudId).subscribe((resp: ProfesionalesAsociaciones[]) => {
+      this.listado = resp;
+    })
   }
 
   NuevaAsociacion() {

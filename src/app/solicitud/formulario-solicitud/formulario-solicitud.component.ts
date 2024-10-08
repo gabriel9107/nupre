@@ -133,8 +133,6 @@ export class FormularioSolicitudComponent implements OnInit {
 
   public AsignarValores(res: ciudadano_consulta_DTOs) {
 
-    console.log('verificando resultado')
-    console.log(res)
     this.form.patchValue({
       // profesionalDocumento: res.ciudadanoNoDocumento,
       profesional_Nombre_Completo: res.ciudadanoNombreCompleto,

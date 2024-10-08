@@ -1,5 +1,8 @@
+import { ciudadano_consulta_DTOs } from "./Nupre/ciudadano_mastert";
+
 export interface ProfesionalesAsociacionesTipoCata {
     asociacion_Numero: number;
+    asociacion_Nombre: string;
     asociacion: string;
     descripcion: string;
     // registro_Estado: string;
@@ -9,9 +12,11 @@ export interface ProfesionalesAsociacionesTipoCata {
 
 export class CrearProfesionalesAsociaciones_DTO {
     solicitud_Numero!: number;
+    asociacion_Registro_Patronal?: number;
     asociacion_Codigo!: number;
     profesional_Asociacion_Codigo!: string;
     Documento!: File;
+
 }
 
 export class ProfesionalesAsociaciones {
@@ -30,6 +35,9 @@ export class ProfesionalesAsociaciones {
 
 
 export class Profesionales_Asociacon_Trans_view {
+
+
+    afiliadoMaster!: ciudadano_consulta_DTOs;
     solicitud_Numero!: number;
     asociacion_Registro_Patronal!: number;
     profesional_Asociacion_Codigo!: string;

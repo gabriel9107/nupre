@@ -1,6 +1,6 @@
 import { ModeloBase } from "./ModeloBase";
 export class Solicitudes_Estados extends ModeloBase {
-    public Profesional_Estado_Numero?: number;
+    public profesional_Estado_Numero?: number;
     public profesional_EstadoDescripcion?: string;
     public Profesional_Estado_Explicacion?: string;
     public Profesional_Estado_Pendiente?: string;

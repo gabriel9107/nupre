@@ -33,9 +33,15 @@
                             </strong>
 
                             <div class="form-control">
+                                <!-- 
+                                <ng-select [items]="listadoEspecialidades" placeholder="Selecione una {{ titulo}} "
+                                formControlName="especialidad_Numero" bindLabel="especialidad_Descripcion"
+                                bindValue="especialidad_Numero" [clearable]="false" [searchable]="true"
+                                [(ngModel)]="selectedProfesion">
+                            </ng-select> -->
 
                                 <ng-select [items]="listaAsociaciones" placeholder="Seleccionar una "
-                                    formControlName="asociacion_Numero" bindLabel="asociacion"
+                                    formControlName="asociacion_Numero" bindLabel="asociacion_Nombre"
                                     bindValue="asociacion_Numero" [clearable]="false" [searchable]="true"
                                     [ngModel]="selected">
                                 </ng-select>
@@ -49,7 +55,8 @@
                             </strong>
 
                             <div class="form-control">
-                                <input type="text" formControlName="profesional_Asociacion_Codigo" class="input form-input">
+                                <input type="text" formControlName="profesional_Asociacion_Codigo"
+                                    class="input form-input">
 
                             </div>
                         </div>

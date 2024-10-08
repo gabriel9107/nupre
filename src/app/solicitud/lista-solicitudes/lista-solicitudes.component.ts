@@ -91,8 +91,9 @@ export class ListaSolicitudesComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = getUserInfo();
-    this.buscarSolicitudes();
+    // this.ge();
     this.obtenerEstados();
+    this.GetSolicitudes();
   }
 
 
@@ -116,37 +117,38 @@ export class ListaSolicitudesComponent implements OnInit {
     console.log('funcion pendeinte para exportar a excel');
   }
 
-  buscarSolicitudes(btntype = false, changeEstado = false) {
+  // buscarSolicitudes(btntype = false, changeEstado = false) {
 
-    var parameter = this.getfilterparamters();
+  //   var parameter = this.getfilterparamters();
 
-    //cambiando a implementar filtros 
+  //   //cambiando a implementar filtros 
 
-    this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
+  //   this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
 
-      this.details = res;
-    },
-      error => {
-        this.ValidarError = true;
-        this.loading = false;
-      });
+  //     this.details = res;
+  //   },
+  //     error => {
+  //       this.ValidarError = true;
+  //       this.loading = false;
+  //     });
 
 
 
-    //funcional anteriormente 
-    // this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
+  //   //funcional anteriormente 
+  //   // this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
 
-    //   this.details = res;
-    // }, error => {
-    //   this.ValidarError = true;
-    //   this.loading = false;
-    // }
-    // )
-  }
+  //   //   this.details = res;
+  //   // }, error => {
+  //   //   this.ValidarError = true;
+  //   //   this.loading = false;
+  //   // }
+  //   // )
+  // }
 
   obtenerEstados() {
     this.servicio.obtenerListadoEstado().subscribe((res: Solicitudes_Estados[]) => {
       this.TipoEstado = res;
+      console.log(res)
     });
   }
 
@@ -156,6 +158,8 @@ export class ListaSolicitudesComponent implements OnInit {
   getfilterparamters() {
     let param = new Profesionales_Filtro_Listado;
     let statusnumber = 0;
+
+    param.Solicitud_Numero = this.busquedaForm.get('Search')?.value;
 
     param.AnioInicio = this.busquedaForm.get('fechaInicio')?.value;
     param.AnioFin = this.busquedaForm.get('fechaFin')?.value;
@@ -211,27 +215,30 @@ export class ListaSolicitudesComponent implements OnInit {
     // }
 
     this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
-      console.log('respuesta')
-      console.log(res);
+
       this.details = res;
+      console.log('filtrando por solicitud ', res)
+      this.loading = false;
 
     });
 
 
   }
+  public LimpiarFiltros() {
+    this.busquedaForm.patchValue(
+      {
+        Search: '',
+        pageindex: 0,
+        pagesize: 10,
+        currentPage: 1,
+        Cantidad_Registros: 0,
+        fechaInicio: `${new Date().getFullYear() - 1}-01-01`,
+        fechaFin: new Date().toISOString().slice(0, 10),
+      }) //= ;
 
-  // Busqueda de solicitudes en la ventana princial 
-  //   public GetSolicitudes(btntype = false) {
-
-  //     var parameter = this.getfilterparamters()
-  //     this.loading = false;
-
-
-
-
-  //     // this.servicio.getSolicitudesListadoFiltro(parameter).subscribe()
-
-  //   }
+    document.getElementById('idtypestatus')?.setAttribute('value', '0')
+    this.GetSolicitudes(false, false)
+  }
 
 }
 function resp(value: Profesionales_Estado_Solicitud): void {

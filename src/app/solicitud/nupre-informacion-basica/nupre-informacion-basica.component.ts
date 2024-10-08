@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, input, signal } from '@angular/core';
 import { Motivo_Rechazo, User } from '../../Models/Solicitudes_ViewModelt';
 import { ActivatedRoute, Router, Params } from "@angular/router";
 
@@ -7,6 +7,8 @@ import { Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO } from '.
 import { Historico, Solicitudes_Actividades_Progress } from '../../Models/SolicitudActividades';
 import { ProgressBarService } from '../../../Providers/progress-bar.service';
 import { ToastrService } from 'ngx-toastr';
+import { ProfesionalesAsociaciones } from '../../Models/asosiaciones';
+import { Profesional_Listado_titulacionDTO } from '../../Models/Nupre/Profesional_titulacion';
 
 
 @Component({
@@ -18,22 +20,42 @@ export class NupreInformacionBasicaComponent implements OnInit {
 
   public detalleSolicitud!: Solicitud_Medico_Detalle_DTO;
 
+
+  public listadoAsociaciones: ProfesionalesAsociaciones[] = [];
+  public listadoTitulo: Profesional_Listado_titulacionDTO[] = [];
+
+
+
   public solicitudId!: number;
   public loading = true;
   public estado_Numero!: number;
   public estado_Descripcion!: string;
   public solicitud_Fecha!: string;
   public checkSometidad = false;
+  public checkasociaciones = false;
+  public checktitulacion = false;
   public historicos !: [Historico[]];
 
 
   profesionalNombreCompleto!: string;
 
 
+
+  public titulosCargados: boolean = false;
+  public asociacionesCargadas: boolean = false;
+
+  get ProgressBarPorcent(): string {
+    return `width: ${this.actividades[0]?.porcentaje}%`;
+  }
+
+  get actividades(): Solicitudes_Actividades_Progress[] {
+    return this.progressBarService.Actividades_Progress;
+  }
   constructor
     (public activedRoute: ActivatedRoute,
       private router: Router, private servicio: NupreService,
-      private toastr: ToastrService
+      private toastr: ToastrService,
+      private progressBarService: ProgressBarService,
 
     ) {
     let params: any = this.activedRoute.snapshot.params;
@@ -43,44 +65,66 @@ export class NupreInformacionBasicaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.progressBarService.ReadActividadProgressBar(this.solicitudId);
   }
   public listSolicitud() {
     this.router.navigate(['/NUPRE']);
   }
 
-  // get ProgressBarPorcent(): string {
-  //   return `width: ${this.actividades[0]?.porcentaje}%`;
-  // }
-  // get actividadesRealizadas(): number {
-  //   return this.progressBarService.actividadesRealizadas;
-  // }
 
-  // get actividades(): Solicitudes_Actividades_Progress[] {
-  //   return this.progressBarService.Actividades_Progress;
-  // }
 
   public getDetalleSolicitud() {
 
-    this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe((resp: Solicitud_Medico_Detalle_DTO) => {
-      this.detalleSolicitud = resp;
-      console.log(this.detalleSolicitud.profesionalNombreCompleto);
-      this.profesionalNombreCompleto = resp.profesionalNombreCompleto!;
+    this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId)
+      .subscribe((resp: Solicitud_Medico_Detalle_DTO) => {
+        this.detalleSolicitud = resp;
+        this.profesionalNombreCompleto = resp.profesional_Nombre_Completo!;
+        this.loading = false;
+        this.estado_Numero = resp.solicitud_Estado_Numero!;
 
-      this.loading = false;
-    });
+
+        if (resp.solicitud_Estado_Numero
+          != 1)
+          this.checkSometidad = true;
+        else
+          this.checkSometidad = false;
 
 
-    // this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
+        this.getListadoTitulos(this.solicitudId);
+        this.getListadoAsociacion(this.solicitudId);
 
-    // });
-
+      },
+        error => {
+          this.toastr.error(error.error, 'Información');
+        });
 
   }
-  //   this.loading = false;
-  //   this.servicio.SolicitudDetalle(this.solicitudId).subscribe(resp =>
-  //     this.listadoLicencias = resp)
 
-  // }
-  // }
+  public getListadoTitulos(solicitudId: number) {
+
+    this.servicio.listadoTitulacionPorSolicitud(solicitudId).subscribe((res: Profesional_Listado_titulacionDTO[]) => {
+      this.listadoTitulo = res;
+      this.titulosCargados = true;
+
+      this.checktitulacion = this.listadoTitulo?.length > 0;
+    });
+  }
+
+
+  public getListadoAsociacion(solicitudId: number) {
+    this.servicio.obtenerListadoAsociacionesBySolicitudId(solicitudId).subscribe((res: ProfesionalesAsociaciones[]) => {
+      this.listadoAsociaciones = res;
+      this.asociacionesCargadas = true;
+
+      this.checkasociaciones = this.listadoAsociaciones?.length > 0;
+
+
+    });
+  }
+
+  actividadesPorFecha() {
+    this.progressBarService.GetHistorico(this.solicitudId).subscribe(resp => {
+      this.historicos = resp
+    })
+  }
 }
