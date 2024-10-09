@@ -1,8 +1,8 @@
 export class Solicitudes_Actividades_Progress {
     public actividad_Numero?: number;
-    public actividad_Descripcion?: string;
+    public actividad_descripcion?: string;
     public proceso_Orden?: number;
-    public actividad_Completada?: number;
+    public actividad_Completa?: number;
     public porcentaje?: number;
 }
 export interface Solicitudes_Actividades_Trans_Set_ViewModel {

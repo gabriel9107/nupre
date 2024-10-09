@@ -38,6 +38,11 @@
                                         <span class="circle">3</span>
                                         <span>Asociaciones </span>
                                     </li>
+                                    <li class="anchor" data-tab="Localidades">
+                                        <span class="circle check" *ngIf="this.checkLocalidades">4</span>
+                                        <span class="circle">4</span>
+                                        <span>Localidades </span>
+                                    </li>
                                     <li class="anchor" data-tab="someter">
                                         <span class="circle check" *ngIf="this.checkSometidad">4</span>
                                         <span class="circle">4</span>
@@ -80,20 +85,23 @@
                         </h3>
                         <div class="status_request">
                             <div class="progress-outer">
-
-
+                                <div class="progress-inner" [style]='ProgressBarPorcent'></div>
+                                <span class="status">{{(actividades.length ? actividades[0].porcentaje:0 )}}%</span>
                             </div>
                             <div class="label-text">
                                 Proceso:
                                 <div class="indicator">
-
+                                    <span class="label">{{actividadesRealizadas}}/{{actividades.length}} <i
+                                            class="fas fa-question-circle"></i></span>
                                     <div class="process_list">
-                                        <div class="item">
-                                            <span><i class="fas fa-check-circle"></i></span>
+                                        <div class="item" *ngFor="let actividad of actividades">
+                                            <span>{{actividad.actividad_descripcion}}</span>
+                                            <span><i class="fas fa-check-circle"
+                                                    *ngIf="actividad.actividad_Completa"></i></span>
                                         </div>
                                     </div>
                                 </div>
-
+                                <span class="step">{{ estado_Descripcion }}</span>
                             </div>
                         </div>
                     </div>
@@ -117,6 +125,12 @@
                             <app-asociaciones>
 
                             </app-asociaciones>
+                        </div>
+                        
+                        <div id="Localidades" class="animate_animated animate_fadeIn">
+                            <app-localidades>
+
+                            </app-localidades>
                         </div>
                         <div id="someter" class="animate_animated animate_fadeIn">
                             <app-nupre-someter-solicitud *ngIf="titulosCargados" [detalle]="detalleSolicitud"

@@ -5,7 +5,6 @@ import { Motivo_Rechazo, User } from '../../Models/Solicitudes_ViewModelt';
 import { NupreService } from '../../Servicio/nupre.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ProgressBarService } from '../../../Providers/progress-bar.service';
 import { Solicitudes_Actividades_Progress } from '../../Models/SolicitudActividades';
 import { ToastrService } from 'ngx-toastr';
 
@@ -54,11 +53,11 @@ export class DetalleBasicoComponent implements OnInit {
     return `width: ${this.actividades[0]?.porcentaje}%`;
   }
   get actividadesRealizadas(): number {
-    return this.progressBarService.actividadesRealizadas;
+    return this.service.actividadesRealizadas;
   }
 
   get actividades(): Solicitudes_Actividades_Progress[] {
-    return this.progressBarService.Actividades_Progress;
+    return this.service.Actividades_Progress;
   }
 
 
@@ -66,8 +65,7 @@ export class DetalleBasicoComponent implements OnInit {
     public activedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private toastr: ToastrService,
-    private progressBarService: ProgressBarService,
+    private toastr: ToastrService
 
   ) {
     let params: any = this.activedRoute.snapshot.params;

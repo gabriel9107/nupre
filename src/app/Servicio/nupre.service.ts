@@ -18,6 +18,12 @@ import { JsonPipe } from "@angular/common";
 import { Params } from '@angular/router';
 import { Header } from "primeng/api";
 
+
+import { Historico, Solicitudes_Actividades_Progress, Solicitudes_Actividades_Trans_Set_ViewModel } from '../Models/SolicitudActividades';
+
+import { actividad as activadesDict } from '../Models/actividades';
+
+
 @Injectable({
     providedIn: 'root'
 })
@@ -395,7 +401,7 @@ export class NupreService {
             formData.append('especialidad_Numero', String(titulacion.Especialidad_Profesion_Numero));
         }
         if (titulacion.Especialidad_Periodo) {
-            formData.append('especialidad_Periodo', titulacion.Especialidad_Periodo);
+            formData.append('especialidad_Periodo', titulacion.Especialidad_Periodo.toString());
         }
         if (titulacion.Documento_Codigo) {
 
@@ -458,12 +464,12 @@ export class NupreService {
     }
 
 
-someterSolicitud(numero_solicitud: number):Observable<any> {
+    someterSolicitud(numero_solicitud: number): Observable<any> {
 
-    let param ='/'+ numero_solicitud; 
+        let param = '/' + numero_solicitud;
 
-    return this.http.get(urlNupre.solicitudes.SometeSolicitud  + param, { headers: this.httpOptions.headers });
-}
+        return this.http.get(urlNupre.solicitudes.SometeSolicitud + param, { headers: this.httpOptions.headers });
+    }
 
 
 
@@ -478,4 +484,49 @@ someterSolicitud(numero_solicitud: number):Observable<any> {
         return this.http.get<Solicitudes_Estados>(urlNupre.Utilidades.obtener_Profesionales_Estado_Solicitudes_Descripcion + estado_numero);
     }
 
+
+
+
+    //proceso 
+
+    private _solicitud_Actividades_Progress: Solicitudes_Actividades_Progress[] = [];
+
+    actividadesRealizadas: number = 0;
+
+    get Actividades_Progress(): Solicitudes_Actividades_Progress[] {
+        return this._solicitud_Actividades_Progress;
+    }
+    get SolicitudSometida(): boolean {
+        return this.Actividades_Progress.find(
+            actividad => actividad.actividad_Numero == activadesDict.SometerSolicitud)?.actividad_Completa == 1
+    }
+
+
+    ReadActividadProgressBar(solicitud_Numero: number) {
+
+
+        return this.GetActividadProgressBar(solicitud_Numero)
+            .subscribe(resp => {
+                this._solicitud_Actividades_Progress = resp;
+                this.actividadesRealizadas = this._solicitud_Actividades_Progress.filter(actividad => actividad.actividad_Completa).length;
+            })
+    }
+    InsertActividadProgressBar(data: Solicitudes_Actividades_Trans_Set_ViewModel) {
+        return this.PostActividadProgressBar(data)
+            .subscribe(resp => {
+                this.ReadActividadProgressBar(data.solicitud_Numero);
+            })
+    }
+
+    GetHistorico(solicitud_Numero: number): Observable<[Historico[]]> {
+        return this.http.get<[Historico[]]>(urlNupre.master.GetHistorico + `solicitud_Numero=${solicitud_Numero}`);
+    }
+    GetActividadProgressBar(solicitud_Numero: number): Observable<any[]> {
+        console.log(solicitud_Numero)
+        return this.http.get<any[]>(urlNupre.ProgressBar.ProgressBar + solicitud_Numero);
+    }
+    PostActividadProgressBar(solicitudes_Actividades_Trans_Inserta: Solicitudes_Actividades_Trans_Set_ViewModel) {
+        return this.http.post(
+            urlNupre.master.PostProgressBar, solicitudes_Actividades_Trans_Inserta);
+    }
 }

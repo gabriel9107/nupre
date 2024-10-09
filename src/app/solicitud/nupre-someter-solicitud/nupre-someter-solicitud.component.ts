@@ -2,7 +2,6 @@ import { Component, CSP_NONCE, Input, OnInit } from '@angular/core';
 import { Profesionales_Asociacon_Trans_view, ProfesionalesAsociaciones } from '../../Models/asosiaciones';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ProgressBarService } from '../../../Providers/progress-bar.service';
 import { NupreService } from '../../Servicio/nupre.service';
 import { IApiResult } from '../../Models/Api/apiResult';
 import { Solicitud_Medico_Detalle_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
@@ -23,7 +22,7 @@ export class NupreSometerSolicitudComponent implements OnInit {
 
 
   constructor(public servicio: NupreService,
-    private router: Router, public toastr: ToastrService, private progressBarService: ProgressBarService,) {
+    private router: Router, public toastr: ToastrService) {
 
   }
 

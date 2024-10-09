@@ -24,7 +24,7 @@ export let urlNupre = {
 
     },
     ProgressBar: {
-        ProgressBar: environment.baseUrlLocal + "GetProgressBar",
+        ProgressBar: environment.baseUrlLocal + "Actividades/GetProgressBar?solicitudNumero=",
 
     },
 

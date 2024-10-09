@@ -84,12 +84,24 @@ export class SolicitudesFormComponent implements OnInit {
 
   obtenerTipoProfesiones() {
     return this.servicio.obtenerTipoDeprofesiones().subscribe((resp: Tipo_Especialidades[]) => {
-      this.list_TipoEspecilidades = resp;
+
+      if (this.tituloProfesiona == true) {
+        this.list_TipoEspecilidades = resp;
+      }
+
+      else {
+        this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero == 3);
+      }
+
+
 
     });
 
 
   }
+
+
+
   uploadFile(files: File[]) {
 
 
@@ -167,6 +179,7 @@ export class SolicitudesFormComponent implements OnInit {
     param.Especialidad_Tipo_Numero = this.selectTipo;
     param.Especialidad_Profesion_Numero = this.registroTituloForm.get('especialidad_Numero')?.value;
     param.Especialidad_Periodo = this.registroTituloForm.get('especialidad_Periodo')?.value;
+ 
 
 
 

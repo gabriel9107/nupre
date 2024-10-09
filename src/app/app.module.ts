@@ -29,6 +29,7 @@ import { FormularioComponent } from './solicitud/asociaciones/formulario/formula
 import { Listado_Solicitud_Medico } from './Models/Nupre/Listado_Solicitud_Medico';
 import { ListaSolicitudesComponent } from './solicitud/lista-solicitudes/lista-solicitudes.component';
 import { ToastrModule } from 'ngx-toastr';
+import { LocalidadesComponent } from './solicitud/localidades/localidades.component';
 
 
 
@@ -46,7 +47,8 @@ import { ToastrModule } from 'ngx-toastr';
     AsociacionesComponent,
     FormularioSolicitudComponent,
     EditarFormularioSolicitudComponent,
-    FormularioComponent
+    FormularioComponent,
+    LocalidadesComponent
 
   ],
   imports: [

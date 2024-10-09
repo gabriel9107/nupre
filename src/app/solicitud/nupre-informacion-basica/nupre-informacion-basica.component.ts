@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, Params } from "@angular/router";
 import { NupreService } from '../../Servicio/nupre.service';
 import { Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
 import { Historico, Solicitudes_Actividades_Progress } from '../../Models/SolicitudActividades';
-import { ProgressBarService } from '../../../Providers/progress-bar.service';
+
 import { ToastrService } from 'ngx-toastr';
 import { ProfesionalesAsociaciones } from '../../Models/asosiaciones';
 import { Profesional_Listado_titulacionDTO } from '../../Models/Nupre/Profesional_titulacion';
@@ -33,6 +33,7 @@ export class NupreInformacionBasicaComponent implements OnInit {
   public solicitud_Fecha!: string;
   public checkSometidad = false;
   public checkasociaciones = false;
+  public checkLocalidades = false;
   public checktitulacion = false;
   public historicos !: [Historico[]];
 
@@ -44,18 +45,24 @@ export class NupreInformacionBasicaComponent implements OnInit {
   public titulosCargados: boolean = false;
   public asociacionesCargadas: boolean = false;
 
+  get actividadesRealizadas(): number {
+    return this.servicio.actividadesRealizadas;
+  }
+
+
   get ProgressBarPorcent(): string {
     return `width: ${this.actividades[0]?.porcentaje}%`;
   }
 
   get actividades(): Solicitudes_Actividades_Progress[] {
-    return this.progressBarService.Actividades_Progress;
+
+    return this.servicio.Actividades_Progress;
+
   }
   constructor
     (public activedRoute: ActivatedRoute,
       private router: Router, private servicio: NupreService,
       private toastr: ToastrService,
-      private progressBarService: ProgressBarService,
 
     ) {
     let params: any = this.activedRoute.snapshot.params;
@@ -65,7 +72,9 @@ export class NupreInformacionBasicaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.progressBarService.ReadActividadProgressBar(this.solicitudId);
+    this.servicio.ReadActividadProgressBar(this.solicitudId);
+
+
   }
   public listSolicitud() {
     this.router.navigate(['/NUPRE']);
@@ -123,7 +132,7 @@ export class NupreInformacionBasicaComponent implements OnInit {
   }
 
   actividadesPorFecha() {
-    this.progressBarService.GetHistorico(this.solicitudId).subscribe(resp => {
+    this.servicio.GetHistorico(this.solicitudId).subscribe(resp => {
       this.historicos = resp
     })
   }
