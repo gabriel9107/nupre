@@ -1,1 +1,92 @@
-<p>form-register works!</p>
+- <section class="animate__animated animate__fadeIn">
+    <div id="main-title">
+        <div class="container">
+
+        </div>
+    </div>
+    <div class="body-content">
+        <div class="sm-width single-elem has-breadcrumbns">
+            <div id="bread-crumbs">
+                <div class="container">
+                    <ul class="no-style">
+                        <li><a href="">Inicio</a></li>
+                        <li><a href="">Consulta</a></li>
+                        <li><a href="">Solicitudes NUPRE</a></li>
+                        <li><a href="">Detalle solicitud</a></li>
+                        <li>Registro de Titulo</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <form [formGroup]="registroLocalidades" #aFrom>
+                    <section class="block-section">
+                        <div class="content-title">
+                            <h3 class="title">Registrar Localidad Medica
+                            </h3>
+                        </div>
+                        <div class="form-field">
+                            <strong class="caption">Nombre Prestadora <span class="required-field">*</span>:
+                            </strong>
+
+                            <div class="form-control">
+                                <input type="text" formControlName="prestadora_numero" class="input form-input">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="caption">Dirección <span class="required-field">*</span>:
+
+                            </strong>
+                            <div class="form-control">
+                                <input type="text" class="input form-input" formControlName="direccion">
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <strong class="caption">Municipio <span class="required-field">*</span>:
+
+                            </strong>
+                            <div class="form-control">
+                                <input type="text" class="input form-input" formControlName="municipio_numero">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="caption">Teléfono 1 <span class="required-field">*</span>:
+
+                            </strong>
+                            <div class="form-control">
+                                <input type="text" class="input form-input" formControlName="telefono_1">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="caption">Teléfono 2 <span class="required-field">*</span>:
+
+                            </strong>
+                            <div class="form-control">
+                                <input type="text" class="input form-input" formControlName="telefono_2">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="caption">Detalles <span class="required-field">*</span>:
+
+                            </strong>
+                            <div class="form-control">
+                                <input type="text" class="input form-input" formControlName="detalle">
+                            </div>
+                        </div>
+
+                    </section>
+                    <div class="bottom-btn right"></div>
+                    <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
+                        Cancelar</button>
+                    <button class="primary-btn rounded lg-btn" (click)="guardarSolicitud()">
+
+
+                        <i class="fas fa-check">Agregar</i>
+
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

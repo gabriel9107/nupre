@@ -216,8 +216,7 @@ export class ListaSolicitudesComponent implements OnInit {
 
     this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
 
-      this.details = res;
-      console.log('filtrando por solicitud ', res)
+      this.details = res; 
       this.loading = false;
 
     });

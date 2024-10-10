@@ -40,9 +40,9 @@
 
 <div class="add-choices" *ngIf="Registrado == false">
 
-    <div class="block" (click)="Nuevasolicitud(this.solicitudId)">
-        <h4><i class="fas fa-edit"></i> Títulos de Profesiones </h4>
-        <span>Registre los datos relacionados al medico (Copia del titulo , Copia de Exequátu ).</span>
+    <div class="block" (click)="Nuevasolicitud()">
+        <h4><i class="fas fa-edit"></i> Localidades Medicas </h4>
+        <span>Registre los datos relacionados donde el Profesonal de salud presta servicio.</span>
     </div>
 </div>
 
@@ -138,7 +138,7 @@
         <div class="block m-top" *ngIf="Registrado == true">
             <h4>Acciones</h4>
             <div class="form-field">
-                <button class="default-btn rounded " (click)="Nuevasolicitud(this.solicitudId)">
+                <button class="default-btn rounded " (click)="Nuevasolicitud()">
 
                     <i class="fas fa-edit"></i> Agregar Localidad
                 </button>

@@ -22,6 +22,7 @@ import { Header } from "primeng/api";
 import { Historico, Solicitudes_Actividades_Progress, Solicitudes_Actividades_Trans_Set_ViewModel } from '../Models/SolicitudActividades';
 
 import { actividad as activadesDict } from '../Models/actividades';
+import { localidades, Localidates_create_DTO } from "../Models/Nupre/localidades";
 
 
 @Injectable({
@@ -198,25 +199,6 @@ export class NupreService {
 
 
 
-
-
-        // var formData = new FormData();
-
-
-        // for (const key in solicitud) {
-        //     if (solicitud.hasOwnProperty(key)) {
-        //         const value = solicitud[key as keyof solicitudCreacionDTO];
-        //         if (key == "") {
-        //             formData.append('files', String(value));
-        //         }
-        //         formData.append(key, String(value));
-        //         // console.log('formato');
-        //         // console.log(value);
-        //         // console.log(key);
-        //         // console.log(String(value));
-
-        //     }
-        // }
         const headers = new HttpHeaders({
             'Accept': 'application/json'
         });
@@ -228,7 +210,7 @@ export class NupreService {
         })
     }
 
-    // public getSolicitudesListadoFiltro(param: Profesionales_Solicitudes_Filtro_Listado): Observable<any> {
+
     public getSolicitudesListadoFiltro(param: any): Observable<any> {
         var myJsonString = JSON.stringify(param);
         return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas + param, { headers: this.httpOptions.headers });
@@ -252,29 +234,8 @@ export class NupreService {
         })
 
 
-        // return this.http.post(urlNupre.ciudadano.obtenerCiudadano, ciudadano, {
-        //     headers: this.httpOptions.headers
-        // })
     }
 
-    // obtenerCiudadanos(ciudadano: Ciudadano_FiltroDTO): Observable<ciudadano_consulta_DTOs> {
-    //     // const headers = new HttpHeaders({
-    //     //     'Accept': 'application/json'
-    //     // });
-    //     const formData = new FormData();
-
-    //     formData.append('cedula', ciudadano.cedula),
-    //         formData.append('empleador_Registro_Patronal', ciudadano.empleador_Registro_Patronal!.toString());
-
-    //     const headers = new HttpHeaders({
-    //         'Accept': 'application/json'
-    //     });
-
-
-
-
-    //     return this.http.post<ciudadano_consulta_DTOs>(urlNupre.ciudadano.obtenerCiudadano, formData, { headers: headers })
-    // }
 
 
 
@@ -318,10 +279,6 @@ export class NupreService {
         return this.http.get<Listado_Solicitud_Medico[]>('https://localhost:7035/solicitudes');
     }
 
-    // getApplications(param: Profesionales_Filtro_Listado): Observable<Listado_Solicitud_Medico[]> {
-    //     var myjsonreuslt = JSON.stringify(param);
-    //     return this.http.get<Listado_Solicitud_Medico[]>('https://localhost:7035/solicitudes', myjsonreuslt, { headers: this.httpOptions.headers });
-    // }
 
 
     getApplications(filtro: Profesionales_Filtro_Listado): Observable<Listado_Solicitud_Medico[]> {
@@ -346,9 +303,6 @@ export class NupreService {
 
 
 
-        // var formData = new FormData();
-
-        // formData.append('AnioFin', filtro.AnioFin!)
 
         const headers = new HttpHeaders({
             'Accept': 'application/json'
@@ -359,8 +313,7 @@ export class NupreService {
         return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas,
             {
                 params: params
-                // headers: headers
-                // params: filtro, 
+
             });
 
 
@@ -414,9 +367,6 @@ export class NupreService {
 
     public guardarTitulacion(param: Profesional_TitulacionDTO) {
 
-        // const header = new HttpHeaders({
-        //     'Accept': 'multipart/form-data'
-        // });
         const formData = this.constuirformDataTitulacion(param);
 
 
@@ -522,11 +472,43 @@ export class NupreService {
         return this.http.get<[Historico[]]>(urlNupre.master.GetHistorico + `solicitud_Numero=${solicitud_Numero}`);
     }
     GetActividadProgressBar(solicitud_Numero: number): Observable<any[]> {
-        console.log(solicitud_Numero)
+
         return this.http.get<any[]>(urlNupre.ProgressBar.ProgressBar + solicitud_Numero);
     }
     PostActividadProgressBar(solicitudes_Actividades_Trans_Inserta: Solicitudes_Actividades_Trans_Set_ViewModel) {
         return this.http.post(
             urlNupre.master.PostProgressBar, solicitudes_Actividades_Trans_Inserta);
     }
+
+
+
+
+    //localidades
+
+    obtenerLocalides(solicitud_numero: number): Observable<localidades[]> {
+        console.log(solicitud_numero)
+        return this.http.get<localidades[]>(urlNupre.localidades.obtener_localides_Por_Solicitud + solicitud_numero)
+    }
+
+
+    
+    guardarLocalidades(param: Localidates_create_DTO) {
+        const formData = new FormData();
+
+        formData.append('solicitud_Numero', String(param.solicitud_Numero));
+        formData.append('prestadora_Numero', String(param.prestadora_Numero));
+        formData.append('localidad_Direccion', String(param.localidad_Direccion));
+        formData.append('municipio_Numero', String(param.municipio_Numero));
+        formData.append('localidad_Telefono1', String(param.localidad_Telefono1));
+        formData.append('localidad_Telefono2', String(param.localidad_Telefono2));
+        formData.append('localidad_Detalle', String(param.localidad_Detalle));
+        
+
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+        return this.http.post(urlNupre.localidades.guardar_localidad_medico, formData, { headers: headers })
+    }
+
+
 }
