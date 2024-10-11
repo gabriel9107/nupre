@@ -63,13 +63,14 @@ export let urlNupre = {
     Utilidades: {
         obtener_Profesionales_Estado_Solicitudes: environment.baseUrlLocal + "utilidades/obtenerListadoEstado",
         obtener_Profesionales_Estado_Solicitudes_Descripcion: environment.baseUrlLocal + "utilidades//ObtenerDescripcionEstado/",
+        obtener_Prestadoras: environment.baseUrlLocal + "utilidades/obtenerListadoPrestadores"
     },
     localidades: {
-        obtener_localides_Por_Solicitud: environment.baseUrlLocal + "localidades/obtenerLocalidad?id=",
-        guardar_localidad_medico: environment.baseUrlLocal + "localidades",
+        obtener_localides_Por_Solicitud: environment.baseUrlLocal + "localidades/obtenerListado?id=",
+        guardar_localidad_medico: environment.baseUrlLocal + "localidades/crearLocalidad",
         actualizar_localidades_medico: environment.baseUrlLocal + "localidades/actualizarLocalidad"
 
+    },
 
-    }
 
 }

@@ -5,6 +5,8 @@ import { NupreService } from '../../../Servicio/nupre.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Localidates_create_DTO } from '../../../Models/Nupre/localidades';
 import getUserInfo from '../../../auth/JWT';
+import { Municipio } from '../../../Models/Nupre/comun_models';
+import { Prestadoras } from '../../../Models/Prestadoras';
 
 
 @Component({
@@ -13,31 +15,52 @@ import getUserInfo from '../../../auth/JWT';
 
 })
 export class FormRegisterComponent implements OnInit {
+  listaPrestadora: any[] = [];
+  listaMunicipio: Municipio[] = [];
+
+  selectedMunicipio!: number;
+  selectedPrestadora!: number;
+
 
 
   constructor(private servicio: NupreService, public activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router
   ) {
-
+    let params: any = this.activatedRoute.snapshot.params;
+    this.solicitudId = params.id;
   }
 
   ngOnInit(): void {
 
     this.createFormActive();
+    this.obtenerListadoPrestadoras();
+    this.obtenerListadoMunicipio();
     this.user = getUserInfo()
+  }
+
+  obtenerListadoMunicipio() {
+    this.servicio.getMunicipios().subscribe((resp: Municipio[]) => {
+      this.listaMunicipio = resp;
+    });
+  }
+
+  obtenerListadoPrestadoras() {
+    this.servicio.obtenerPrestadoras().subscribe((resp: Prestadoras[]) => {
+      this.listaPrestadora = resp
+    })
   }
 
 
 
   createFormActive() {
     this.registroLocalidades = this.fb.group({
-      prestadora_numero: ['', Validators.required],
-      direccion: ['', Validators.required],
+      prestadora_Numero: ['', Validators.required],
       municipio_numero: ['', Validators.required],
-      telefono_1: ['', Validators.required],
-      telefono_2: ['', Validators.required],
-      detalle: ['', Validators.required],
+      localidad_Direccion: ['', Validators.required],
+      localidad_Telefono1: ['', Validators.required],
+      localidad_Telefono2: ['', Validators.required],
+      localidad_Detalle: ['', Validators.required],
 
     })
   }
@@ -51,12 +74,14 @@ export class FormRegisterComponent implements OnInit {
 
   obtanerParametros() {
     let param = new Localidates_create_DTO();
-    param.prestadora_Numero = this.solicitudId;
-    param.prestadora_Numero = this.registroLocalidades.get('')?.value
-    param.localidad_Direccion = this.registroLocalidades.get('')?.value
-    param.localidad_Telefono1 = this.registroLocalidades.get('')?.value
-    param.localidad_Telefono2 = this.registroLocalidades.get('')?.value
-    param.localidad_Detalle = this.registroLocalidades.get('')?.value
+    param.solicitud_Numero = this.solicitudId as number;
+
+    param.prestadora_Numero = this.registroLocalidades.get('prestadora_Numero')?.value as number
+    param.municipio_Numero = this.registroLocalidades.get('municipio_numero')?.value
+    param.localidad_Direccion = this.registroLocalidades.get('localidad_Direccion')?.value
+    param.localidad_Telefono1 = this.registroLocalidades.get('localidad_Telefono1')?.value
+    param.localidad_Telefono2 = this.registroLocalidades.get('localidad_Telefono2')?.value
+    param.localidad_Detalle = this.registroLocalidades.get('localidad_Detalle')?.value
 
     return param;
   }

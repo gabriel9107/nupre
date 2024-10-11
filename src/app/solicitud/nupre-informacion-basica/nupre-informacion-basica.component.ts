@@ -9,6 +9,7 @@ import { Historico, Solicitudes_Actividades_Progress } from '../../Models/Solici
 import { ToastrService } from 'ngx-toastr';
 import { ProfesionalesAsociaciones } from '../../Models/asosiaciones';
 import { Profesional_Listado_titulacionDTO } from '../../Models/Nupre/Profesional_titulacion';
+import { localidades } from '../../Models/Nupre/localidades';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class NupreInformacionBasicaComponent implements OnInit {
 
   public listadoAsociaciones: ProfesionalesAsociaciones[] = [];
   public listadoTitulo: Profesional_Listado_titulacionDTO[] = [];
+  public listadoLocalides: localidades[] = [];
 
 
 
@@ -101,6 +103,7 @@ export class NupreInformacionBasicaComponent implements OnInit {
 
         this.getListadoTitulos(this.solicitudId);
         this.getListadoAsociacion(this.solicitudId);
+        this.getListadoLocalidades(this.solicitudId);
 
       },
         error => {
@@ -109,6 +112,13 @@ export class NupreInformacionBasicaComponent implements OnInit {
 
   }
 
+  public getListadoLocalidades(solicitud_numero: number) {
+    this.servicio.obtenerLocalides(solicitud_numero).subscribe((resp: localidades[]) => {
+      this.listadoLocalides = resp;
+      this.checkLocalidades = this.listadoLocalides?.length >= 1;
+    })
+
+  }
   public getListadoTitulos(solicitudId: number) {
 
     this.servicio.listadoTitulacionPorSolicitud(solicitudId).subscribe((res: Profesional_Listado_titulacionDTO[]) => {

@@ -23,6 +23,7 @@ import { Historico, Solicitudes_Actividades_Progress, Solicitudes_Actividades_Tr
 
 import { actividad as activadesDict } from '../Models/actividades';
 import { localidades, Localidates_create_DTO } from "../Models/Nupre/localidades";
+import { Prestadoras } from "../Models/Prestadoras";
 
 
 @Injectable({
@@ -491,23 +492,39 @@ export class NupreService {
     }
 
 
-    
+
     guardarLocalidades(param: Localidates_create_DTO) {
         const formData = new FormData();
 
-        formData.append('solicitud_Numero', String(param.solicitud_Numero));
-        formData.append('prestadora_Numero', String(param.prestadora_Numero));
-        formData.append('localidad_Direccion', String(param.localidad_Direccion));
-        formData.append('municipio_Numero', String(param.municipio_Numero));
-        formData.append('localidad_Telefono1', String(param.localidad_Telefono1));
-        formData.append('localidad_Telefono2', String(param.localidad_Telefono2));
-        formData.append('localidad_Detalle', String(param.localidad_Detalle));
-        
 
-        const headers = new HttpHeaders({
-            'Accept': 'application/json'
-        });
-        return this.http.post(urlNupre.localidades.guardar_localidad_medico, formData, { headers: headers })
+        formData.append('Solicitud_Numero', JSON.stringify(param.solicitud_Numero));
+        formData.append('Prestadora_Numero', JSON.stringify(param.prestadora_Numero));
+        formData.append('municipio_Numero', JSON.stringify(param.localidad_Direccion));
+        formData.append('Localidad_Direccion', param.localidad_Direccion);
+        // formData.append('localidad_Detalle', param.localidad_Detalle!)
+        formData.append('localidad_Telefono1', param.localidad_Telefono1!)
+        // formData.append('localidad_Telefono2', param.localidad_Telefono2!)
+
+
+        console.log(param);
+        // const httpOptions = {
+        //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        // }
+
+
+        // return this.http
+        //     .post(urlNupre.localidades.guardar_localidad_medico, formData, httpOptions).subscribe(results => {
+        //         console.log(results)
+        //     })
+        return this.http.post(urlNupre.localidades.guardar_localidad_medico, param, { headers: this.httpOptions.headers })
+    }
+
+
+    /// Prestadoras 
+
+    obtenerPrestadoras(): Observable<Prestadoras[]> {
+        return this.http.get<Prestadoras[]>(urlNupre.Utilidades.obtener_Prestadoras)
+
     }
 
 

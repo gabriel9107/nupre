@@ -77,6 +77,8 @@ export class LocalidadesComponent implements OnInit {
     this.servicio.obtenerLocalides(this.solicitudId).subscribe((resp: localidades[]) => {
       this.loading = false;
 
+      this.listadoDto = resp;
+
       // if (resp.length > 1) {
 
       //   this.listadoDto = resp;

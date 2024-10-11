@@ -52,8 +52,9 @@
 
 
 
+
     <section class="block-section">
-        <h4 style="margin-bottom: -10px">RRegistro de titulación profesional a las que ha optado -
+        <h4 style="margin-bottom: -10px">Registro de titulación profesional a las que ha optado -
             <span *ngIf="checkTitulos" class="color-accent">Completado</span>
             <span *ngIf="!checkTitulos" class="color-red">No completado</span>
 
@@ -70,6 +71,15 @@
         </h4>
 
     </section>
+    <section class="block-section">
+        <h4 style="margin-bottom: -10px">Registro de localidades donde presta servicio -
+            <span *ngIf="checkLocalidades == true" class="color-accent">Completado</span>
+            <span *ngIf="checkLocalidades == false" class="color-red">No completado</span>
+
+        </h4>
+
+    </section>
+
 
     <!-- <section class="block-section">
         <h4>Solicitud Enviadad -
@@ -78,7 +88,7 @@
         </h4>
     </section> -->
 
-    <div class="bottom-btn" *ngIf="checkAsociaciones && checkTitulos">
+    <div class="bottom-btn" *ngIf="checkAsociaciones && checkTitulos && checkLocalidades">
         <button [disabled]="this.submitCliked" class="primary-btn glow rounded lg-btn" (click)="Someter()">Enviar
             solicitud</button>
     </div>

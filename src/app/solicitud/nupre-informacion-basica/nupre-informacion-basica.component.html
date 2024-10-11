@@ -52,8 +52,8 @@
                                 </ul>
                             </nav>
                             <div class="bottom-btn">
-                                <button class="default-btn rounded open-modal" data-target="historico"><i
-                                        class="fas fa-history"></i> Histórico</button>
+                                <!-- <button class="default-btn rounded open-modal" data-target="historico"><i
+                                        class="fas fa-history"></i> Histórico</button> -->
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
 
                             </app-asociaciones>
                         </div>
-                        
+
                         <div id="Localidades" class="animate_animated animate_fadeIn">
                             <app-localidades>
 
@@ -134,7 +134,8 @@
                         </div>
                         <div id="someter" class="animate_animated animate_fadeIn">
                             <app-nupre-someter-solicitud *ngIf="titulosCargados" [detalle]="detalleSolicitud"
-                                [listadoTitulo]="this.listadoTitulo" [listadoAsociaciones]="this.listadoAsociaciones">
+                                [listadoTitulo]="this.listadoTitulo" [listadoAsociaciones]="listadoAsociaciones"
+                                [listadoLocalidades]="this.listadoLocalides">
 
                             </app-nupre-someter-solicitud>
                         </div>
