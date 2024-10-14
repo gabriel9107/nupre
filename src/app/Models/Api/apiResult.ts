@@ -5,3 +5,11 @@ export interface IApiResult {
   status: number,
   result: any
 }
+
+
+export class ApiError {
+  message?: string;
+  statusCode?: number;
+  success?: boolean
+
+}

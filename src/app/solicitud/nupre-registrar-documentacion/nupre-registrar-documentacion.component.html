@@ -90,23 +90,21 @@
             <div class="register animate__animated animate__fadeIn list">
                 <div class="cel ">
                     <strong class="title">
-                        <!-- Profesion - Medico General -->
+
                         Titulo : {{item.especialidad_Descripcion}}
-                        <!-- {{listado.enfermedad_Padecimiento}} - {{listado.tipodelicencia}} -->
+
 
                     </strong>
 
 
-                    <!-- <span class="status-label approved">
-                      ({{listado.estado_Descripcion}})
-                    </span> -->
 
 
                     <div class="relates">
-                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha}} </span>
+                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha |
+                            date:'dd/MM/yyyy'}} </span>
 
-                        <span><i class="far fa-calendar"></i> Periodo
-                            del titulo: {{item.especialidad_Periodo}} </span>
+                        <span><i class="far fa-calendar"></i> Fecha
+                            del titulo: {{item.especialidad_Periodo | date:'dd/MM/yyyy'}} </span>
 
                         <span>
                             <i class="far fa-calendar"></i> Estatus Solicitud: {{item.registro_Estado}}</span>

@@ -9,6 +9,9 @@ import { Nacionalidad, Provincias } from '../../Models/Nupre/comun_models';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../auth/User';
 import getUserInfo from '../../auth/JWT';
+import { catchError, throwError } from 'rxjs';
+import { InvalidOperationException } from '../../Models/InvalidOperationException';
+import { ApiError } from '../../Models/Api/apiResult';
 
 
 @Component({
@@ -105,30 +108,51 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
 
-    this.servicio.obtenerCiudadanos(ciudadano).subscribe((res: ciudadano_consulta_DTOs) => {
-      // this.servicio.getCiudadano(no_cedula,).subscribe((res: ciudadano_consulta_DTOs) => {
+    this.servicio.obtenerCiudadanos(ciudadano).pipe(catchError(error => {
+      if (error.error instanceof ApiError) {
+        // Manejo específico para InvalidOperationException
+        // console.error('Ocurrió una operación inválida:', error.message);
+      } else {
+        // Manejo de otros errores
+        // console.error('Error:', error);
+      }
+      return throwError(error);
+    })
+    ).subscribe((res: ciudadano_consulta_DTOs) => {
       this.datatosCiudadano = res
-
       this.AsignarValores(res);
-    },
-
-
-      error => {
-
-        console.log
-          (error)
-
-
-        this.limpiarValueNSS(error.error)
-
-
-
-        this.validaIdentidad = true;
-        this.TextIdentidad = error.error;
-        //  this.textoBase;
-
-      })
+    }, error => {
+      this.limpiarValueNSS(error.error.message)
+    }
+    )
   }
+
+
+
+  // this.servicio.obtenerCiudadanos(ciudadano).subscribe((res: ciudadano_consulta_DTOs) => {
+  //   // this.servicio.getCiudadano(no_cedula,).subscribe((res: ciudadano_consulta_DTOs) => {
+  //   this.datatosCiudadano = res
+
+  //   this.AsignarValores(res);
+  // },
+
+
+  //   error => {
+
+  //     console.error(error.error.message); // Mensaje de error personalizado
+
+
+
+  //     this.limpiarValueNSS(error.error)
+
+
+
+  //     this.validaIdentidad = true;
+  //     this.TextIdentidad = error.error;
+  //     //  this.textoBase;
+
+  //   })
+
 
 
   public AsignarValores(res: ciudadano_consulta_DTOs) {
@@ -153,6 +177,9 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
   public limpiarValueNSS(error = "") {
+    this.validaIdentidad = true;
+    this.TextIdentidad = error;
+
     this.form.patchValue(
       {
         profesionalDocumento: '',

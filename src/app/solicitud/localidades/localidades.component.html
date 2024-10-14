@@ -20,23 +20,6 @@
     </div>
 </div>
 
-<div class="blue-alert"
-    *ngIf="loading == false && this.estado_Numero == 0 || this.estado_Numero == 1 || this.estado_Numero == 8 ">
-    <div class="content has-icon">
-        <div class="icon"><i class="fas fa-info-circle"></i></div>
-        <div><strong>No se ha formalizado la solicitud de Profesional de la salud (NUPRE) para este asociado.
-                Para continuar realice los siguientes pasos:</strong>
-            <p>1.rellenar con insturcion correctas
-            </p>
-            <p>2. .rellenar con insturcion correctas .</p>
-            <p>3..rellenar con insturcion correctas
-            </p>
-            <p>4..rellenar con insturcion correctas
-            </p>
-        </div>
-    </div>
-</div>
-
 
 <div class="add-choices" *ngIf="Registrado == false">
 
@@ -105,7 +88,7 @@
                     <div class="relates">
                         <span><i class="far fa-calendar"></i> Prestadora Numero : {{item.prestadora_Numero}} </span>
 
-                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha}} </span>
+                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha | date:'dd/MM/yyyy'}} </span>
 
                         <span>
                             <i class="far fa-calendar"></i> Estatus Solicitud: {{item.registro_Estado}}</span>

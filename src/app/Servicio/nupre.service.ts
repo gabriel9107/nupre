@@ -222,7 +222,7 @@ export class NupreService {
 
     // ----Informacion relacionada el empleador 
 
-    public obtenerCiudadanos(ciudadano: Ciudadano_FiltroDTO): Observable<ciudadano_consulta_DTOs> {
+    public obtenerCiudadanos(ciudadano: Ciudadano_FiltroDTO): Observable<any> {
 
         const params = new HttpParams()
             .set('empleador_Registro_Patronal', ciudadano.empleador_Registro_Patronal!.toString())
@@ -230,7 +230,7 @@ export class NupreService {
 
 
 
-        return this.http.get<ciudadano_consulta_DTOs>(urlNupre.ciudadano.obtenerCiudadano, {
+        return this.http.get<any>(urlNupre.ciudadano.obtenerCiudadano, {
             params: params
         })
 

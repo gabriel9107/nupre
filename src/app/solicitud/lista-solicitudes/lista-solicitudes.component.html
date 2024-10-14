@@ -26,7 +26,7 @@
                             <div class="search-box">
                                 <div class="input-box">
                                     <input formControlName="Search" type="text" class="form-input"
-                                        placeholder="Buscar solicitud" />
+                                        placeholder="Buscar solicitud o exequatur" />
                                 </div>
                                 <div class="addons button-icon">
                                     <button (click)="GetSolicitudes(true)"><i class="fas fa-search"></i></button>
@@ -169,7 +169,7 @@
                                             <span><i class="far fa-calendar"></i> Cédula:
                                                 {{item.profesional_Cedula}}</span>
                                             <span><i class="far fa-calendar"></i> Fecha de registro:
-                                                {{item.solicitud_Fecha }}</span>
+                                                {{item.registro_Fecha | date:'dd/MM/yyyy'}}</span>
 
                                             <span *ngIf="item.solicitud_Estado_Numero"><i
                                                     class="far fa-accessible-icon"></i>
