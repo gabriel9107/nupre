@@ -27,7 +27,7 @@
     *ngIf="loading == false && this.estado_Numero == 0 || this.estado_Numero == 1 || this.estado_Numero == 8 ">
     <div class="content has-icon">
         <div class="icon"><i class="fas fa-info-circle"></i></div>
-        
+
         <div><strong>No ha concluido la solicitud de registro para asignación de código SIMON a favor del este
                 profesional de la salud. Para continuar, complete los siguientes pasos:</strong>
             <p>1. Complete información de título de grado o de especialidad(es). Favor ingresar copia de título y
@@ -124,11 +124,11 @@
             <div class="row">
                 <div class="col-w4">
                     <label class="label-text">Documento de Identidad </label>
-                    <a [href]="" target="_blank"><i class="fas fa-eye"></i> Ver documento</a>
+                    <a [href]="urlIdentidad" target="_blank"><i class="fas fa-eye"></i> Ver documento</a>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Documento de Exequátur </label>
-                    <a [href]="" target="_blank"><i class="fas fa-eye"></i> Ver documento</a>
+                    <a [href]="urlExequatur" target="_blank"><i class="fas fa-eye"></i> Ver documento</a>
                 </div>
             </div>
         </fieldset>

@@ -9,17 +9,19 @@ export let urlNupre = {
 
     solicitudes: {
 
-        SometeSolicitud: environment.baseUrlLocal + "solicitudes/someterSolicitud",
+        SometeSolicitud: environment.baseUrlLocal + "solicitudes/someterSolicitud?solicitud=",
 
         crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
 
         crearSolicitudprueba: environment.baseUrlLocal + "solicitudes/prueba",
 
-        obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudes/obtenerSolicitud/",
+        obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudes/obtenerSolicitud?solicitud=",
         obtenerTodasLasSolicitudes: environment.baseUrl + "solicitudes",
 
 
         getDetalleSolicitud: environment.baseUrlLocal + "solicitudes/obtenerSolicitudPorId/",
+        descargarDocumento: environment.baseUrlLocal + "solicitudes/downloadFile/"
+
 
 
     },

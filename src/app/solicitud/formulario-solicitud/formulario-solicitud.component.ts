@@ -30,7 +30,7 @@ export class FormularioSolicitudComponent implements OnInit {
   public validaIdentidad = false;
   public TextIdentidad = this.textoBase;
 
-
+  disabled = true;
 
   public currentUser: User | undefined;
 

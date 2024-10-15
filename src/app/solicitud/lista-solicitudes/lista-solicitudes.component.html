@@ -90,12 +90,12 @@
                                             <i class="fas fa-plus icon"></i> Nuevo
                                         </button>
                                     </div>
-                                    <div>
+                                    <!-- <div>
                                         <button style="height: 31px" class="accent-btn rounded"
                                             (click)="exportarExcel()">
                                             <i class="fas fa-plus icon"></i> Exportar a Excel
                                         </button>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -174,18 +174,19 @@
                                             <span *ngIf="item.solicitud_Estado_Numero"><i
                                                     class="far fa-accessible-icon"></i>
                                                 Solicitud Estado:
-                                                {{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}
+                                                {{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}
+                                                <!-- {{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}} -->
                                             </span>
 
                                         </div>
                                     </div>
                                     <div class="cel" id="statuslabel">
                                         <span class="status pending"
-                                            *ngIf="item.solicitud_Estado_Numero===0 || item.solicitud_Estado_Numero===1 ||item.solicitud_Estado_Numero===8  ">{{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===0 || item.solicitud_Estado_Numero===1 ||item.solicitud_Estado_Numero===8  ">{{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}</span>
                                         <span class="status approved"
-                                            *ngIf="item.solicitud_Estado_Numero===6 || item.solicitud_Estado_Numero===7">{{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===6 || item.solicitud_Estado_Numero===7">{{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}</span>
                                         <span class="status canceled"
-                                            *ngIf="item.solicitud_Estado_Numero===3  || item.solicitud_Estado_Numero===4  || item.solicitud_Estado_Numero===2">{{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===3  || item.solicitud_Estado_Numero===4  || item.solicitud_Estado_Numero===2">{{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}</span>
                                     </div>
 
                                     <div class="cel" id="btns">

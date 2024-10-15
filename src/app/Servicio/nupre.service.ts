@@ -417,7 +417,8 @@ export class NupreService {
 
     someterSolicitud(numero_solicitud: number): Observable<any> {
 
-        let param = '/' + numero_solicitud;
+        let param = numero_solicitud;
+        console.log(urlNupre.solicitudes.SometeSolicitud + param);
 
         return this.http.get(urlNupre.solicitudes.SometeSolicitud + param, { headers: this.httpOptions.headers });
     }
@@ -501,21 +502,12 @@ export class NupreService {
         formData.append('Prestadora_Numero', JSON.stringify(param.prestadora_Numero));
         formData.append('municipio_Numero', JSON.stringify(param.localidad_Direccion));
         formData.append('Localidad_Direccion', param.localidad_Direccion);
+
+        formData.append('registro_Usuario', param.registro_Usuario);
         // formData.append('localidad_Detalle', param.localidad_Detalle!)
         formData.append('localidad_Telefono1', param.localidad_Telefono1!)
-        // formData.append('localidad_Telefono2', param.localidad_Telefono2!)
+        console.log(param.registro_Usuario)
 
-
-        console.log(param);
-        // const httpOptions = {
-        //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-        // }
-
-
-        // return this.http
-        //     .post(urlNupre.localidades.guardar_localidad_medico, formData, httpOptions).subscribe(results => {
-        //         console.log(results)
-        //     })
         return this.http.post(urlNupre.localidades.guardar_localidad_medico, param, { headers: this.httpOptions.headers })
     }
 

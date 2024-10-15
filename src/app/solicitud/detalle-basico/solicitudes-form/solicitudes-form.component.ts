@@ -77,6 +77,7 @@ export class SolicitudesFormComponent implements OnInit {
 
   obtenerListadoProfesiones(tipo: number) {
     return this.servicio.obtenerListadoDeProfesiones(tipo).subscribe((resp: Especialidades[]) => {
+      console.log('tipo : ' + tipo)
       this.listadoEspecialidades = resp
 
     });
@@ -85,13 +86,15 @@ export class SolicitudesFormComponent implements OnInit {
   obtenerTipoProfesiones() {
     return this.servicio.obtenerTipoDeprofesiones().subscribe((resp: Tipo_Especialidades[]) => {
 
-      if (this.tituloProfesiona == true) {
-        this.list_TipoEspecilidades = resp;
+
+      // this.list_TipoEspecilidades = resp;
+      if (this.tituloProfesiona) {
+        this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero != 3);
       }
 
-      else {
-        this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero == 3);
-      }
+      // else {
+      //   this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero == 3);
+      // }
 
 
 
@@ -179,7 +182,7 @@ export class SolicitudesFormComponent implements OnInit {
     param.Especialidad_Tipo_Numero = this.selectTipo;
     param.Especialidad_Profesion_Numero = this.registroTituloForm.get('especialidad_Numero')?.value;
     param.Especialidad_Periodo = this.registroTituloForm.get('especialidad_Periodo')?.value;
- 
+
 
 
 

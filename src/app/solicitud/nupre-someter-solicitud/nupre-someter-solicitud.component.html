@@ -88,9 +88,11 @@
         </h4>
     </section> -->
 
-    <div class="bottom-btn" *ngIf="checkAsociaciones && checkTitulos && checkLocalidades">
-        <button [disabled]="this.submitCliked" class="primary-btn glow rounded lg-btn" (click)="Someter()">Enviar
-            solicitud</button>
+    <div *ngIf="submitCliked">
+        <div class="bottom-btn" *ngIf="checkAsociaciones && checkTitulos && checkLocalidades">
+            <button [disabled]="this.submitCliked" class="primary-btn glow rounded lg-btn" (click)="Someter()">Enviar
+                solicitud</button>
+        </div>
     </div>
 
 </div>

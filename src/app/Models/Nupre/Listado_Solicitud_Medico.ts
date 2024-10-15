@@ -136,6 +136,9 @@ export class Solicitud_Medico_Detalle_View {
     registroEstado?: string
     registroUsuario?: string
     registroFecha?: string
+    profesional_Documento_Cedula_Numero?: string
+    solicitud_Certificado_Numero?: string
+
 
 }
 export interface solicitudCreacionDTO {

@@ -75,7 +75,7 @@ export class FormRegisterComponent implements OnInit {
   obtanerParametros() {
     let param = new Localidates_create_DTO();
     param.solicitud_Numero = this.solicitudId as number;
-
+    param.registro_Usuario = this.user.UsuarioCuenta;
     param.prestadora_Numero = this.registroLocalidades.get('prestadora_Numero')?.value as number
     param.municipio_Numero = this.registroLocalidades.get('municipio_numero')?.value
     param.localidad_Direccion = this.registroLocalidades.get('localidad_Direccion')?.value

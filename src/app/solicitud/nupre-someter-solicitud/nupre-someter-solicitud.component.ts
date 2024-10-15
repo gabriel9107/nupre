@@ -1,6 +1,6 @@
 import { Component, CSP_NONCE, Input, OnInit } from '@angular/core';
 import { Profesionales_Asociacon_Trans_view, ProfesionalesAsociaciones } from '../../Models/asosiaciones';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NupreService } from '../../Servicio/nupre.service';
 import { IApiResult } from '../../Models/Api/apiResult';
@@ -19,6 +19,7 @@ export class NupreSometerSolicitudComponent implements OnInit {
   solicitudId?: number;
   public loading = false;
 
+  public boton = false; 
   public titulosEvalualr: Profesional_Listado_titulacionDTO[] = [];
 
   public asociacionEvalular: ProfesionalesAsociaciones[] = [];
@@ -48,19 +49,26 @@ export class NupreSometerSolicitudComponent implements OnInit {
   @Input() listadoLocalidades: localidades[] = [];
 
 
-  constructor(public servicio: NupreService,
+  constructor(public activedRoute: ActivatedRoute, public servicio: NupreService,
     private router: Router, public toastr: ToastrService) {
+    let params: any = this.activedRoute.snapshot.params;
+
+    this.solicitudId = params.id
 
   }
 
   ngOnInit(): void {
 
+    if (this.detalle.solicitudNumero == 1) {
+      this.boton = false
+    }
 
     if (this.detalle) {
 
       this.fechasolicitud = this.detalle.registro_Fecha!;
       this.afiliado_Nombre_Completo = this.detalle.profesional_Nombre_Completo!;
       this.afiliado_Celular = this.detalle.profesional_Telefono1!;
+
 
     }
     this.checkTitulos = false;
