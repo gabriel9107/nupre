@@ -14,6 +14,7 @@ export let urlNupre = {
         crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
 
         crearSolicitudprueba: environment.baseUrlLocal + "solicitudes/prueba",
+        editarSolicitud: environment.baseUrlLocal + "solicitudes/actualizar",
 
         obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudes/obtenerSolicitud?solicitud=",
         obtenerTodasLasSolicitudes: environment.baseUrl + "solicitudes",

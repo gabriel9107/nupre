@@ -111,14 +111,10 @@
                     </div>
                 </div>
 
+
                 <div class="cel" id="btns">
-                    <button class="outline-btn icon tooltip  open-modal" data-tooltip="Ver Detalle"
-                        data-target="Detail_form">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-                <div class="cel" id="btns">
-                    <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro">
+                    <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro"
+                        data-target="edit_documentform">
                         <i class="fas fa-edit"></i>
                     </button>
                 </div>
@@ -144,4 +140,55 @@
 
         </div>
     </div>
+
+
+    <div id="edit_documentform" class="modal-wrap">
+        <div class="modalbox medium">
+            <div class="modal-header">
+                <h2><i class="fas fa-pen"></i> Datos del Titulo : </h2>
+                <button class="close-btn dismiss"><i class="fas fa-times"></i></button>
+            </div>
+            <form action="" [formGroup]="frmAEdit">
+                <div class="modal-body-content">
+                    <div class="form-field">
+                        <strong class="captinon">Titulo :</strong>
+                        <div [ngClass]="{'has-error': submitted && frmAEdit.controls['profesional_Telefono1'].invalid}">
+                            <span class="error-text"
+                                *ngIf="submitted && frmAEdit.controls['profesional_Telefono1'].invalid">Teléfono
+                                inválido</span>
+                            <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono1"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <strong class="captinon">Fecha Otorgado:</strong>
+                        <div [ngClass]="{'has-error': submitted && frmAEdit.controls['profesional_Telefono1'].invalid}">
+                            <span class="error-text"
+                                *ngIf="submitted && frmAEdit.controls['profesional_Telefono1'].invalid">Teléfono
+                                inválido</span>
+                            <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono2"
+                                class="input form-input">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <strong class="captinon">Documento :</strong>
+                        <div [ngClass]="{'has-error': submitted && frmAEdit.controls['documento_adjunto'].invalid}">
+                            <span class="error-text"
+                                *ngIf="submitted && frmAEdit.controls['documento_adjunto'].invalid">Teléfono
+                                inválido</span>
+                            <div class="upload_file input">
+                                <input type="file" formControlName="documento_adjunto" accept="application/pdf"
+                                    (change)="uploadFile($any($event.target).files)" />
+                                <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                                <button class="btn-search chambray-btn rounded">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 </div>

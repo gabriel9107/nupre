@@ -57,6 +57,11 @@ export class SolicitudesFormComponent implements OnInit {
     this.solicitudId = params.id;
     this.tituloProfesiona = params.id2;
 
+    console.log('Borrar')
+    if (this.tituloProfesiona == true) {
+      console.log('tiene un registro como profesional ')
+    }
+
   }
 
 
@@ -77,7 +82,7 @@ export class SolicitudesFormComponent implements OnInit {
 
   obtenerListadoProfesiones(tipo: number) {
     return this.servicio.obtenerListadoDeProfesiones(tipo).subscribe((resp: Especialidades[]) => {
-      console.log('tipo : ' + tipo)
+
       this.listadoEspecialidades = resp
 
     });
@@ -86,17 +91,12 @@ export class SolicitudesFormComponent implements OnInit {
   obtenerTipoProfesiones() {
     return this.servicio.obtenerTipoDeprofesiones().subscribe((resp: Tipo_Especialidades[]) => {
 
-
-      // this.list_TipoEspecilidades = resp;
       if (this.tituloProfesiona) {
-        this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero != 3);
+        this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero == 1);
       }
-
-      // else {
-      //   this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero == 3);
-      // }
-
-
+      else {
+        this.list_TipoEspecilidades = resp;
+      }
 
     });
 

@@ -92,9 +92,10 @@
 
         <!-- datos de la solicitud -->
         <fieldset class="block-section has-edit-btn">
-            <legend>Datos del Solicitante</legend>
-            <div class="float-btn">
-                <span class="color-blue open-modal" data-target="edit_motherData"><i class="fas fa-pen"></i> Editar
+            <legend>Datos del Solicitante </legend>
+            <div class="float-btn"
+                *ngIf="details.solicitud_Estado_Numero == 0 || details.solicitud_Estado_Numero == 1 || details.solicitud_Estado_Numero == 2 || details.solicitud_Estado_Numero == 8">
+                <span class="color-blue open-modal" data-target="edit_Data"><i class="fas fa-pen"></i> Editar
                     datos</span>
             </div>
             <div class="row">
@@ -104,15 +105,16 @@
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Cédula</label>
-                    <strong>{{details?.profesional_Cedula}} </strong>
+                    <strong>{{details!.profesional_Cedula! | mask: '000-0000000-0000' }} </strong>
+                </div>
+                <div class="col-w4">
+                    <label class="label-text">Teléfono Consultorio :
+                    </label>
+                    <strong>{{details!.profesional_Telefono1! | mask: '000-000-0000'}} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Teléfono residencial</label>
-                    <strong>{{details?.profesional_Telefono1}} </strong>
-                </div>
-                <div class="col-w4">
-                    <label class="label-text">Celular</label>
-                    <strong> {{details?.profesional_Telefono2}}</strong>
+                    <strong> {{details?.profesional_Telefono2! | mask: '000-000-0000'}}</strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Correo electrónico</label>
@@ -159,6 +161,95 @@
             </div>
         </div>
 
+        <div id="edit_Data" class="modal-wrap">
+            <div class="modalbox medium">
+                <div class="modal-header">
+                    <h2><i class="fas fa-pen"></i> Datos del afiliado</h2>
+                    <button class="close-btn dismiss"><i class="fas fa-times"></i></button>
+                </div>
+                <form action="" [formGroup]="frmAfiliadoEdit">
+                    <div class="modal-body-content">
 
+
+                        <div class="form-field">
+                            <strong class="captinon">Teléfono Celular Médico:</strong>
+                            <div
+                                [ngClass]="{'has-error': submitted && frmAfiliadoEdit.controls['profesional_Telefono1'].invalid}">
+                                <span class="error-text"
+                                    *ngIf="submitted && frmAfiliadoEdit.controls['profesional_Telefono1'].invalid">Teléfono
+                                    inválido</span>
+                                <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono1"
+                                    class="input form-input">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="captinon">Teléfono Consultorio :</strong>
+                            <div
+                                [ngClass]="{'has-error': submitted && frmAfiliadoEdit.controls['profesional_Telefono2'].invalid}">
+                                <span class="error-text"
+                                    *ngIf="submitted && frmAfiliadoEdit.controls['profesional_Telefono2'].invalid">Teléfono
+                                    inválido</span>
+                                <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono2"
+                                    class="input form-input">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="captinon">Teléfono residencial<span class="required-field">*</span>:</strong>
+                            <div
+                                [ngClass]="{'has-error': submitted && frmAfiliadoEdit.controls['profesional_Telefono3'].invalid}">
+                                <span class="error-text"
+                                    *ngIf="submitted &&  frmAfiliadoEdit.controls['profesional_Telefono3'].invalid">Celular
+                                    inválido</span>
+                                <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono3"
+                                    class="input form-input">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <strong class="caption">Correo electrónico<span class="required-field">*</span>:</strong>
+                            <div
+                                [ngClass]="{'has-error': submitted && frmAfiliadoEdit.controls['profesional_Mail'].invalid}">
+                                <span class="error-text"
+                                    *ngIf="submitted &&  frmAfiliadoEdit.controls['profesional_Mail'].invalid">Correo
+                                    electrónico
+                                    inválido</span>
+                                <input type="email" formControlName="profesional_Mail" class="input form-input">
+                            </div>
+                        </div>
+                        <!-- <strong class="caption">ingresar Copia de Cédula Identidad y Electoral o Pasaporte <span
+                                class="required-field">*</span></strong>
+                        <div>
+                            <div class="upload_file input">
+                                <input type="file" formControlName="archivo_Cedula" accept="application/pdf"
+                                    (change)="uploadFile($any($event.target).files, 1)" />
+                                <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                                <button class="btn-search chambray-btn rounded">Buscar</button>
+                            </div>
+                        </div>
+                        <strong class="caption">ingresar Copia de Exequátur <span
+                                class="required-field">*</span></strong>
+                        <div>
+
+
+                            <div class="upload_file input">
+                                <input type="file" formControlName="archivo_Exequatur" accept="application/pdf"
+                                    (change)="uploadFile($any($event.target).files, 2)" />
+                                <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                                <button class="btn-search chambray-btn rounded">Buscar</button>
+                            </div>
+                        </div>
+                        <div class="required-field-cont">
+                            <span class="required-field">*</span>El formato del archivo debe ser en .JPG o PDF.
+                        </div> -->
+                    </div>
+                    <div class="modal-footer right">
+                        <button type="button" class="default-btn rounded lg-btn dismiss" id="btnCancel"
+                            name="btnCancel">
+                            <i class="fas fa-times"></i> Cancelar</button>
+                        <button type="button" class="primary-btn rounded lg-btn" (click)="GuardarAfiliadoSolicitud()"><i
+                                class="fas fa-check"></i> Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

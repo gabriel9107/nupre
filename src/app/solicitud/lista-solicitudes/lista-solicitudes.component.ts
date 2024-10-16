@@ -41,6 +41,8 @@ export class ListaSolicitudesComponent implements OnInit {
   public TipoEstado!: Solicitudes_Estados[];
   public ValidarError = false;
   public ErrorMessage: string = '';
+  public fmAfiliadoEdit!: FormGroup;
+
 
 
   public currentUser: User | undefined;
@@ -216,7 +218,7 @@ export class ListaSolicitudesComponent implements OnInit {
 
     this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
 
-      this.details = res; 
+      this.details = res;
       this.loading = false;
 
     });

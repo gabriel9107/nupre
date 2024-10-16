@@ -24,6 +24,8 @@ import { Historico, Solicitudes_Actividades_Progress, Solicitudes_Actividades_Tr
 import { actividad as activadesDict } from '../Models/actividades';
 import { localidades, Localidates_create_DTO } from "../Models/Nupre/localidades";
 import { Prestadoras } from "../Models/Prestadoras";
+import { Solicitud_Set_Afiliado } from "../Models/solicitud_set_afiliado";
+import { observableToBeFn } from "rxjs/internal/testing/TestScheduler";
 
 
 @Injectable({
@@ -79,6 +81,31 @@ export class NupreService {
     }
 
 
+
+    solicitudEditar(solicitud: Solicitud_Set_Afiliado): Observable<any> {
+
+        console.log(solicitud)
+
+        const formData = new FormData();
+
+
+        formData.append('solicitud_Numero', '12')
+
+
+        // formData.append('profesional_Telefono1', JSON.stringify(solicitud.profesional_Telefono1))
+
+        // formData.append('profesional_Telefono2', JSON.stringify(solicitud.profesional_Telefono2))
+        // formData.append('profesional_Telefono3', JSON.stringify(solicitud.profesional_Telefono3))
+        // formData.append('profesional_Mail', JSON.stringify(solicitud.profesional_Mail))
+        // formData.append('asociacion_Registro_Patronal', JSON.stringify(solicitud.asociacion_Registro_Patronal))
+        // formData.append('solicitud_Usuario_Cuenta', JSON.stringify(solicitud.solicitud_Usuario_Cuenta))
+
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        }
+
+        return this.http.post(urlNupre.solicitudes.editarSolicitud, formData, httpOptions)
+    }
 
 
     SolicitudDetalle(Solicitud_Numero: any): Observable<any> {

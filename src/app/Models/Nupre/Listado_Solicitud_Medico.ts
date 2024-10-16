@@ -91,8 +91,7 @@ export class Solicitud_Medico_Detalle_DTO {
     profesionalTelefono2?: string
     profesionalTelefono3?: string
     profesionalMail?: string
-    solicitud_Estado_Numero
-        ?: number
+    solicitud_Estado_Numero?: number
     solicitudEstadoFecha?: string
     solicitudEstadoNota?: string
     solicitudUsuarioCuenta?: string

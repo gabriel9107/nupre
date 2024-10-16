@@ -31,6 +31,7 @@ import { ListaSolicitudesComponent } from './solicitud/lista-solicitudes/lista-s
 import { ToastrModule } from 'ngx-toastr';
 import { LocalidadesComponent } from './solicitud/localidades/localidades.component';
 import { FormRegisterComponent } from './solicitud/localidades/form-register/form-register.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 
@@ -52,6 +53,7 @@ import { FormRegisterComponent } from './solicitud/localidades/form-register/for
     LocalidadesComponent,
     FormRegisterComponent
 
+
   ],
   imports: [
     CommonModule,
@@ -63,10 +65,12 @@ import { FormRegisterComponent } from './solicitud/localidades/form-register/for
     NgSelectModule,
     BrowserAnimationsModule,
     InputTextModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxMaskModule.forRoot()
   ],
 
   providers: [
+
   ],
   bootstrap: [AppComponent]
 })
