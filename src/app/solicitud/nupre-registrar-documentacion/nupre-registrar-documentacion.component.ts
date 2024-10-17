@@ -67,6 +67,10 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
     });
   }
 
+  EditarRegistro(id: number) {
+
+
+  }
   uploadFile(file: any) {
 
   }

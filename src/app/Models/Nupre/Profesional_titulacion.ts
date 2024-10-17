@@ -12,7 +12,9 @@ export class Profesional_titulacion {
 
 
 export class Profesional_Listado_titulacionDTO {
+    public id?: number;
     public solicitud_Numero!: number;
+    public especialidad_Numero?: number;
     public especialidad_Descripcion!: string;
     public registro_Fecha!: Date;
     public registro_Estado!: string;
@@ -21,9 +23,20 @@ export class Profesional_Listado_titulacionDTO {
     public sspecialidad_Tipo_Numero!: string;
 
 }
+export interface Titulacion {
+    id: number;
+    Solicitud_Numero: number;
+    Especialidad_Tipo_Numero: number;
+    Especialidad_Profesion_Numero: number;
+    Especialidad_Periodo: Date;
+    // public Disposicion_Numero?: number;
+    Documento_Codigo: File;
+
+}
 
 
 export class Profesional_TitulacionDTO {
+    id?: number;
     public Solicitud_Numero!: number;
     public Especialidad_Tipo_Numero!: number;
     public Especialidad_Profesion_Numero!: number;

@@ -8,8 +8,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { StyleClassModule } from 'primeng/styleclass';
-import { Profesional_titulacion, Profesional_TitulacionDTO } from '../../../Models/Nupre/Profesional_titulacion';
+import { Profesional_titulacion, Profesional_TitulacionDTO, Titulacion } from '../../../Models/Nupre/Profesional_titulacion';
 import { publishFacade } from '@angular/compiler';
+import { ToastrService } from 'ngx-toastr';
+import { switchMap } from 'rxjs';
 
 
 @Component({
@@ -41,17 +43,56 @@ export class SolicitudesFormComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
+  get solicitud(): Profesional_TitulacionDTO {
+    const solicitud = this.registroTituloForm.value as Profesional_TitulacionDTO;
+    return solicitud;
+  }
 
+
+
+  public guardarSolicitud() {
+
+    if (this.registroTituloForm.invalid) {
+
+      this.toastr.warning('No puedo enviar una solicitud sin registrar el detalle del titulo correspondiente', 'Advertencia');
+      return;
+    }
+    if (this.solicitud.id) {
+      this.servicio.solicitudEditar(this.solicitud).subscribe(solicitud => {
+        this.toastr.info('Solicitu Actualizada', 'Aviso');
+        this.router.navigate(['/Detalle/' + this.solicitudId])
+      })
+    }
+    let param = this.obtenerParametros()
+
+    this.servicio.guardarTitulacion(param).subscribe(() => {
+      this.router.navigate(['/Detalle/' + this.solicitudId])
+    }, error => console.error(error));
+  }
+
+
+
+
+  ngOnInit(): void {
     this.obtenerTipoProfesiones()
     this.createFromActive();
+    if (!this.router.url.includes('edit')) return;
+
+    this.activedRoute.params.pipe(switchMap(({ id }) => this.servicio.obtenerProfesionalesTitulacionId(id)),
+    ).subscribe(trans => {
+      if (!trans) return this.router.navigateByUrl('/');
+      this.registroTituloForm.reset(trans);
+      return;
+    });
+
+
   }
 
 
 
   buscarProfesiones() { }
 
-  constructor(public activedRoute: ActivatedRoute, private fb: FormBuilder, private router: Router, private servicio: NupreService) {
+  constructor(public activedRoute: ActivatedRoute, private fb: FormBuilder, private router: Router, private servicio: NupreService, private toastr: ToastrService) {
     let params: any = this.activedRoute.snapshot.params;
 
     this.solicitudId = params.id;
@@ -91,7 +132,7 @@ export class SolicitudesFormComponent implements OnInit {
   obtenerTipoProfesiones() {
     return this.servicio.obtenerTipoDeprofesiones().subscribe((resp: Tipo_Especialidades[]) => {
 
-      if (this.tituloProfesiona) {
+      if (this.tituloProfesiona == true) {
         this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero == 1);
       }
       else {
@@ -150,18 +191,6 @@ export class SolicitudesFormComponent implements OnInit {
   }
   out = new EventEmitter();
 
-
-  public guardarSolicitud() {
-
-    if (this.registroTituloForm.invalid) {
-
-    }
-    let param = this.obtenerParametros()
-
-    this.servicio.guardarTitulacion(param).subscribe(() => {
-      this.router.navigate(['/Detalle/' + this.solicitudId])
-    }, error => console.error(error));
-  }
 
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../auth/User';
 import { NupreService } from '../../../Servicio/nupre.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { Localidates_create_DTO } from '../../../Models/Nupre/localidades';
 import getUserInfo from '../../../auth/JWT';
 import { Municipio } from '../../../Models/Nupre/comun_models';
 import { Prestadoras } from '../../../Models/Prestadoras';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,18 +23,23 @@ export class FormRegisterComponent implements OnInit {
   selectedPrestadora!: number;
 
 
+  public lockBotton: boolean = false;
+
+
 
   constructor(private servicio: NupreService, public activatedRoute: ActivatedRoute,
+    public toastr: ToastrService,
     private fb: FormBuilder,
     private router: Router
   ) {
     let params: any = this.activatedRoute.snapshot.params;
     this.solicitudId = params.id;
+    this.createFormActive();
   }
 
   ngOnInit(): void {
 
-    this.createFormActive();
+
     this.obtenerListadoPrestadoras();
     this.obtenerListadoMunicipio();
     this.user = getUserInfo()
@@ -53,14 +59,19 @@ export class FormRegisterComponent implements OnInit {
 
 
 
+  validarCampo(campo: string) {
+    return (this.registroLocalidades.get(campo)?.touched && this.registroLocalidades.get(campo)?.errors);
+  }
+
+
   createFormActive() {
     this.registroLocalidades = this.fb.group({
       prestadora_Numero: ['', Validators.required],
       municipio_numero: ['', Validators.required],
       localidad_Direccion: ['', Validators.required],
-      localidad_Telefono1: ['', Validators.required],
-      localidad_Telefono2: ['', Validators.required],
-      localidad_Detalle: ['', Validators.required],
+      localidad_Telefono1: new FormControl('', [Validators.maxLength(10), Validators.required, Validators.pattern('^8[024]9[0-9]{7}$')]),
+      localidad_Telefono2: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
+      localidad_Detalle: [''],
 
     })
   }
@@ -92,9 +103,19 @@ export class FormRegisterComponent implements OnInit {
     let param = this.obtanerParametros();
 
 
-    this.servicio.guardarLocalidades(param).subscribe(() => {
-      this.router.navigate(['/Detalle/' + this.solicitudId])
-    }, error => console.error(error));
+    if (this.registroLocalidades.valid) {
+      this.lockBotton = true;
+      this.servicio.guardarLocalidades(param).subscribe(() => {
+        this.router.navigate(['/Detalle/' + this.solicitudId])
+      }, error => console.error(error));
+
+
+    } if (this.registroLocalidades.invalid) {
+      this.toastr.warning('No puedo enviar una solicitud sin registrar los datos de Localidad correspondientes', 'Advertencia');
+      return;
+    }
+
+
 
   }
 

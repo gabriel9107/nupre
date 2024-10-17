@@ -82,7 +82,7 @@ export class NupreService {
 
 
 
-    solicitudEditar(solicitud: Solicitud_Set_Afiliado): Observable<any> {
+    solicitudEditar(solicitud: Profesional_TitulacionDTO): Observable<any> {
 
         console.log(solicitud)
 
@@ -365,6 +365,14 @@ export class NupreService {
 
 
     //Titulacion 
+
+
+
+
+    obtenerProfesionalesTitulacionId(id: number): Observable<Profesional_TitulacionDTO> {
+        return this.http.get<Profesional_TitulacionDTO>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + id)
+    }
+
 
 
     private constuirformDataTitulacion(titulacion: Profesional_TitulacionDTO) {

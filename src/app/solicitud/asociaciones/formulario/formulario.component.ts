@@ -7,6 +7,7 @@ import { ciudadano_consulta_DTOs } from '../../../Models/Nupre/ciudadano_mastert
 import { solicitudCreacionDTO } from '../../../Models/Nupre/Listado_Solicitud_Medico';
 import { User } from '../../../Models/Solicitudes_ViewModelt';
 import getUserInfo from '../../../auth/JWT';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-formulario',
@@ -26,6 +27,30 @@ export class FormularioComponent implements OnInit {
   showErrorMessage: boolean = false;
 
 
+  navr(id: number) {
+    switch (id) {
+      case 0:
+
+        break;
+      case 1:
+        console.log("It is a Monday.");
+        break;
+      case 2:
+        console.log("It is a Tuesday.");
+        break;
+      case 3:
+        this.router.navigate(['/Detalle/' + this.solicitudId])
+        break;
+
+      default:
+        console.log("No such day exists!");
+        break;
+    }
+  }
+
+  validarCampo(campo: string) {
+    return (this.registroAsociaciones.get(campo)?.touched && this.registroAsociaciones.get(campo)?.errors);
+  }
 
 
   ngOnInit(): void {
@@ -39,7 +64,7 @@ export class FormularioComponent implements OnInit {
   constructor
     (public activedRoute: ActivatedRoute,
       private fb: FormBuilder,
-      private router: Router, private servicio: NupreService
+      private router: Router, private servicio: NupreService, private toastr: ToastrService
     ) {
     let params: any = this.activedRoute.snapshot.params;
     this.solicitudId = params.id;
@@ -145,13 +170,22 @@ export class FormularioComponent implements OnInit {
   }
 
   guardarSolicitud() {
-
     let param = this.obtenerParametros();
-    console.log(param);
 
+    if (this.registroAsociaciones.invalid) {
+      this.toastr.warning('No puedo enviar una solicitud sin registrar el detalle de la asociacion correspondiente', 'Advertencia');
+      return;
+    }
     this.servicio.guardarAsociacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])
+      this.refreshPage();
     }, error => console.error(error));
 
+  }
+  refreshPage(): void {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

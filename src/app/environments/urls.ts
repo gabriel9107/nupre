@@ -33,7 +33,8 @@ export let urlNupre = {
 
     titulacion: {
         guardartitulacion: environment.baseUrlLocal + "titulacion/guardarTitulacion/",
-        obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "titulacion/listadoTitulacion/",
+        obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "titulacion/obtenerTitulacionByNumeroSolicitud/",
+        obtenerTitulacionById: environment.baseUrlLocal + "titulacion/listadoTitulacion/",
 
 
     },

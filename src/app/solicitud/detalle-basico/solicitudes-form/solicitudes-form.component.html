@@ -12,7 +12,7 @@
                         <li><a href="">Inicio</a></li>
                         <li>Consulta</li>
                         <li><a>Solicitudes NUPRE</a></li>
-                        <li><a>Detalle solicitud</a></li>
+                        <li><a [routerLink]="(['/Detalle/' + this.solicitudId])">Detalle solicitud</a></li>
                         <li>Registro de Titulo</li>
                     </ul>
                 </div>
@@ -66,6 +66,9 @@
                             </strong>
 
                             <div class="form-control">
+                                <div [ngClass]="{'has-error':validarCampo('especialidad_Periodo')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('especialidad_Periodo')">Este
+                                    campo es requerido</span>
                                 <input type="date" formControlName="especialidad_Periodo" class="input form-input">
 
                             </div>
@@ -98,7 +101,8 @@
                     <div class="bottom-btn right"></div>
                     <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
                         Cancelar</button>
-                    <button class="primary-btn rounded lg-btn" (click)="guardarSolicitud()">
+                    <button class="primary-btn rounded lg-btn" [disabled]="registroTituloForm.invalid"
+                        (click)="guardarSolicitud()">
 
 
                         <i class="fas fa-check">Agregar</i>
@@ -115,6 +119,6 @@
     </div>
 
     <div id="edit_Data" class="modal-wrap">
-        
+
     </div>
 </section>

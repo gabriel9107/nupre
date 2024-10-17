@@ -12,7 +12,7 @@
                         <li><a href="">Inicio</a></li>
                         <li><a href="">Consulta</a></li>
                         <li><a href="">Solicitudes NUPRE</a></li>
-                        <li><a href="">Detalle solicitud</a></li>
+                        <li><a [routerLink]="(['/Detalle/' + this.solicitudId])">Detalle solicitud</a></li>
                         <li>Registro de Titulo</li>
                     </ul>
                 </div>
@@ -29,7 +29,10 @@
                             </strong>
 
                             <div class="form-control">
-                                <!-- <input type="text" formControlName="c" class="input form-input"> -->
+                                <div [ngClass]="{'has-error':validarCampo('prestadora_Numero')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('prestadora_Numero')">Este
+                                    campo es requerido</span>
+
                                 <ng-select [items]="listaPrestadora" placeholder="Seleccionar una ..."
                                     formControlName="prestadora_Numero" bindLabel="prestadora_Nombre"
                                     bindValue="prestadora_Numero" [clearable]="false" [searchable]="true"
@@ -38,9 +41,14 @@
                             </div>
                         </div>
                         <div class="form-field">
+
+
                             <strong class="caption">Dirección <span class="required-field">*</span>:
 
                             </strong>
+                            <div [ngClass]="{'has-error':validarCampo('localidad_Direccion')}"></div>
+                            <span class="error-text" *ngIf="validarCampo('localidad_Direccion')">Este
+                                campo es requerido</span>
                             <div class="form-control">
                                 <input type="text" class="input form-input" formControlName="localidad_Direccion">
                             </div>
@@ -51,6 +59,9 @@
 
                             </strong>
                             <div class="form-control">
+                                <div [ngClass]="{'has-error':validarCampo('municipio_numero')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('municipio_numero')">Este
+                                    campo es requerido</span>
                                 <ng-select [items]="listaMunicipio" placeholder="Selecione un ... "
                                     formControlName="municipio_numero" bindLabel="municipioNombre"
                                     bindValue="municipioNumero" [clearable]="false" [searchable]="false"
@@ -61,23 +72,29 @@
                             </div>
                         </div>
                         <div class="form-field">
+
                             <strong class="caption">Teléfono 1 <span class="required-field">*</span>:
 
                             </strong>
                             <div class="form-control">
-                                <input type="text" class="input form-input" formControlName="localidad_Telefono1">
+                                <div [ngClass]="{'has-error':validarCampo('localidad_Telefono1')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('localidad_Telefono1')">Este
+                                    campo es requerido</span>
+                                <input type="text" class="input form-input" formControlName="localidad_Telefono1"
+                                    mask="(000) 000-0000">
                             </div>
                         </div>
                         <div class="form-field">
-                            <strong class="caption">Teléfono 2 <span class="required-field">*</span>:
+                            <strong class="caption">Teléfono 2 <span class="required-field"></span>:
 
                             </strong>
                             <div class="form-control">
-                                <input type="text" class="input form-input" formControlName="localidad_Telefono2">
+                                <input type="text" class="input form-input" formControlName="localidad_Telefono2"
+                                    mask="(000) 000-0000">
                             </div>
                         </div>
                         <div class="form-field">
-                            <strong class="caption">Detalles <span class="required-field">*</span>:
+                            <strong class="caption">Detalles <span class="required-field"></span>:
 
                             </strong>
                             <div class="form-control">
@@ -89,7 +106,8 @@
                     <div class="bottom-btn right"></div>
                     <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
                         Cancelar</button>
-                    <button class="primary-btn rounded lg-btn" (click)="guardarSolicitud()">
+                    <button class="primary-btn rounded lg-btn" [disabled]="registroLocalidades.invalid"
+                        (click)="guardarSolicitud()">
 
 
                         <i class="fas fa-check">Agregar</i>

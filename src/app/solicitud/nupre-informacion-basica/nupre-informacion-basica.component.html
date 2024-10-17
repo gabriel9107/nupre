@@ -80,7 +80,7 @@
                     <div class="content-title has-status">
                         <h3 class="title">
                             <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
-                            Solicitud núm. {{solicitudId}} &#124;{{detalleSolicitud?.profesional_Nombre_Completo}}
+                            Solicitud núm. {{solicitudId}} &#124;{{detalleSolicitud!.profesional_Nombre_Completo}}
 
                         </h3>
                         <div class="status_request">
@@ -133,8 +133,10 @@
                             </app-localidades>
                         </div>
                         <div id="someter" class="animate_animated animate_fadeIn">
-                            <app-nupre-someter-solicitud *ngIf="titulosCargados" [detalle]="detalleSolicitud"
-                                [listadoTitulo]="this.listadoTitulo" [listadoAsociaciones]="listadoAsociaciones"
+                            <app-nupre-someter-solicitud
+                                *ngIf="titulosCargados == true && asociacionesCargadas == true &&   checkLocalidades == true"
+                                [detalle]="detalleSolicitud" [listadoTitulo]="this.listadoTitulo"
+                                [listadoAsociaciones]="listadoAsociaciones"
                                 [listadoLocalidades]="this.listadoLocalides">
 
                             </app-nupre-someter-solicitud>
