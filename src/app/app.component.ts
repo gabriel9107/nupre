@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
     //pendiente de modificacion 
 
+    this.ovLink = environment.urlOficinaVirtualLogin
     this.user = getUserInfo()
   }
   title = 'NUPRE';
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   user: User = null!
   ovLink: string = null!
   usuarioPrincipal: boolean = false;
-  // currentApplicationVersion: string = environment.appVersion;
+  currentApplicationVersion: string = environment.appVersion;
   loadProfile: boolean = false;
 
   validarUsuarioPrincipal() {

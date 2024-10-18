@@ -52,18 +52,21 @@ export class SolicitudesFormComponent implements OnInit {
 
   public guardarSolicitud() {
 
+    let param = this.obtenerParametros()
     if (this.registroTituloForm.invalid) {
 
       this.toastr.warning('No puedo enviar una solicitud sin registrar el detalle del titulo correspondiente', 'Advertencia');
       return;
     }
+
+
     if (this.solicitud.id) {
-      this.servicio.solicitudEditar(this.solicitud).subscribe(solicitud => {
+      this.servicio.solicitudEditar(param).subscribe(solicitud => {
         this.toastr.info('Solicitu Actualizada', 'Aviso');
         this.router.navigate(['/Detalle/' + this.solicitudId])
       })
     }
-    let param = this.obtenerParametros()
+
 
     this.servicio.guardarTitulacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])
@@ -74,13 +77,17 @@ export class SolicitudesFormComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.obtenerTipoProfesiones()
     this.createFromActive();
-    if (!this.router.url.includes('edit')) return;
+    this.obtenerTipoProfesiones()
 
-    this.activedRoute.params.pipe(switchMap(({ id }) => this.servicio.obtenerProfesionalesTitulacionId(id)),
+
+    if (!this.router.url.includes('EditarTitulo')) return;
+
+    this.activedRoute.params.pipe(switchMap(({ tituloId }) => this.servicio.obtenerTitulacionPorTitulacionId(tituloId)),
     ).subscribe(trans => {
+      console.log(trans)
       if (!trans) return this.router.navigateByUrl('/');
+
       this.registroTituloForm.reset(trans);
       return;
     });
@@ -98,7 +105,6 @@ export class SolicitudesFormComponent implements OnInit {
     this.solicitudId = params.id;
     this.tituloProfesiona = params.id2;
 
-    console.log('Borrar')
     if (this.tituloProfesiona == true) {
       console.log('tiene un registro como profesional ')
     }
@@ -108,7 +114,7 @@ export class SolicitudesFormComponent implements OnInit {
 
   createFromActive() {
     this.registroTituloForm = this.fb.group({
-      tipo_Registros: ['', Validators.required],
+      especialidad_Tipo_Numero: ['', Validators.required],
       especialidad_Numero: ['', Validators.required],
       especialidad_Periodo: ['', Validators.required],
       documento_adjunto: ['', Validators.required],

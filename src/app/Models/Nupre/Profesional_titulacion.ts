@@ -41,6 +41,7 @@ export class Profesional_TitulacionDTO {
     public Especialidad_Tipo_Numero!: number;
     public Especialidad_Profesion_Numero!: number;
     public Especialidad_Periodo!: Date;
+    public especialidad_Numero?: number;
     // public Disposicion_Numero?: number;
     public Documento_Codigo?: File;
 

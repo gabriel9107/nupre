@@ -8,6 +8,7 @@ import { NupreSometerSolicitudComponent } from './solicitud/nupre-someter-solici
 import { FormularioSolicitudComponent } from './solicitud/formulario-solicitud/formulario-solicitud.component';
 import { FormularioComponent } from './solicitud/asociaciones/formulario/formulario.component';
 import { FormRegisterComponent } from './solicitud/localidades/form-register/form-register.component';
+import { RouterGuard } from './auth/router.guard';
 
 
 
@@ -21,31 +22,44 @@ const routes: Routes = [
   {
     path: 'Detalle/:id',
     component: NupreInformacionBasicaComponent,
+    canActivate: [RouterGuard]
   },
   {
     path: 'RegistrarSolicitud',
     component: FormularioSolicitudComponent,
+    canActivate: [RouterGuard]
   },
   {
     path: 'RegistrarTitulo/:id/:id2',
-    component: SolicitudesFormComponent
+    component: SolicitudesFormComponent,
+    canActivate: [RouterGuard]
+
+  },
+  {
+    path: 'EditarTitulo/:id/:id2/:tituloId',
+    component: SolicitudesFormComponent,
+    canActivate: [RouterGuard]
 
   },
   {
     path: 'Asociaciones/:id',
-    component: AsociacionesComponent
+    component: AsociacionesComponent,
+    canActivate: [RouterGuard]
   },
   {
     path: 'RegistrarAsociacion/:id',
-    component: FormularioComponent
+    component: FormularioComponent,
+    canActivate: [RouterGuard]
   },
   {
     path: 'registrarlocalidades/:id',
-    component: FormRegisterComponent
+    component: FormRegisterComponent,
+    canActivate: [RouterGuard]
   },
   {
     path: 'SometerSolicitud/:id',
-    component: NupreSometerSolicitudComponent
+    component: NupreSometerSolicitudComponent,
+    canActivate: [RouterGuard]
   },
 
   {

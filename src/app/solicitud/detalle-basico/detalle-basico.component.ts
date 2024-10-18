@@ -134,17 +134,17 @@ export class DetalleBasicoComponent implements OnInit {
 
     let param = this.getparametros();
 
-    this.service.solicitudEditar(param).subscribe((res: any) => {
+    // this.service.solicitudEditar(param).subscribe((res: any) => {
 
-      document.getElementById('btnCancel')?.click();
-      this.submitted = false;
-      console.log(res);
+    //   document.getElementById('btnCancel')?.click();
+    //   this.submitted = false;
 
 
-    }, error => {
-      this.toastr.error(error.error, 'Información');
-      console.log(error)
-    });
+
+    // }, error => {
+    //   this.toastr.error(error.error, 'Información');
+    //   console.log(error)
+    // });
 
 
   }

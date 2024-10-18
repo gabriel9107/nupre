@@ -5,6 +5,7 @@ import { Listado_Solicitud_Medico, Profesionales_Filtro_Listado } from '../../Mo
 import { Profesional_Listado_titulacionDTO, Profesional_titulacion } from '../../Models/Nupre/Profesional_titulacion';
 import { Motivo_Rechazo } from '../../Models/Solicitudes_ViewModelt';
 import { FormGroup } from '@angular/forms';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
   selector: 'app-nupre-registrar-documentacion',
@@ -67,9 +68,8 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
     });
   }
 
-  EditarRegistro(id: number) {
-
-
+  EditarRegistro(registro: any) {
+    this.router.navigate(['/EditarTitulo/' + registro.solicitud_Numero + '/' + this.tituloProfesion + '/' + registro.id]);
   }
   uploadFile(file: any) {
 

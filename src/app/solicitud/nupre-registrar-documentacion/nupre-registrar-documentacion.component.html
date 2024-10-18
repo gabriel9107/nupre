@@ -112,9 +112,9 @@
                 </div>
 
                 <!-- data-target="edit_documentform" -->
-                <div class="cel" id="btns">
+                <div class="cel" id="btns" *ngIf="item.especialidad_Estado_Numero ==1">
                     <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro"
-                        (click)="EditarRegistro(item.id!)">
+                        (click)="EditarRegistro(item)">
                         <i class="fas fa-edit"></i>
                     </button>
                 </div>

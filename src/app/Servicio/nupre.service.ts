@@ -370,6 +370,8 @@ export class NupreService {
 
 
     obtenerProfesionalesTitulacionId(id: number): Observable<Profesional_TitulacionDTO> {
+
+        console.log('estoy buscando el titulo')
         return this.http.get<Profesional_TitulacionDTO>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + id)
     }
 
@@ -419,6 +421,14 @@ export class NupreService {
 
         return this.http.get<Profesional_Listado_titulacionDTO[]>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + numero_solcitiud)
     }
+
+
+    public obtenerTitulacionPorTitulacionId(numero_solcitiud: number): Observable<Profesional_TitulacionDTO[]> {
+        console.log('buscando el titulo registrado')
+
+        return this.http.get<Profesional_TitulacionDTO[]>(urlNupre.titulacion.obtenerTitulacionById + numero_solcitiud)
+    }
+
 
 
     //Asociaciones 

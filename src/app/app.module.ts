@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FooterComponet } from './footer/footer.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NupreInformacionBasicaComponent } from './solicitud/nupre-informacion-basica/nupre-informacion-basica.component';
 
 import { DetalleBasicoComponent } from './solicitud/detalle-basico/detalle-basico.component';
@@ -32,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LocalidadesComponent } from './solicitud/localidades/localidades.component';
 import { FormRegisterComponent } from './solicitud/localidades/form-register/form-register.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { AuthInterceptor } from './auth/AuthInterceptor';
 
 
 
@@ -70,7 +71,11 @@ import { NgxMaskModule } from 'ngx-mask';
   ],
 
   providers: [
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

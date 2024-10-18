@@ -26,12 +26,12 @@
                         <div class="form-field">
                             <div class="form-field">
                                 <strong class="caption">Tipo de Registro <span class="required-field">*</span>:</strong>
-                                <div [ngClass]="{'has-error':validarCampo('tipo_Registros')}"></div>
-                                <span class="error-text" *ngIf="validarCampo('tipo_Registros')">Este
+                                <div [ngClass]="{'has-error':validarCampo('especialidad_Tipo_Numero')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('especialidad_Tipo_Numero')">Este
                                     campo es requerido</span>
                                 <div class="item" *ngFor="let tyeOfTitulo of list_TipoEspecilidades">
                                     <label class="square-rdb form-control">
-                                        <input type="radio" name="tipo_Registros" formControlName="tipo_Registros"
+                                        <input type="radio" name="tipo_Registros" formControlName="especialidad_Tipo_Numero"
                                             value="{{tyeOfTitulo.especialidad_Tipo_Numero}}"
                                             (change)="obtenerListadoProfesiones(tyeOfTitulo.especialidad_Tipo_Numero)" />
                                         <span class="elem"></span> {{tyeOfTitulo.especialidad_Tipo_Descripcion}}

@@ -56,9 +56,13 @@ export class FormularioSolicitudComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = getUserInfo();
 
+ 
+
+    console.log(this.currentUser)
 
     this.getProvinciasCata();
     this.getNacionalidades();
+
 
 
     this.form = this.formBuider.group({
@@ -81,6 +85,8 @@ export class FormularioSolicitudComponent implements OnInit {
     if (this.modelo !== undefined) {
       this.form.patchValue(this.modelo)
     }
+
+    // if(this.currentUser.UsuarioTipo)
   }
   constructor
     (public activedRoute: ActivatedRoute,
@@ -295,6 +301,7 @@ export class FormularioSolicitudComponent implements OnInit {
 
   getProvinciasCata() {
 
+    console.log('provincia')
     this.servicio.getProvincias().
       subscribe(resp => this.provincias = resp);
 
