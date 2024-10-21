@@ -150,7 +150,7 @@ export class ListaSolicitudesComponent implements OnInit {
   obtenerEstados() {
     this.servicio.obtenerListadoEstado().subscribe((res: Solicitudes_Estados[]) => {
       this.TipoEstado = res;
-      console.log(res)
+  
     });
   }
 
@@ -169,7 +169,7 @@ export class ListaSolicitudesComponent implements OnInit {
     let validarstatus = document.querySelector('input[name="tipoest"]:checked');
     if (validarstatus) {
       statusnumber = Number((validarstatus as HTMLInputElement).value);
-      console.log(statusnumber);
+  
     }
 
 

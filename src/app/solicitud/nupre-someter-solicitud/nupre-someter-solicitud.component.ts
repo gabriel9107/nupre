@@ -90,7 +90,7 @@ export class NupreSometerSolicitudComponent implements OnInit {
       this.loading = false;
     }
     if (this.listadoLocalidades.length >= 1) {
-      console.log(this.listadoLocalidades)
+     
       this.asociacionEvalular = this.listadoAsociaciones;
       this.checkAsociaciones = true;
       this.checkLocalidades = true;

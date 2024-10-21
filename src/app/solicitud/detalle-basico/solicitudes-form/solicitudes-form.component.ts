@@ -85,7 +85,7 @@ export class SolicitudesFormComponent implements OnInit {
 
     this.activedRoute.params.pipe(switchMap(({ tituloId }) => this.servicio.obtenerTitulacionPorTitulacionId(tituloId)),
     ).subscribe(trans => {
-      console.log(trans)
+
       if (!trans) return this.router.navigateByUrl('/');
 
       this.registroTituloForm.reset(trans);
@@ -106,7 +106,6 @@ export class SolicitudesFormComponent implements OnInit {
     this.tituloProfesiona = params.id2;
 
     if (this.tituloProfesiona == true) {
-      console.log('tiene un registro como profesional ')
     }
 
   }
@@ -139,6 +138,7 @@ export class SolicitudesFormComponent implements OnInit {
     return this.servicio.obtenerTipoDeprofesiones().subscribe((resp: Tipo_Especialidades[]) => {
 
       if (this.tituloProfesiona == true) {
+
         this.list_TipoEspecilidades = resp.filter(x => x.especialidad_Tipo_Numero == 1);
       }
       else {
@@ -153,13 +153,9 @@ export class SolicitudesFormComponent implements OnInit {
 
 
   uploadFile(files: File[]) {
-
-
     this.files = [];
-
     this.errorMessage = "";
     this.showErrorMessage = false;
-
     if (files === null && files === undefined)
       return;
 
@@ -185,11 +181,6 @@ export class SolicitudesFormComponent implements OnInit {
     this.certificado = files[0]
 
 
-
-    // for (var i = 0; i < files.length; i++) {
-    //   console.log(this.files);
-    //   this.files.push(files[i]);
-    // }
 
   }
   search($event: any) {

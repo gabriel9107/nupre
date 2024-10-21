@@ -96,7 +96,7 @@ export class FormularioComponent implements OnInit {
 
     return this.servicio.obtenerListadoAsociaciones().subscribe((res: ProfesionalesAsociacionesTipoCata[]) => {
       this.listaAsociaciones = res;
-      console.log(res);
+
     });
 
   }
@@ -151,10 +151,7 @@ export class FormularioComponent implements OnInit {
 
 
 
-    // for (var i = 0; i < files.length; i++) {
-    //   console.log(this.files);
-    //   this.files.push(files[i]);
-    // }
+
 
   }
 
@@ -178,7 +175,7 @@ export class FormularioComponent implements OnInit {
     }
     this.servicio.guardarAsociacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])
-      this.refreshPage();
+      // this.refreshPage();
     }, error => console.error(error));
 
   }

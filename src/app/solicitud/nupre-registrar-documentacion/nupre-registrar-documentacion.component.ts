@@ -60,11 +60,11 @@ export class NupreRegistrarDocumentacionComponent implements OnInit {
   consultarListadoTitulacion(solicitud_numero: number) {
     this.servicio.listadoTitulacionPorSolicitud(solicitud_numero).subscribe((resp: Profesional_Listado_titulacionDTO[]) => {
       this.listadoDto = resp;
-      if (this.listadoDto.length > 0) {
-
+      if (this.listadoDto[0].solicitud_Numero != 0) {
         this.tituloProfesion = true;
         this.Registrado = true;
       }
+
     });
   }
 

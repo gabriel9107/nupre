@@ -30,7 +30,8 @@
                     <strong class="caption">NSS / Cedula <span class="required-field">*</span></strong>
                     <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
                     <input #profesionalDocumento formControlName="profesional_Documento" type="text"
-                        class="input form-input" (keyup.enter)="buscarDatosAfiliado(profesionalDocumento.value)">
+                        class="input form-input" (keyup.enter)="buscarDatosAfiliado(profesionalDocumento.value)"
+                        [disabled]="isInputDisabled">
                 </div>
                 <div class="blue-alert" *ngIf="validaIdentidad">
                     <div class="content">

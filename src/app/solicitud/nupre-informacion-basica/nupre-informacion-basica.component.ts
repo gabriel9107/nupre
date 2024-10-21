@@ -88,6 +88,7 @@ export class NupreInformacionBasicaComponent implements OnInit {
 
     this.servicio.obtenerDetalelSolicitudbyId(this.solicitudId)
       .subscribe((resp: Solicitud_Medico_Detalle_DTO) => {
+
         this.detalleSolicitud = resp;
         this.profesionalNombreCompleto = resp.profesional_Nombre_Completo!;
         this.loading = false;

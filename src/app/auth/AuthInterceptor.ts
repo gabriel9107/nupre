@@ -2,6 +2,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../environments/environment.desarrollo';
+import { fakeAsync } from '@angular/core/testing';
 
 
 @Injectable()
@@ -14,7 +15,9 @@ export class AuthInterceptor implements HttpInterceptor {
       setHeaders: {
         'X-App-Version': environment.appVersion,
       },
-      withCredentials: true,
+
+      //pendiente de mofificar y trabajar 
+      withCredentials: false,
     })
 
     return next.handle(request);

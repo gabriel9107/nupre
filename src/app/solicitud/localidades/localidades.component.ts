@@ -67,7 +67,7 @@ export class LocalidadesComponent implements OnInit {
   public listadoDto: localidades[] = [];
 
   Nuevasolicitud() {
-    console.log('intentando navergar')
+ 
     this.router.navigate(['/registrarlocalidades', this.solicitudId])
   }
 
@@ -79,11 +79,7 @@ export class LocalidadesComponent implements OnInit {
 
       this.listadoDto = resp;
 
-      // if (resp.length > 1) {
-
-      //   this.listadoDto = resp;
-      //   this.Registrado == true;
-      // }
+      
     }
     )
   }

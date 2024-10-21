@@ -83,8 +83,7 @@ export class NupreService {
 
 
     solicitudEditar(solicitud: Profesional_TitulacionDTO): Observable<any> {
-
-        console.log(solicitud)
+ 
 
         const formData = new FormData();
 
@@ -115,23 +114,7 @@ export class NupreService {
 
     }
 
-
-    // public crearSolicitud2(solicitud: solicitudCreacionDTO) {
-    //     console.log('llego esto');
-    //     console.log(solicitud);
-
-
-    // const httpOptions1 = {
-    //     headers: new HttpHeaders({ 'Accept': 'application/json' }),
-    //   };
-
-
-    //     return this.http.post('https://localhost:7035/solicitudes/prueba', solicitud)
-    // }
-
-    // profesional_Nombre_Completo?: string
-    // profesional_Documento?: string
-    // archivo_Cedula?: File
+ 
 
     private constuirFormData2(solicitud: Solicitud_MedicoCreacionPruebaDTO, cedula: File, archivo_Exequatur: File) {
 
@@ -219,7 +202,7 @@ export class NupreService {
     public crearSolicitud3(solicitud: Solicitud_MedicoCreacionPruebaDTO, cedula: File, certificado: File) {
 
         const formData = this.constuirFormData2(solicitud, cedula, certificado);
-        console.log(formData);
+      
 
 
 
@@ -231,8 +214,7 @@ export class NupreService {
             'Accept': 'application/json'
         });
 
-        console.log(formData);
-        console.log('antes');
+     
         return this.http.post(urlNupre.solicitudes.crearSolicitudprueba, formData, {
             headers: headers
         })
@@ -333,6 +315,9 @@ export class NupreService {
 
 
         const headers = new HttpHeaders({
+            "access-control-allow-origin": "*",
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Methods': '*',
             'Accept': 'application/json'
         });
 
@@ -371,7 +356,7 @@ export class NupreService {
 
     obtenerProfesionalesTitulacionId(id: number): Observable<Profesional_TitulacionDTO> {
 
-        console.log('estoy buscando el titulo')
+      
         return this.http.get<Profesional_TitulacionDTO>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + id)
     }
 
@@ -408,7 +393,7 @@ export class NupreService {
         const formData = this.constuirformDataTitulacion(param);
 
 
-        console.log(param);
+   
         const headers = new HttpHeaders({
             'Accept': 'application/json'
         });
@@ -424,7 +409,7 @@ export class NupreService {
 
 
     public obtenerTitulacionPorTitulacionId(numero_solcitiud: number): Observable<Profesional_TitulacionDTO[]> {
-        console.log('buscando el titulo registrado')
+     
 
         return this.http.get<Profesional_TitulacionDTO[]>(urlNupre.titulacion.obtenerTitulacionById + numero_solcitiud)
     }
@@ -463,7 +448,7 @@ export class NupreService {
     someterSolicitud(numero_solicitud: number): Observable<any> {
 
         let param = numero_solicitud;
-        console.log(urlNupre.solicitudes.SometeSolicitud + param);
+     
 
         return this.http.get(urlNupre.solicitudes.SometeSolicitud + param, { headers: this.httpOptions.headers });
     }
@@ -533,7 +518,7 @@ export class NupreService {
     //localidades
 
     obtenerLocalides(solicitud_numero: number): Observable<localidades[]> {
-        console.log(solicitud_numero)
+         
         return this.http.get<localidades[]>(urlNupre.localidades.obtener_localides_Por_Solicitud + solicitud_numero)
     }
 
@@ -551,7 +536,7 @@ export class NupreService {
         formData.append('registro_Usuario', param.registro_Usuario);
         // formData.append('localidad_Detalle', param.localidad_Detalle!)
         formData.append('localidad_Telefono1', param.localidad_Telefono1!)
-        console.log(param.registro_Usuario)
+        
 
         return this.http.post(urlNupre.localidades.guardar_localidad_medico, param, { headers: this.httpOptions.headers })
     }

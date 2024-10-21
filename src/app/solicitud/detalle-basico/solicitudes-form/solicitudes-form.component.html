@@ -31,7 +31,8 @@
                                     campo es requerido</span>
                                 <div class="item" *ngFor="let tyeOfTitulo of list_TipoEspecilidades">
                                     <label class="square-rdb form-control">
-                                        <input type="radio" name="tipo_Registros" formControlName="especialidad_Tipo_Numero"
+                                        <input type="radio" name="especialidad_Tipo_Numero"
+                                            formControlName="especialidad_Tipo_Numero"
                                             value="{{tyeOfTitulo.especialidad_Tipo_Numero}}"
                                             (change)="obtenerListadoProfesiones(tyeOfTitulo.especialidad_Tipo_Numero)" />
                                         <span class="elem"></span> {{tyeOfTitulo.especialidad_Tipo_Descripcion}}

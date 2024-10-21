@@ -10,8 +10,7 @@ export class FooterComponet implements OnInit {
   public yearCopyright: number = new Date().getFullYear();
 
 
-  ngOnInit(): void {
-    //console.log('FooterComponet')
+  ngOnInit(): void { 
   }
 
 

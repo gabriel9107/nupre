@@ -7,7 +7,7 @@ import { ciudadano_consulta_DTOs, Ciudadano_FiltroDTO } from '../../Models/Nupre
 import { Provincias_Cata } from '../../Models/Direccion';
 import { Nacionalidad, Provincias } from '../../Models/Nupre/comun_models';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../../auth/User';
+import { User, UsuarioInfo } from '../../auth/User';
 import getUserInfo from '../../auth/JWT';
 import { catchError, throwError } from 'rxjs';
 import { InvalidOperationException } from '../../Models/InvalidOperationException';
@@ -29,6 +29,7 @@ export class FormularioSolicitudComponent implements OnInit {
   public certificado!: File
   public validaIdentidad = false;
   public TextIdentidad = this.textoBase;
+  isInputDisabled = false;
 
   disabled = true;
 
@@ -56,9 +57,8 @@ export class FormularioSolicitudComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = getUserInfo();
 
- 
 
-    console.log(this.currentUser)
+ 
 
     this.getProvinciasCata();
     this.getNacionalidades();
@@ -86,7 +86,15 @@ export class FormularioSolicitudComponent implements OnInit {
       this.form.patchValue(this.modelo)
     }
 
-    // if(this.currentUser.UsuarioTipo)
+
+    if (this.currentUser.UsuarioTipo == 3 || 1 || 14 || 16) {
+      this.buscarDatosAfiliado(this.currentUser.UsuarioCedula)
+      this.isInputDisabled = false;
+
+    }
+
+
+
   }
   constructor
     (public activedRoute: ActivatedRoute,
@@ -107,20 +115,24 @@ export class FormularioSolicitudComponent implements OnInit {
 
     let ciudadano: Ciudadano_FiltroDTO = {
       cedula: no_cedula,
-      empleador_Registro_Patronal: this.currentUser?.UsuarioRegistroPatronal
+
+
+      empleador_Registro_Patronal: this.currentUser?.EntidadNombre == "Personal" ? 0 : this.currentUser?.UsuarioRegistroPatronal
+
+
 
     }
+
+    this.form.controls['profesional_Documento'].setValue(this.cedula);
 
 
 
 
     this.servicio.obtenerCiudadanos(ciudadano).pipe(catchError(error => {
       if (error.error instanceof ApiError) {
-        // Manejo específico para InvalidOperationException
-        // console.error('Ocurrió una operación inválida:', error.message);
+
       } else {
-        // Manejo de otros errores
-        // console.error('Error:', error);
+
       }
       return throwError(error);
     })
@@ -164,7 +176,7 @@ export class FormularioSolicitudComponent implements OnInit {
   public AsignarValores(res: ciudadano_consulta_DTOs) {
 
     this.form.patchValue({
-      // profesionalDocumento: res.ciudadanoNoDocumento,
+      profesional_Documento: res.ciudadanoNoDocumento,
       profesional_Nombre_Completo: res.ciudadanoNombreCompleto,
       profesional_Sexo: res.ciudadanoSexo,
       nacionalidad_Numero: res.nacionalidadNumero,
@@ -290,18 +302,13 @@ export class FormularioSolicitudComponent implements OnInit {
       this.certificado = files[0]
     };
 
-
-    // for (var i = 0; i < files.length; i++) {
-    //   console.log(this.files);
-    //   this.files.push(files[i]);
-    // }
-
+ 
   }
 
 
   getProvinciasCata() {
 
-    console.log('provincia')
+
     this.servicio.getProvincias().
       subscribe(resp => this.provincias = resp);
 
