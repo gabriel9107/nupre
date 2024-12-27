@@ -1,7 +1,9 @@
 <section class="animate__animated animate__fadeIn">
     <div id="main-title">
         <div class="container">
-            <h2>Detalle de la Solicitud</h2>
+            <h2>Detalle de la Solicitud DE Número
+                Único Profesional de Salud
+            </h2>
         </div>
     </div>
 
@@ -24,29 +26,31 @@
                         <div class="stickyComponent">
                             <nav class="tabs lateralbar-2">
                                 <ul>
-                                    <li class="anchor is-active" data-tab="affiData">
+                                    <li id="tab_affiData" class="anchor is-active" data-tab="affiData">
                                         <span class="circle check">1</span>
                                         <span>Detalle de solicitud</span>
                                     </li>
-                                    <li class="anchor" data-tab="regLicen">
+                                    <li id="tab_regLicen" class="anchor" data-tab="regLicen">
                                         <span class="circle check" *ngIf="this.checktitulacion">2</span>
                                         <span class="circle">2</span>
-                                        <span>Titulos </span>
+                                        <span>Títulos </span>
                                     </li>
-                                    <li class="anchor" data-tab="Asociaciones">
+                                    <li id="tab_Asociaciones" class="anchor" data-tab="Asociaciones">
                                         <span class="circle check" *ngIf="this.checkasociaciones">3</span>
                                         <span class="circle">3</span>
                                         <span>Asociaciones </span>
                                     </li>
-                                    <li class="anchor" data-tab="Localidades">
+                                    <li id="tab_Localidades" class="anchor" data-tab="Localidades">
                                         <span class="circle check" *ngIf="this.checkLocalidades">4</span>
                                         <span class="circle">4</span>
                                         <span>Localidades </span>
                                     </li>
-                                    <li class="anchor" data-tab="someter">
-                                        <span class="circle check" *ngIf="this.checkSometidad">4</span>
-                                        <span class="circle">4</span>
-                                        <span>Someter Solicitud</span>
+                                    <li id="tab_someter" class="anchor" data-tab="someter"
+                                        *ngIf="titulosCargados == true && asociacionesCargadas == true &&   checkLocalidades == true">
+                                        <span class="circle check" *ngIf="this.estado_Numero != 0">5</span>
+                                        <span class="circle">5</span>
+
+                                        <span>Registrar Solicitud</span>
                                     </li>
 
                                 </ul>
@@ -80,7 +84,7 @@
                     <div class="content-title has-status">
                         <h3 class="title">
                             <span class="goback-btn" routerLink="/NUPRE"><i class="fas fa-chevron-left"></i></span>
-                            Solicitud núm. {{solicitudId}} &#124;{{detalleSolicitud.profesional_Nombre_Completo}}
+                            Solicitud núm. {{solicitudId}} &#124;{{ profesionalNombreCompleto }}
 
                         </h3>
                         <div class="status_request">
@@ -122,13 +126,13 @@
                         </div>
 
                         <div id="Asociaciones" class="animate_animated animate_fadeIn">
-                            <app-asociaciones>
+                            <app-asociaciones [details]="detalleSolicitud">
 
                             </app-asociaciones>
                         </div>
 
                         <div id="Localidades" class="animate_animated animate_fadeIn">
-                            <app-localidades>
+                            <app-localidades [details2]="detalleSolicitud">
 
                             </app-localidades>
                         </div>

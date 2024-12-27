@@ -3,7 +3,7 @@ import { Observable, from, map, retry, tap } from "rxjs";
 import { Solicitudes_listado } from '../Models/Solicitudes_Listado';
 import { urlNUPRE } from '../rutas/Rutas';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Listado_Solicitud_Medico, Profesionales_Filtro_Listado, Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO, Solicitud_Medico_Detalle_View, Solicitud_MedicoCreacionDTO, Solicitud_MedicoCreacionPruebaDTO, solicitudCreacionDTO } from "../Models/Nupre/Listado_Solicitud_Medico";
+import { Edit_Solicitud_Medico, Listado_Solicitud_Medico, Profesionales_Filtro_Listado, Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO, Solicitud_Medico_Detalle_View, Solicitud_MedicoCreacionDTO, Solicitud_MedicoCreacionPruebaDTO, solicitudCreacionDTO } from '../Models/Nupre/Listado_Solicitud_Medico';
 import { environment } from "../environments/environment";
 import { Municipio, Nacionalidad, Provincias } from '../Models/Nupre/comun_models';
 import { ciudadano_consulta_DTOs, Ciudadano_FiltroDTO } from "../Models/Nupre/ciudadano_mastert";
@@ -12,8 +12,8 @@ import { Especialidades, Tipo_Especialidades } from "../Models/Nupre/Especialida
 import { Profesionales_Estado_Solicitud } from "../Models/Profesionales_Estado_Solicitud";
 import { Solicitudes_Estados } from "../Models/Solicitudes_Estados";
 import { Profesionales_Solicitudes_Filtro_Listado } from "../Models/Profesionales_Solicitudes_Filtro_Listado";
-import { Profesional_Listado_titulacionDTO, Profesional_titulacion, Profesional_TitulacionDTO } from "../Models/Nupre/Profesional_titulacion";
-import { CrearProfesionalesAsociaciones_DTO, ProfesionalesAsociaciones, ProfesionalesAsociacionesTipoCata } from "../Models/asosiaciones";
+import { Especialidades_Edit_DTO, Profesional_Listado_titulacionDTO, Profesional_titulacion, Profesional_TitulacionDTO } from "../Models/Nupre/Profesional_titulacion";
+import { CrearProfesionalesAsociaciones_DTO, EditarProfesionalesAsociaciones_DTO, ProfesionalesAsociaciones, ProfesionalesAsociacionesTipoCata } from "../Models/asosiaciones";
 import { JsonPipe } from "@angular/common";
 import { Params } from '@angular/router';
 import { Header } from "primeng/api";
@@ -22,10 +22,12 @@ import { Header } from "primeng/api";
 import { Historico, Solicitudes_Actividades_Progress, Solicitudes_Actividades_Trans_Set_ViewModel } from '../Models/SolicitudActividades';
 
 import { actividad as activadesDict } from '../Models/actividades';
-import { localidades, Localidates_create_DTO } from "../Models/Nupre/localidades";
+import { localidades, Localidates_create_DTO, Localidates_Edit_DTO } from "../Models/Nupre/localidades";
 import { Prestadoras } from "../Models/Prestadoras";
 import { Solicitud_Set_Afiliado } from "../Models/solicitud_set_afiliado";
 import { observableToBeFn } from "rxjs/internal/testing/TestScheduler";
+import { DomSanitizer } from "@angular/platform-browser";
+import { CacheService } from "../auth/cache.services";
 
 
 @Injectable({
@@ -40,24 +42,23 @@ export class NupreService {
             'Content-Type': 'application/json'
         })
     }
-    baseUrl: string = "https://localhost:7035"
 
 
-
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private sanitizer: DomSanitizer,
+        private cacheService: CacheService) {
 
     }
 
 
 
     //Solicitudes 
+    public getSolicitudesListadoFiltro(param: any): Observable<any> {
+        var myJsonString = JSON.stringify(param);
+        return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas + param, { headers: this.httpOptions.headers });
 
+    }
 
     nupreSolicitudDetalle(solicitudNumero: number): Observable<Solicitud_Medico_Detalle_View> {
-
-        const url: string = this.baseUrl + '/solicitudes';
-
-        // https://localhost:7035/solicitudes
 
         return this.http.get<Solicitud_Medico_Detalle_View>(urlNupre.solicitudes.obtenerTodasLasSolicitudes);
     }
@@ -68,27 +69,25 @@ export class NupreService {
         return this.http.get<Solicitud_basic_Informacion_DTO>(urlNupre.solicitudes.getDetalleSolicitud + solicitudNumero);
     }
 
-
-
-
     getSolicitudesBasicas(): Observable<Listado_Solicitud_Medico[]> {
 
-        const url: string = this.baseUrl + '/solicitudes';
-
         return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerTodasLasSolicitudes);
-
-
     }
 
 
 
+
+
+
+
+
     solicitudEditar(solicitud: Profesional_TitulacionDTO): Observable<any> {
- 
+
 
         const formData = new FormData();
 
 
-        formData.append('solicitud_Numero', '12')
+        formData.append('solicitud_Numero', solicitud.Solicitud_Numero.toString())
 
 
         // formData.append('profesional_Telefono1', JSON.stringify(solicitud.profesional_Telefono1))
@@ -110,11 +109,11 @@ export class NupreService {
     SolicitudDetalle(Solicitud_Numero: any): Observable<any> {
 
         let param = 'Solicitud_Numero=' + Solicitud_Numero;
-        return this.http.get('https://localhost:7035/solicitudes/obtenerSolicitudPorId/1', { headers: this.httpOptions.headers });
+        return this.http.get(urlNupre.solicitudes.getDetalleSolicitud + Solicitud_Numero, { headers: this.httpOptions.headers });
 
     }
 
- 
+
 
     private constuirFormData2(solicitud: Solicitud_MedicoCreacionPruebaDTO, cedula: File, archivo_Exequatur: File) {
 
@@ -193,39 +192,36 @@ export class NupreService {
             'Accept': 'application/json'
         });
 
-        return this.http.post(urlNupre.solicitudes.crearSolicitudprueba, formData, {
+        return this.http.post(urlNupre.solicitudes.crearSolicitud, formData, {
             headers: headers
         })
     }
 
 
-    public crearSolicitud3(solicitud: Solicitud_MedicoCreacionPruebaDTO, cedula: File, certificado: File) {
+    public crearSolicitud(solicitud: Solicitud_MedicoCreacionPruebaDTO, cedula: File, certificado: File) {
 
         const formData = this.constuirFormData2(solicitud, cedula, certificado);
-      
-
-
-
-
-
 
 
         const headers = new HttpHeaders({
             'Accept': 'application/json'
         });
 
-     
-        return this.http.post(urlNupre.solicitudes.crearSolicitudprueba, formData, {
+
+        return this.http.post(urlNupre.solicitudes.crearSolicitud, formData, {
             headers: headers
         })
     }
 
 
-    public getSolicitudesListadoFiltro(param: any): Observable<any> {
-        var myJsonString = JSON.stringify(param);
-        return this.http.get<Listado_Solicitud_Medico[]>(urlNupre.solicitudes.obtenerSolicitudesFiltradas + param, { headers: this.httpOptions.headers });
+    solicitud_Edit_Afiliado(solicitud: Solicitud_Set_Afiliado): Observable<any> {
+        var myJsonString = JSON.stringify(solicitud);
+        return this.http.post(urlNupre.solicitudes.editarSolicitud, JSON.parse(myJsonString), { headers: this.httpOptions.headers });
 
     }
+
+
+
 
 
 
@@ -262,32 +258,22 @@ export class NupreService {
 
     getNacionalidades(): Observable<Nacionalidad[]> {
         return this.http.get<Nacionalidad[]>
-            (
-                'https://localhost:7035/utilidades/obtenerNacionalidad'
+            (urlNupre.master.obtenerNacionalidades
             )
     }
 
     getProvincias(): Observable<Provincias[]> {
         return this.http.get<Provincias[]>(
-            'https://localhost:7035/utilidades/obtenerProvincias'
+            urlNupre.master.obtenerProvincias
         )
     }
 
     getMunicipios(): Observable<Municipio[]> {
         return this.http.get<Municipio[]>(
-            'https://localhost:7035/utilidades/obtenerMunicipios'
+            urlNupre.master.obtenerMunicipios
         )
     }
 
-
-
-    public getData(): Observable<any> {
-        return this.http.get<Solicitudes_listado[]>('https://localhost:7035/solicitudes');
-    }
-
-    getAllSoliciudes(): Observable<Listado_Solicitud_Medico[]> {
-        return this.http.get<Listado_Solicitud_Medico[]>('https://localhost:7035/solicitudes');
-    }
 
 
 
@@ -356,7 +342,7 @@ export class NupreService {
 
     obtenerProfesionalesTitulacionId(id: number): Observable<Profesional_TitulacionDTO> {
 
-      
+
         return this.http.get<Profesional_TitulacionDTO>(urlNupre.titulacion.obtenerListadoTitulacionByNumeroSolicitud + id)
     }
 
@@ -388,19 +374,6 @@ export class NupreService {
 
     }
 
-    public guardarTitulacion(param: Profesional_TitulacionDTO) {
-
-        const formData = this.constuirformDataTitulacion(param);
-
-
-   
-        const headers = new HttpHeaders({
-            'Accept': 'application/json'
-        });
-
-        return this.http.post(urlNupre.titulacion.guardartitulacion, formData, { headers: headers });
-    }
-
 
     public listadoTitulacionPorSolicitud(numero_solcitiud: number): Observable<Profesional_Listado_titulacionDTO[]> {
 
@@ -409,13 +382,53 @@ export class NupreService {
 
 
     public obtenerTitulacionPorTitulacionId(numero_solcitiud: number): Observable<Profesional_TitulacionDTO[]> {
-     
+
 
         return this.http.get<Profesional_TitulacionDTO[]>(urlNupre.titulacion.obtenerTitulacionById + numero_solcitiud)
     }
 
 
 
+    public guardarTitulacion(param: Profesional_TitulacionDTO) {
+
+        const formData = this.constuirformDataTitulacion(param);
+
+
+
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+        return this.http.post(urlNupre.titulacion.guardartitulacion, formData, { headers: headers });
+    }
+
+
+    solicitud_Edit_Titulacion(solicitud: Especialidades_Edit_DTO): Observable<any> {
+
+        const formData = new FormData();
+
+        formData.append('id', String(solicitud.id));
+
+        if (solicitud.solicitud_Numero) {
+
+            formData.append('solicitud_Numero', String(solicitud.solicitud_Numero));
+        }
+
+
+        if (solicitud.especialidad_Periodo) {
+            formData.append('especialidad_Periodo', solicitud.especialidad_Periodo.toString());
+        }
+        if (solicitud.documento_Codigo) {
+
+            formData.append('documento_Codigo', solicitud.documento_Codigo);
+        }
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+        return this.http.post(urlNupre.titulacion.editarTitulacion, formData, { headers: headers });
+
+    }
     //Asociaciones 
 
     obtenerListadoAsociacionesBySolicitudId(numero_solicitud: number): Observable<ProfesionalesAsociaciones[]> {
@@ -427,14 +440,15 @@ export class NupreService {
         return this.http.get<ProfesionalesAsociacionesTipoCata[]>(urlNupre.asociaciones.obtener_tipo_Asociaciones);
     }
 
-    guardarAsociacion(param: CrearProfesionalesAsociaciones_DTO) {
+    guardarAsociacion(param: CrearProfesionalesAsociaciones_DTO) : Observable<any>  {
         const formData = new FormData();
 
         formData.append('solicitud_Numero', String(param.solicitud_Numero));
-        formData.append('asociacion_Numero', String(param.profesional_Asociacion_Codigo));
-        formData.append('profesional_Asociacion_Codigo', String(param.asociacion_Codigo));
         formData.append('asociacion_Registro_Patronal', String(param.asociacion_Registro_Patronal));
+        formData.append('profesional_Asociacion_Codigo', String(param.profesional_Asociacion_Codigo));
         formData.append('Documento', param.Documento);
+        formData.append('asociacion_Numero_Socio', String(param.asociacion_Numero_Socio));
+        formData.append('registro_Usuario', param.Registro_Usuario);
 
 
 
@@ -445,13 +459,39 @@ export class NupreService {
     }
 
 
-    someterSolicitud(numero_solicitud: number): Observable<any> {
 
-        let param = numero_solicitud;
-     
+    solicitud_Edit_Asociacion(solicitud: EditarProfesionalesAsociaciones_DTO): Observable<any> {
 
-        return this.http.get(urlNupre.solicitudes.SometeSolicitud + param, { headers: this.httpOptions.headers });
+ 
+        const formData = new FormData();
+
+        
+        formData.append('asociacion_Numero_Socio', String(solicitud.asociacion_Numero_Socio));
+        
+        formData.append('asociacion_ID', String(solicitud.asociacion_ID));
+        
+        
+        formData.append('solicitud_Numero', String(solicitud.solicitud_Numero));
+        
+        formData.append('asociacion_Registro_Patronal', String(solicitud.asociacion_Registro_Patronal));
+        
+        formData.append('profesional_Asociacion_Codigo', String(solicitud.profesional_Asociacion_Codigo));
+        
+        formData.append('registro_Usuario', String(solicitud.Registro_Usuario));
+
+        if (solicitud.Documento) {
+
+            formData.append('documento_Codigo', solicitud.Documento);
+        }
+        const headers = new HttpHeaders({
+            'Accept': 'application/json'
+        });
+
+        return this.http.post(urlNupre.asociaciones.editarAsociacion, formData, { headers: headers });
+
     }
+
+
 
 
 
@@ -518,7 +558,7 @@ export class NupreService {
     //localidades
 
     obtenerLocalides(solicitud_numero: number): Observable<localidades[]> {
-         
+
         return this.http.get<localidades[]>(urlNupre.localidades.obtener_localides_Por_Solicitud + solicitud_numero)
     }
 
@@ -536,9 +576,29 @@ export class NupreService {
         formData.append('registro_Usuario', param.registro_Usuario);
         // formData.append('localidad_Detalle', param.localidad_Detalle!)
         formData.append('localidad_Telefono1', param.localidad_Telefono1!)
-        
+
 
         return this.http.post(urlNupre.localidades.guardar_localidad_medico, param, { headers: this.httpOptions.headers })
+    }
+
+    solicitud_Edit_Localidades(param: Localidates_Edit_DTO): Observable<any> {
+ 
+        const formData = new FormData();
+
+        formData.append('solicitud_Numero', JSON.stringify(param.solicitud_Numero));
+        formData.append('registro_Usuario', param.registro_Usuario);
+        formData.append('municipio_Numero', JSON.stringify(param.localidad_Direccion));
+        formData.append('localidad_Direccion', param.localidad_Direccion);
+        formData.append('prestadora_Numero', JSON.stringify(param.prestadora_Numero));
+
+
+        formData.append('localidad_Detalle', param.localidad_Detalle!)
+        formData.append('localidad_Telefono1', param.localidad_Telefono1!)
+        formData.append('localidad_Telefono2', param.localidad_Telefono2!)
+
+
+        return this.http.post(urlNupre.localidades.actualizar_localidades_medico, param, { headers: this.httpOptions.headers })
+
     }
 
 
@@ -547,6 +607,16 @@ export class NupreService {
     obtenerPrestadoras(): Observable<Prestadoras[]> {
         return this.http.get<Prestadoras[]>(urlNupre.Utilidades.obtener_Prestadoras)
 
+    }
+
+
+
+    someterSolicitud(numero_solicitud: number): Observable<any> {
+
+        let param = numero_solicitud;
+
+
+        return this.http.get(urlNupre.solicitudes.SometeSolicitud + param, { headers: this.httpOptions.headers });
     }
 
 

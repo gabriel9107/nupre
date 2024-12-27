@@ -33,7 +33,7 @@
                             </div>
 
                             <section>
-                                <h4>Busquda por fecha de registro</h4>
+                                <h4>Búsqueda por fecha de registro</h4>
                                 <div class="register-list">
                                     <strong>Fecha inicio:</strong>
                                     <input type="date" class="input form-input" formControlName="fechaInicio"
@@ -41,12 +41,13 @@
 
                                     <strong>Fecha fin:</strong>
                                     <input type="date" class="input form-input" formControlName="fechaFin"
-                                        (change)="GetSolicitudes()" appMaxLenDate>
+                                        (change)="GetSolicitudes()"
+                                        onfocus="this.max=new Date().toISOString().split('T')[0]">
                                 </div>
                             </section>
                             <section>
                                 <h4>Filtrar por estado</h4>
-                                <div class="register-list">
+                                <div class=" register-list">
                                     <label class="form-rdb form-control">
                                         <input type="radio" name="tipoest" id="idtypestatus" value="0" checked
                                             (change)="GetSolicitudes()" />
@@ -62,7 +63,7 @@
                                 </div>
                             </section>
                             <div class="bottom-btn">
-                                <button class="default-btn rounded">
+                                <button class="default-btn rounded" (click)="LimpiarFiltros()">
                                     <i class="fas fa-history"></i> Limpiar filtros
                                 </button>
                             </div>
@@ -156,7 +157,7 @@
 
                                     <div class="cel no-border">
                                         <strong (click)="detallesolicitud(i)">
-                                            Numero Solicitud :{{item.solicitud_Numero}} | Nombre Solicitante
+                                            Número Solicitud :{{item.solicitud_Numero}} | Nombre Solicitante
                                             {{item.profesional_Nombre_Completo}}
                                         </strong>
                                         <div class="relates">

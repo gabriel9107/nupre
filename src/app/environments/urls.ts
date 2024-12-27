@@ -11,9 +11,9 @@ export let urlNupre = {
 
         SometeSolicitud: environment.baseUrlLocal + "solicitudes/someterSolicitud?solicitud=",
 
-        crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
+        // crearSolicitud: environment.baseUrlLocal + "solicitudes/crearSolicituDocumento",
 
-        crearSolicitudprueba: environment.baseUrlLocal + "solicitudes/prueba",
+        crearSolicitud: environment.baseUrlLocal + "solicitudes/crear",
         editarSolicitud: environment.baseUrlLocal + "solicitudes/actualizar",
 
         obtenerSolicitudesFiltradas: environment.baseUrlLocal + "solicitudes/obtenerSolicitud?solicitud=",
@@ -35,10 +35,15 @@ export let urlNupre = {
         guardartitulacion: environment.baseUrlLocal + "titulacion/guardarTitulacion/",
         obtenerListadoTitulacionByNumeroSolicitud: environment.baseUrlLocal + "titulacion/listadoTitulacion/",
         obtenerTitulacionById: environment.baseUrlLocal + "titulacion/obtenerTitulacionByNumeroSolicitud/",
+        editarTitulacion: environment.baseUrlLocal + "titulacion/actualizar",
 
 
     },
     master: {
+
+        obtenerNacionalidades: environment.baseUrlLocal + "utilidades/obtenerNacionalidad",
+        obtenerProvincias: environment.baseUrlLocal + "utilidades/obtenerProvincias",
+        obtenerMunicipios: environment.baseUrlLocal + "utilidades/obtenerMunicipios",
         obtenerProfesiones_Especialidades: environment.baseUrlLocal + "profesiones/obtenerProfesionesPorTipo/",
         obtenerTodasLosTiposProfesiones: environment.baseUrlLocal + "profesiones/obtenerTipoProfesiones",
 
@@ -50,13 +55,14 @@ export let urlNupre = {
     },
     asociaciones: {
 
-        crearSolicitudAsociaciones: environment.baseUrlLocal + "asociaciones/",
+        crearSolicitudAsociaciones: environment.baseUrlLocal + "asociaciones/crear",
 
 
         obtener_tipo_Asociaciones: environment.baseUrlLocal + "asociaciones/obtenerListadoAsociaciones",
         obterAsociacion: environment.baseUrlLocal + "asociacion/obtenerAsociacionesPorId",
 
-        obtenerListadoAsociaciones: environment.baseUrlLocal + "asociaciones/ListadoAsociaciones?solicitud_numero="
+        obtenerListadoAsociaciones: environment.baseUrlLocal + "asociaciones/ListadoAsociaciones?solicitud_numero=",
+        editarAsociacion: environment.baseUrlLocal + "asociaciones/actualizar",
 
     },
 
@@ -72,7 +78,7 @@ export let urlNupre = {
     localidades: {
         obtener_localides_Por_Solicitud: environment.baseUrlLocal + "localidades/obtenerListado?id=",
         guardar_localidad_medico: environment.baseUrlLocal + "localidades/crearLocalidad",
-        actualizar_localidades_medico: environment.baseUrlLocal + "localidades/actualizarLocalidad"
+        actualizar_localidades_medico: environment.baseUrlLocal + "localidades/actualizar"
 
     },
 

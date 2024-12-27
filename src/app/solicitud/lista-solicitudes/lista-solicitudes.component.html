@@ -34,7 +34,7 @@
                             </div>
 
                             <section>
-                                <h4>Busquda por fecha de registro</h4>
+                                <h4>Búsqueda por fecha de registro</h4>
                                 <div class="register-list">
                                     <strong>Fecha inicio:</strong>
                                     <input type="date" class="input form-input" formControlName="fechaInicio"
@@ -42,7 +42,8 @@
 
                                     <strong>Fecha fin:</strong>
                                     <input type="date" class="input form-input" formControlName="fechaFin"
-                                        (change)="GetSolicitudes()" appMaxLenDate>
+                                        (change)="GetSolicitudes()"
+                                        onfocus="this.max=new Date().toISOString().split('T')[0]">
                                 </div>
                             </section>
                             <section>
@@ -162,7 +163,7 @@
 
                                     <div class="cel no-border">
                                         <strong (click)="detallesolicitud(item.solicitud_Numero)">
-                                            Numero Solicitud :{{item.solicitud_Numero}} | Nombre Solicitante :
+                                            Número Solicitud :{{item.solicitud_Numero}} | Nombre Solicitante :
                                             {{item.profesional_Nombre_Completo}}
                                         </strong>
                                         <div class="relates">
@@ -174,7 +175,10 @@
                                             <span *ngIf="item.solicitud_Estado_Numero"><i
                                                     class="far fa-accessible-icon"></i>
                                                 Solicitud Estado:
-                                                {{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}
+
+                                                {{buscarEstado(item.solicitud_Estado_Numero)}}
+
+                                                <!-- {{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}} -->
                                                 <!-- {{this.TipoEstado[item.solicitud_Estado_Numero].profesional_EstadoDescripcion}} -->
                                             </span>
 
@@ -182,11 +186,14 @@
                                     </div>
                                     <div class="cel" id="statuslabel">
                                         <span class="status pending"
-                                            *ngIf="item.solicitud_Estado_Numero===0 || item.solicitud_Estado_Numero===1 ||item.solicitud_Estado_Numero===8  ">{{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===0 || item.solicitud_Estado_Numero===0 ||item.solicitud_Estado_Numero===8  ">
+                                            {{buscarEstado(item.solicitud_Estado_Numero)}}</span>
                                         <span class="status approved"
-                                            *ngIf="item.solicitud_Estado_Numero===6 || item.solicitud_Estado_Numero===7">{{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===6 || item.solicitud_Estado_Numero===7">
+                                            {{buscarEstado(item.solicitud_Estado_Numero)}}</span>
                                         <span class="status canceled"
-                                            *ngIf="item.solicitud_Estado_Numero===3  || item.solicitud_Estado_Numero===4  || item.solicitud_Estado_Numero===2">{{this.TipoEstado[item.solicitud_Estado_Numero-1].profesional_EstadoDescripcion}}</span>
+                                            *ngIf="item.solicitud_Estado_Numero===3  || item.solicitud_Estado_Numero===4  || item.solicitud_Estado_Numero===2">
+                                            {{buscarEstado(item.solicitud_Estado_Numero)}}</span>
                                     </div>
 
                                     <div class="cel" id="btns">

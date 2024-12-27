@@ -22,44 +22,44 @@ const routes: Routes = [
   {
     path: 'Detalle/:id',
     component: NupreInformacionBasicaComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
   },
   {
     path: 'RegistrarSolicitud',
     component: FormularioSolicitudComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
   },
   {
     path: 'RegistrarTitulo/:id/:id2',
     component: SolicitudesFormComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
 
   },
   {
     path: 'EditarTitulo/:id/:id2/:tituloId',
     component: SolicitudesFormComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
 
   },
   {
     path: 'Asociaciones/:id',
     component: AsociacionesComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
   },
   {
     path: 'RegistrarAsociacion/:id',
     component: FormularioComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
   },
   {
     path: 'registrarlocalidades/:id',
     component: FormRegisterComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
   },
   {
     path: 'SometerSolicitud/:id',
     component: NupreSometerSolicitudComponent,
-    canActivate: [RouterGuard]
+    // canActivate: [RouterGuard]
   },
 
   {

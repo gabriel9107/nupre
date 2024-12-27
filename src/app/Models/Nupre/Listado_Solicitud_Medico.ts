@@ -1,6 +1,15 @@
 import { FiltroBase } from "../FiltroBase"
 import { Profesionales_Estado_Solicitud } from "../Profesionales_Estado_Solicitud"
 
+
+export class Edit_Solicitud_Medico {
+    rofesional_Telefono1?: string
+    profesional_Telefono2?: string
+    profesional_Telefono3?: string
+    profesional_Mail?: string
+}
+
+
 export class Listado_Solicitud_Medico {
     profesionales_SolicitudesTranId?: number
     solicitud_Numero?: number

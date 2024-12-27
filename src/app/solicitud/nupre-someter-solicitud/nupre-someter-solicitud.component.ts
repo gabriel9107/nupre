@@ -19,7 +19,7 @@ export class NupreSometerSolicitudComponent implements OnInit {
   solicitudId?: number;
   public loading = false;
 
-  public boton = false; 
+  public boton = false;
   public titulosEvalualr: Profesional_Listado_titulacionDTO[] = [];
 
   public asociacionEvalular: ProfesionalesAsociaciones[] = [];
@@ -59,15 +59,12 @@ export class NupreSometerSolicitudComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.detalle.solicitudNumero == 1) {
-      this.boton = false
-    }
-
-    if (this.detalle) {
+    if (this.detalle != null) {
 
       this.fechasolicitud = this.detalle.registro_Fecha!;
       this.afiliado_Nombre_Completo = this.detalle.profesional_Nombre_Completo!;
       this.afiliado_Celular = this.detalle.profesional_Telefono1!;
+      this.loading = false;
 
 
     }
@@ -90,7 +87,7 @@ export class NupreSometerSolicitudComponent implements OnInit {
       this.loading = false;
     }
     if (this.listadoLocalidades.length >= 1) {
-     
+
       this.asociacionEvalular = this.listadoAsociaciones;
       this.checkAsociaciones = true;
       this.checkLocalidades = true;
@@ -108,7 +105,7 @@ export class NupreSometerSolicitudComponent implements OnInit {
 
   Someter() {
     if (!this.checkTitulos) {
-      this.toastr.warning('No puedo enviar una solicitud sin registrar los titulos correspondientes', 'Advertencia');
+      this.toastr.warning('No puedo enviar una solicitud sin registrar los títulos correspondientes', 'Advertencia');
       return;
     }
 
@@ -123,17 +120,15 @@ export class NupreSometerSolicitudComponent implements OnInit {
     this.submitCliked = true;
     this.loading = true;
     this.servicio.someterSolicitud(this.solicitudId!).subscribe((resp: IApiResult) => {
-      if (resp.success) {
-        this.toastr.success("Información", 'Solicitud Sometidad con exito');
-        this.refreshPage();
-        this.loading = false;
-      } else {
-        this.loading = false
-        this.toastr.error(resp.errorMessage.join("\n"), 'Información');
-      }
+
+      this.toastr.success("Información", 'Solicitud sometida con éxito');
+      this.loading = false;
+      this.router.navigate([''])
+
     }, error => {
       this.loading = false
       this.toastr.error(error.error.errorMessage.join("\n"), 'Información');
+      this.refreshPage();
     });
   }
 

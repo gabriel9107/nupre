@@ -23,8 +23,8 @@
 
 <div class="add-choices" *ngIf="Registrado == false">
 
-    <div class="block" (click)="Nuevasolicitud()">
-        <h4><i class="fas fa-edit"></i> Localidades Medicas </h4>
+    <div class="block" (click)="Nuevasolicitud()" *ngIf="this.details2.solicitud_Estado_Numero ==0">
+        <h4><i class="fas fa-edit"></i>Agregar Localidades Medicas </h4>
         <span>Registre los datos relacionados donde el Profesonal de salud presta servicio.</span>
     </div>
 </div>
@@ -34,7 +34,7 @@
         <div class="form-field">
             Existen datos que deben revisarse en la solicitud. Para corregir
             estos errores presione el botón
-            <strong>"editar registro <i class="fas fa-edit"></i>"</strong> que se encuentra en el recuadro del titulo
+            <strong>"editar registro <i class="fas fa-edit"></i>"</strong> que se encuentra en el recuadro del título
             registrado.
         </div>
         <div style="margin-bottom: 15px;" *ngFor="let motivo of motivos_Rechazos_Agrupados | keyvalue">
@@ -55,7 +55,7 @@
             <p>
                 <strong><i class="fas fa-exclamation-circle"></i> IMPORTANTE: Cuando haga los ajustes correspondientes.
                     Favor
-                    diríjase a la pestaña “Someter Solicitud” ubicado a la izquierda, para someter (enviar a SISALRIL)
+                    diríjase a la pestaña “Someter Solicitud” ubicado a la izquierda, para registrar (enviar a SISALRIL)
                     la
                     solicitud.</strong>
             </p>
@@ -73,36 +73,39 @@
             <div class="register animate__animated animate__fadeIn list">
                 <div class="cel ">
                     <strong class="title">
-                        <!-- Profesion - Medico General -->
-                        Prestadora Nombre : {{item.localidad_Prestadora_Nombre}}
+                        Localidad Nombre : {{item.localidad_Prestadora_Nombre}}
                         <!-- {{listado.enfermedad_Padecimiento}} - {{listado.tipodelicencia}} -->
 
                     </strong>
 
 
-                    <!-- <span class="status-label approved">
-                      ({{listado.estado_Descripcion}})
-                    </span> -->
+                    <span class="title">
+                        Municipio : {{BuscarMunicipio(item.municipio_Numero)}}
+
+                        <!-- ({{item.municipio_Numero}}) -->
+                    </span>
 
 
                     <div class="relates">
-                        <span><i class="far fa-calendar"></i> Prestadora Numero : {{item.prestadora_Numero}} </span>
+                        <span><i class="far fa-calendar"></i> Prestadora Número : {{item.prestadora_Numero}} </span>
 
-                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha | date:'dd/MM/yyyy'}} </span>
+                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha |
+                            date:'dd/MM/yyyy'}} </span>
 
                         <span>
                             <i class="far fa-calendar"></i> Estatus Solicitud: {{item.registro_Estado}}</span>
                     </div>
                 </div>
 
-                <div class="cel" id="btns">
+                <!-- <div class="cel" id="btns">
                     <button class="outline-btn icon tooltip  open-modal" data-tooltip="Ver Detalle"
                         data-target="Detail_form">
                         <i class="fas fa-eye"></i>
                     </button>
-                </div>
-                <div class="cel" id="btns">
-                    <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro">
+                </div> -->
+                <div class="cel" id="btns" *ngIf="this.details2.solicitud_Estado_Numero ==0">
+                    <button class="outline-btn icon edit tooltip open-modal" data-target="edit_localidades"
+                        data-tooltip="Editar registro" (click)="ediarRegistro(item)">
                         <i class="fas fa-edit"></i>
                     </button>
                 </div>
@@ -127,5 +130,102 @@
             </div>
 
         </div>
+
     </div>
-</div>
+
+
+    <div id="edit_localidades" class="modal-wrap">
+        <div class="modalbox medium">
+            <div class="modal-header">
+                <h2><i class="fas fa-pen"></i> Editar Localidad : {{ editar?.localidad_Prestadora_Nombre}}</h2>
+                <button class="close-btn dismiss"><i class="fas fa-times"></i></button>
+            </div>
+
+            <form action="" [formGroup]="registroLocalidades">
+                <div class="modal-body-content">
+                    <div class="form-field">
+                        <div>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <strong class="caption">Municipio <span class="required-field">*</span>:
+
+                            </strong>
+
+                            <div class="form-control">
+
+                                <ng-select [items]="listaMunicipio" placeholder="Selecione un ... "
+                                    formControlName="municipio_numero" bindLabel="municipioNombre"
+                                    bindValue="municipioNumero" [clearable]="false" [searchable]="false"
+                                    [(ngModel)]="selectedMunicipio">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="form-field">
+
+                            <strong class="caption">Dirección <span class="required-field">*</span>:
+
+                            </strong>
+
+                            <input type="text" class="input form-input" formControlName="localidad_Direccion">
+
+                        </div>
+
+                        <div class="form-field">
+
+                            <strong class="caption">Teléfono 1 <span class="required-field">*</span>:
+
+                            </strong>
+
+                            <div class="form-control">
+
+                                <input type="text" class="input form-input" formControlName="localidad_Telefono1"
+                                    mask="(000) 000-0000">
+
+                            </div>
+                        </div>
+                        <div class="form-field">
+
+                            <strong class="caption">Teléfono 2 :
+
+                            </strong>
+
+                            <div class="form-control">
+
+                                <input type="text" class="input form-input" formControlName="localidad_Telefono2"
+                                    mask="(000) 000-0000">
+
+                            </div>
+                        </div>
+                        <div class="form-field">
+
+                            <strong class="caption">Detalles :
+
+                            </strong>
+
+                            <div class="form-control">
+
+                                <input type="text" class="input form-input" formControlName="localidad_Detalle">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer right">
+                            <button type="button" class="default-btn rounded lg-btn dismiss" id="btnLCancel"
+                                (click)="Cancelar()" name="btnLCancel"><i class="fas fa-times"></i> Cancelar</button>
+                            <button type="button" class="primary-btn rounded lg-btn" (click)="guardarSolicitud()"><i
+                                    class="fas fa-check"></i>
+                                Guardar cambios</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+
+    </div>

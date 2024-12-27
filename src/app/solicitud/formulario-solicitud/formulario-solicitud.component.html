@@ -18,8 +18,7 @@
     </div>
 
     <div class="container topPadding sm-width v2">
-        <form (submit)="GuardarSolicitud()" [formGroup]="form" #aForm (keydown.enter)="$event.preventDefault()"
-            enctype="multipart/form-data">
+        <form [formGroup]="form" #aForm (keydown.enter)="$event.preventDefault()" enctype="multipart/form-data">
             <section class=" block-section">
                 <span class="goback-btn alone" (click)="regresar()"><i class="fas fa-chevron-left"></i> Regresar</span>
 
@@ -27,11 +26,22 @@
                     <h3 class="title">Datos Personales </h3>
                 </div>
                 <div class="form-field">
-                    <strong class="caption">NSS / Cedula <span class="required-field">*</span></strong>
-                    <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
-                    <input #profesionalDocumento formControlName="profesional_Documento" type="text"
-                        class="input form-input" (keyup.enter)="buscarDatosAfiliado(profesionalDocumento.value)"
-                        [disabled]="isInputDisabled">
+                    <strong class="caption"> Cedula <span class="required-field">*</span></strong>
+                    <div class="search-box" [ngClass]="{'has-error': submitted && form.controls['Search'].invalid}">
+                        <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
+                        <div class="input-box">
+                            <input #profesionalDocumento formControlName="profesional_Documento" type="text"
+                                class="input form-input" (keyup.enter)="buscarDatosAfiliado(profesionalDocumento.value)"
+                                [disabled]="isInputDisabled" />
+
+                        </div>
+                        <div class="addons button-icon">
+                            <button class="tooltip" data-tooltip="Buscar"
+                                (click)="buscarDatosAfiliado(profesionalDocumento.value)">
+                                <i class="fas fa-search"></i></button>
+                            <!-- fa-trash -->
+                        </div>
+                    </div>
                 </div>
                 <div class="blue-alert" *ngIf="validaIdentidad">
                     <div class="content">
@@ -43,7 +53,7 @@
                 <div class="form-field">
                     <strong class="caption">Nombre Completo</strong>
                     <input formControlName="profesional_Nombre_Completo" type="text" class="input form-input"
-                        [disabled]="disabled">
+                        [disabled]="false">
                 </div>
                 <div class="row form-field ">
                     <div class="col-w6 ">
@@ -134,21 +144,23 @@
 
                 </div>
 
-                <strong class="caption">ingresar Copia de Cédula Identidad y Electoral o Pasaporte <span
+                <strong class="caption">Ingresar Copia de Cédula Identidad y Electoral o Pasaporte <span
                         class="required-field">*</span></strong>
                 <div>
                     <div class="upload_file input">
+                        <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
                         <input type="file" formControlName="archivo_Cedula" accept="application/pdf"
                             (change)="uploadFile($any($event.target).files, 1)" />
                         <span class="file-name check-icon" id="spanImportarArchivo"></span>
                         <button class="btn-search chambray-btn rounded">Buscar</button>
                     </div>
                 </div>
-                <strong class="caption">ingresar Copia de Exequátur <span class="required-field">*</span></strong>
+                <strong class="caption">Ingresar Copia de Exequátur <span class="required-field">*</span></strong>
                 <div>
 
 
                     <div class="upload_file input">
+                        <span class="error-text" *ngIf="form.invalid"> {{obtenerErrorCampoNombre()}}</span>
                         <input type="file" formControlName="archivo_Exequatur" accept="application/pdf"
                             (change)="uploadFile($any($event.target).files, 2)" />
                         <span class="file-name check-icon" id="spanImportarArchivo"></span>

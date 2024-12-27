@@ -22,7 +22,7 @@
 
 
 
-<div class="add-choices" *ngIf="asociaciones == false">
+<div class="add-choices" *ngIf="this.details.solicitud_Estado_Numero ==0">
 
     <div class="block" (click)="NuevaAsociacion()">
         <h4><i class="fas fa-edit"></i> Agregar Asociaciones </h4>
@@ -40,29 +40,29 @@
             <div class="register animate__animated animate__fadeIn list">
                 <div class="cel">
                     <strong class="title">
-                        Asociacion : {{item.profesional_Asociacion_Codigo}}
+                        Asociación : {{item.asociacion_Nombre}}
                     </strong>
+                    <span class="status-label approved" *ngIf="this.currentUser?.UsuarioTipo != 3">
+                        Registro Patronal : ({{item.asociacion_Registro_Patronal}}) |
+                    </span>
                     <span class="status-label approved">
-                        Registro Patronal : ({{item.asociacion_Registro_Patronal}})
+                        Número de Socio : ({{item.asociacion_Numero_Socio}})
                     </span>
 
                     <div class="relates">
-                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha}} </span>
-                        <span><i class="far fa-calendar"></i> Fecha
-                            del titulo: {{item.asociacion_Asociado_Estado_Nota}} </span>
+                        <span><i class="far fa-calendar"></i> Fecha Registro: {{item.registro_Fecha |
+                            date:'dd/MM/yyyy'}} </span>
+
                         <span>
                             <i class="far fa-calendar"></i> Estatus Solicitud: {{item.registro_Estado}}</span>
                     </div>
                 </div>
 
-                <div class="cel" id="btns">
-                    <button class="outline-btn icon tooltip  open-modal" data-tooltip="Ver Detalle"
-                        data-target="Detail_form">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </div>
-                <div class="cel" id="btns">
-                    <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro">
+
+                <!-- <div class="cel" id="btns" *ngIf="this.details!.solicitud_Estado_Numero ==1"></div> -->
+                <div class="cel" id="btns" *ngIf="this.details!.solicitud_Estado_Numero ==0">
+                    <button class="outline-btn icon edit tooltip open-modal" data-target="edit_asociacionform"
+                        (click)="editarSolicitud(item)" data-tooltip="Editar registro">
                         <i class="fas fa-edit"></i>
                     </button>
                 </div>
@@ -75,17 +75,83 @@
 
 
     </div>
-    <div class="col-w3 info-section" *ngIf="asociaciones == true">
+    <div class="col-w3 info-section" *ngIf="asociaciones == true && this.details.solicitud_Estado_Numero ==0">
         <div class="block m-top">
             <h4>Acciones</h4>
             <div class="form-field">
-                <button class="default-btn rounded " (click)="NuevaAsociacion()">
+                <button class="default-btn rounded" (click)="NuevaAsociacion()">
 
-                    <i class="fas fa-edit"></i> Agregar Especialidad
+                    <i class="fas fa-edit"></i> Agregar Asociacion
                 </button>
             </div>
 
         </div>
+    </div>
+
+
+
+</div>
+
+<div id="edit_asociacionform" class="modal-wrap">
+    <div class="modalbox medium">
+        <div class="modal-header">
+            <h2><i class="fas fa-pen"></i> Asociación : {{ this.asociacion?.asociacion_Nombre}}</h2>
+            <button class="close-btn dismiss"><i class="fas fa-times"></i></button>
+        </div>
+        <form action="" [formGroup]="registroAsociaciones">
+            <div class="modal-body-content">
+
+                <div class="form-field">
+
+                    <strong class="caption">Número de Socio <span class="required-field">*</span>: </strong>
+
+                    <div
+                        [ngClass]="{'has-error': submitted && this.registroAsociaciones.controls['asociacion_Numero_Socio'].invalid}">
+                        <span class="error-text"
+                            *ngIf="this.registroAsociaciones.controls['asociacion_Numero_Socio'].invalid">Número de
+                            Socio invalido</span>
+
+
+                        <input type="text" formControlName="asociacion_Numero_Socio" class="input form-input">
+
+                    </div>
+                </div>
+
+
+                <div class="form-field">
+
+                    <strong class="caption">Documento<span class="required-field">*</span></strong>
+                    <div
+                        [ngClass]="{'has-error': submitted && this.registroAsociaciones.controls['documento_adjunto'].invalid}">
+                        <span class="error-text"
+                            *ngIf="this.registroAsociaciones.controls['documento_adjunto'].invalid">Debe de Adjuntar
+                            el documento solicitado</span>
+
+
+
+                        <div class="upload_file input">
+
+                            <input type="file" formControlName="documento_adjunto" accept="application/pdf"
+                                (change)="uploadFile($any($event.target).files)" />
+                            <span class="file-name check-icon" id="spanImportarArchivo"></span>
+                            <button class="btn-search chambray-btn rounded">Buscar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer right">
+                <button type="button" class="default-btn rounded lg-btn dismiss" id="btnSCancel" name="btnSCancel"><i
+                        class="fas fa-times"></i> Cancelar</button>
+                <button type="button" class="primary-btn rounded lg-btn" (click)="guardarSolicitud()"><i
+                        class="fas fa-check"></i>
+                    Guardar cambios</button>
+            </div>
+
+
+        </form>
+
     </div>
 
 </div>

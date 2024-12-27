@@ -36,6 +36,8 @@ export class DetalleBasicoComponent implements OnInit {
   public frmAfiliadoEdit!: FormGroup;
 
 
+
+
   user: User = null!
   public detalleSolicitud!: Solicitud_Medico_Detalle_View;
 
@@ -134,16 +136,28 @@ export class DetalleBasicoComponent implements OnInit {
 
     let param = this.getparametros();
 
-    
+    document.getElementById('btnCancel')?.click();
+    this.service.solicitud_Edit_Afiliado(param).subscribe((afiliado_master: Solicitud_Set_Afiliado) => {
+      this.submitted = false;
+      this.details.profesional_Telefono1 = afiliado_master.profesional_Telefono1;
+      this.details.profesional_Telefono2 = afiliado_master.profesional_Telefono2;
+      this.details.profesional_Telefono3 = afiliado_master.profesional_Telefono3;
+      this.details.profesional_Mail = afiliado_master.profesional_Mail;
+
+      this.toastr.success("Editado Correctamente")
+    }, error => { console.log(error) });
 
   }
-
+  Cancelar() {
+    window.history.back();
+  }
 
   getparametros() {
     let param = new Solicitud_Set_Afiliado();
 
 
     // param.profesional_Exequatur = this.frmAfiliadoEdit.get('profesional_Exequatur')?.value;
+    param.solicitud_Numero = this.solicitudId;
     param.profesional_Telefono1 = this.frmAfiliadoEdit.get('profesional_Telefono1')?.value;
     param.profesional_Telefono2 = this.frmAfiliadoEdit.get('profesional_Telefono2')?.value;
     param.profesional_Telefono3 = this.frmAfiliadoEdit.get('profesional_Telefono3')?.value;
@@ -197,17 +211,37 @@ export class DetalleBasicoComponent implements OnInit {
 
 
   }
-
+  registro_Fecha!: string;
+  profesional_Cedula?: string
+  nacionalidad_Numero?: number
+  profesional_Sexo?: string
+  profesional_Exequatur?: string
+  profesional_Direccion?: string
+  municipio_Numero?: number
+  profesional_Telefono1?: string
+  profesional_Telefono2?: string
+  profesional_Telefono3?: string
+  profesional_Mail?: string
 
 
   public getDetalleDelaSolicitud() {
 
     this.service.obtenerDetalelSolicitudbyId(this.solicitudId).subscribe(resp => {
 
+      this.details = resp;
+      this.loading = true;
+      this.afiliado_Nombre_Completo = resp.profesional_Nombre_Completo!;
+      this.registro_Fecha = resp.registro_Fecha!;
+      this.profesional_Cedula = resp.profesional_Cedula!;
+      this.nacionalidad_Numero = resp.nacionalidad_Numero!;
+      this.profesional_Mail = resp.profesional_Mail!;
+      this.profesional_Sexo = resp.profesional_Sexo!;
+      this.profesional_Telefono1 = resp.profesional_Telefono1!;
+      this.profesional_Telefono2 = resp.profesional_Telefono2!;
+      this.profesional_Telefono3 = resp.profesional_Telefono3!;
       this.detalleSolicitud = resp
       this.estado_Numero = resp.solicitud_Estado_Numero!
 
-      this.loading = true;
 
 
       this.urlExequatur = urlNupre.solicitudes.descargarDocumento + this.detalleSolicitud.solicitud_Certificado_Numero;
@@ -219,7 +253,7 @@ export class DetalleBasicoComponent implements OnInit {
 
 
 
-  @Input() details!: Listado_Solicitud_Medico;
+  @Input({ required: true }) details!: Listado_Solicitud_Medico;
 
 
 

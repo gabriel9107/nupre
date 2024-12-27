@@ -9,9 +9,10 @@ import { Nacionalidad, Provincias } from '../../Models/Nupre/comun_models';
 import { HttpClient } from '@angular/common/http';
 import { User, UsuarioInfo } from '../../auth/User';
 import getUserInfo from '../../auth/JWT';
-import { catchError, throwError } from 'rxjs';
+import { catchError, throwError, from } from 'rxjs';
 import { InvalidOperationException } from '../../Models/InvalidOperationException';
 import { ApiError } from '../../Models/Api/apiResult';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -22,7 +23,7 @@ import { ApiError } from '../../Models/Api/apiResult';
 export class FormularioSolicitudComponent implements OnInit {
 
 
-  public textoBase = "Ingrese el NSS o cédula del Profesional Medico  y luego presione el botón con la lupa para poder registrar las informaciones relacionadas";
+  public textoBase = "Ingrese el NSS o cédula del Profesional Médico  y luego presione el botón con la lupa para poder registrar las informaciones relacionadas";
 
   public datatosCiudadano!: ciudadano_consulta_DTOs
   public cedula!: File;
@@ -48,17 +49,8 @@ export class FormularioSolicitudComponent implements OnInit {
 
 
 
-  // @Output()
-  // submit: EventEmitter<solicitudCreacionDTO> = new EventEmitter<solicitudCreacionDTO>();
-
-  @Input()
-  modelo!: solicitudCreacionDTO;
-
   ngOnInit(): void {
     this.currentUser = getUserInfo();
-
-
- 
 
     this.getProvinciasCata();
     this.getNacionalidades();
@@ -67,8 +59,8 @@ export class FormularioSolicitudComponent implements OnInit {
 
     this.form = this.formBuider.group({
 
-      profesional_Documento: ['', { validators: [Validators.required, Validators.minLength(2)] },],
-      profesional_Nombre_Completo: ['', { Validators: [Validators.required] }],
+      profesional_Documento: new FormControl({ value: '', disabled: this.currentUser.UsuarioTipo == 3 ? true : false }, [Validators.required, Validators.minLength(2)]),
+      profesional_Nombre_Completo: new FormControl({ value: '', disabled: true }, Validators.required),
       archivo_Cedula: ['', { Validators: [Validators.required] }],
       archivo_Exequatur: ['', { Validators: [Validators.required] }],
       profesional_Sexo: ['', { Validators: [Validators.required] }],
@@ -76,18 +68,14 @@ export class FormularioSolicitudComponent implements OnInit {
       nacionalidad_Numero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       municipio_Numero: ['', { Validators: [Validators.required, Validators.minLength(2)] }],
       profesional_Direccion: ['', { Validators: [Validators.required, Validators.minLength(7)] }],
-      profesional_Telefono1: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]), //['', { Validators: [Validators.required] }],
+      profesional_Telefono1: new FormControl('', [Validators.maxLength(10), Validators.pattern('^8[024]9[0-9]{7}$')]),
       profesional_Telefono2: '',
       profesional_Telefono3: '',
       profesional_Mail: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]],
 
     });
-    if (this.modelo !== undefined) {
-      this.form.patchValue(this.modelo)
-    }
 
-
-    if (this.currentUser.UsuarioTipo == 3 || 1 || 14 || 16) {
+    if (this.currentUser.UsuarioTipo == 3) {
       this.buscarDatosAfiliado(this.currentUser.UsuarioCedula)
       this.isInputDisabled = false;
 
@@ -98,7 +86,7 @@ export class FormularioSolicitudComponent implements OnInit {
   }
   constructor
     (public activedRoute: ActivatedRoute,
-      private router: Router, private servicio: NupreService, private formBuider: FormBuilder, private http: HttpClient,
+      private router: Router, private servicio: NupreService, private formBuider: FormBuilder, private http: HttpClient, private toastr: ToastrService
     ) {
   }
   form!: FormGroup;
@@ -111,6 +99,11 @@ export class FormularioSolicitudComponent implements OnInit {
   public listSolicitud() {
     this.router.navigate(['/NUPRE']);
   }
+
+
+
+
+
   buscarDatosAfiliado(no_cedula: string) {
 
     let ciudadano: Ciudadano_FiltroDTO = {
@@ -130,10 +123,11 @@ export class FormularioSolicitudComponent implements OnInit {
 
     this.servicio.obtenerCiudadanos(ciudadano).pipe(catchError(error => {
       if (error.error instanceof ApiError) {
-
+        this.limpiarValueNSS(error.error.message)
       } else {
-
+        this.limpiarValueNSS(error.error.message)
       }
+      this.limpiarValueNSS(error.error.message)
       return throwError(error);
     })
     ).subscribe((res: ciudadano_consulta_DTOs) => {
@@ -146,45 +140,18 @@ export class FormularioSolicitudComponent implements OnInit {
   }
 
 
-
-  // this.servicio.obtenerCiudadanos(ciudadano).subscribe((res: ciudadano_consulta_DTOs) => {
-  //   // this.servicio.getCiudadano(no_cedula,).subscribe((res: ciudadano_consulta_DTOs) => {
-  //   this.datatosCiudadano = res
-
-  //   this.AsignarValores(res);
-  // },
-
-
-  //   error => {
-
-  //     console.error(error.error.message); // Mensaje de error personalizado
-
-
-
-  //     this.limpiarValueNSS(error.error)
-
-
-
-  //     this.validaIdentidad = true;
-  //     this.TextIdentidad = error.error;
-  //     //  this.textoBase;
-
-  //   })
-
-
-
   public AsignarValores(res: ciudadano_consulta_DTOs) {
 
     this.form.patchValue({
-      profesional_Documento: res.ciudadanoNoDocumento,
-      profesional_Nombre_Completo: res.ciudadanoNombreCompleto,
-      profesional_Sexo: res.ciudadanoSexo,
-      nacionalidad_Numero: res.nacionalidadNumero,
-      municipio_Numero: res.ciudadanoActaNacimientoMunicipio
+      profesional_Documento: res.ciudadano_No_Documento,
+      profesional_Nombre_Completo: res.ciudadano_Nombre_Completo,
+      profesional_Sexo: res.ciudadano_Sexo,
+      nacionalidad_Numero: res.nacionalidad_Numero,
+      municipio_Numero: res.ciudadano_Acta_Nacimiento_Municipio
 
 
     })
-    if (res.ciudadanoNombreCompleto != "")
+    if (res.ciudadano_Nombre_Completo != "")
 
 
       this.validaIdentidad = false;
@@ -197,25 +164,28 @@ export class FormularioSolicitudComponent implements OnInit {
   public limpiarValueNSS(error = "") {
     this.validaIdentidad = true;
     this.TextIdentidad = error;
+ 
 
-    this.form.patchValue(
-      {
-        profesionalDocumento: '',
-        profesionalNombreCompleto: '',
-        profesionalSexo: '',
-        profesionalExequatur: '',
-        nacionalidadNumero: '',
-        municipioNumero: '',
-        profesional_Direccion: '',
-        profesionalTelefono1: '',
-        profesionalTelefono2: '',
-        profesionalTelefono3: '',
-        profesionalMail: '',
-        archivoCedula: '',
-        archivoExequatur: ''
-      }
 
-    )
+    this.form.reset();
+    // this.form.patchValue(
+    //   {
+    //     profesionalDocumento: '',
+    //     profesionalNombreCompleto: '',
+    //     profesionalSexo: '',
+    //     profesionalExequatur: '',
+    //     nacionalidadNumero: '',
+    //     municipioNumero: '',
+    //     profesional_Direccion: '',
+    //     profesionalTelefono1: '',
+    //     profesionalTelefono2: '',
+    //     profesionalTelefono3: '',
+    //     profesionalMail: '',
+    //     archivoCedula: '',
+    //     archivoExequatur: ''
+    //   }
+
+    // )
   }
 
 
@@ -254,9 +224,23 @@ export class FormularioSolicitudComponent implements OnInit {
   }
   public GuardarSolicitud() {
 
+    if (this.cedula == null) {
+      this.toastr.error("Debe de adjuntar la cedula ")
+      return;
+    }
+
+
+    if (this.certificado == null) {
+      this.toastr.error("Debe de adjuntar el Exequátur")
+      return;
+    }
+    if (this.form.invalid) {
+      this.toastr.error("Existen campos pendientes")
+      return;
+    }
 
     var solicitud = this.obtenerParametros();
-    this.servicio.crearSolicitud3(solicitud, this.cedula!, this.certificado!).subscribe(() => {
+    this.servicio.crearSolicitud(solicitud, this.cedula!, this.certificado!).subscribe(() => {
       this.router.navigate(['/solicitudes'])
     }, error => console.error(error));
 
@@ -302,7 +286,7 @@ export class FormularioSolicitudComponent implements OnInit {
       this.certificado = files[0]
     };
 
- 
+
   }
 
 

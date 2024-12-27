@@ -49,13 +49,16 @@ export class SolicitudesFormComponent implements OnInit {
   }
 
 
+  Cancelar() {
+    window.history.back();
+  }
 
   public guardarSolicitud() {
 
     let param = this.obtenerParametros()
     if (this.registroTituloForm.invalid) {
 
-      this.toastr.warning('No puedo enviar una solicitud sin registrar el detalle del titulo correspondiente', 'Advertencia');
+      this.toastr.warning('No puedo enviar una solicitud sin registrar el detalle del título correspondiente', 'Advertencia');
       return;
     }
 

@@ -1,22 +1,22 @@
 export interface ciudadano_consulta_DTOs {
-    ciudadanoNss: number
-    ciudadanoNombres: string
-    ciudadanoPrimerApellido: string
-    ciudadanoSegundoApellido: string
-    estadoCivilCodigo: string
-    ciudadanoFechaNacimiento: string
-    ciudadanoFechaNacimientoDti: string
-    ciudadanoNoDocumento: string
-    documentoTipoCodigo: string
-    ciudadanoSexo: string
-    provinciaNumero: number
-    sangreTipoNumero: number
-    causaInhabilidadNumero: number
-    nacionalidadNumero: number
-    ciudadanoNoDocumentoAnterior: string
+    ciudadano_Nss: number
+    ciudadano_Nombres: string
+    ciudadano_Primer_Apellido: string
+    ciudadano_Segundo_Apellido: string
+    estado_Civil_Codigo: string
+    ciudadano_Fecha_Nacimiento: string
+    ciudadano_Fecha_NacimientoDti: string
+    ciudadano_No_Documento: string
+    documento_TipoCodigo: string
+    ciudadano_Sexo: string
+    provincia_Numero: number
+    sangre_Tipo_Numero: number
+
+    nacionalidad_Numero: number
+    ciudadano_No_DocumentoAnterior: string
     ciudadanoNssEstatus: string
     causaTipoCodigo: string
-    ciudadanoActaNacimientoMunicipio: string
+    ciudadano_Acta_Nacimiento_Municipio: string
     ciudadanoActaNacimientoAnio: string
     ciudadanoActaNacimientoNumero: string
     ciudadanoActaNacimientoFolio: string
@@ -24,7 +24,7 @@ export interface ciudadano_consulta_DTOs {
     ciudadanoActaNacimientoOficialia: string
     fechaActualizacionTss: string
     ciudadanoCedulaFormateada: string
-    ciudadanoNombreCompleto: string
+    ciudadano_Nombre_Completo: string
     ciudadanoActaNacimientoUnida: string
     registroEstado: string
     registroUsuario: string

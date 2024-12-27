@@ -13,7 +13,7 @@
                         <li><a href="">Consulta</a></li>
                         <li><a href="">Solicitudes NUPRE</a></li>
                         <li><a [routerLink]="(['/Detalle/' + this.solicitudId])">Detalle solicitud</a></li>
-                        <li>Registro de Titulo</li>
+                        <li>Registro de Título</li>
                     </ul>
                 </div>
             </div>
@@ -68,7 +68,6 @@
                                     [(ngModel)]="selectedMunicipio">
                                 </ng-select>
 
-                                <!-- <input type="text" class="input form-input" formControlName="municipio_numero"> -->
                             </div>
                         </div>
                         <div class="form-field">
@@ -104,12 +103,11 @@
 
                     </section>
                     <div class="bottom-btn right"></div>
-                    <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
+                    <button class="default-btn rounded lg-btn" [routerLink]="(['/Detalle/' + this.solicitudId])"><i
+                            class="fas fa-times"></i>
                         Cancelar</button>
                     <button class="primary-btn rounded lg-btn" [disabled]="registroLocalidades.invalid"
                         (click)="guardarSolicitud()">
-
-
                         <i class="fas fa-check">Agregar</i>
 
                     </button>

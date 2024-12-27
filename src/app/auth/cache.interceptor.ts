@@ -25,7 +25,7 @@ export class CacheInterceptor implements HttpInterceptor {
         const cachedResponse = this.cacheService.get(req.url);
         if (cachedResponse) {
             // Si los datos están en caché, devuélvelos directamente
-            console.log('cachedResponse', cachedResponse);
+            // console.log('cachedResponse', cachedResponse);
             return of(cachedResponse);
         }
 

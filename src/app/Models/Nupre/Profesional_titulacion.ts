@@ -47,3 +47,11 @@ export class Profesional_TitulacionDTO {
 
 
 }
+
+export class Especialidades_Edit_DTO {
+    id?: number;
+    public solicitud_Numero!: number;
+    public especialidad_Periodo!: Date;
+    public documento_Codigo?: File;
+}
+

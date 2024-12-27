@@ -32,8 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LocalidadesComponent } from './solicitud/localidades/localidades.component';
 import { FormRegisterComponent } from './solicitud/localidades/form-register/form-register.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { AuthInterceptor } from './auth/AuthInterceptor';
-
+import { AuthInterceptor } from './auth/AuthInterceptor'; 
 
 
 
@@ -66,6 +65,7 @@ import { AuthInterceptor } from './auth/AuthInterceptor';
     NgSelectModule,
     BrowserAnimationsModule,
     InputTextModule,
+    
     ToastrModule.forRoot(),
     NgxMaskModule.forRoot()
   ],

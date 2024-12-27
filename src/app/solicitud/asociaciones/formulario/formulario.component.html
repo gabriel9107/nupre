@@ -10,10 +10,10 @@
                 <div class="container">
                     <ul class="no-style">
                         <li><a href="">Inicio</a></li>
-                        <li  href="">Consulta</li>
-                        <li><a (click)="navr(2)">Solicitudes NUPRE</a></li>
+                        <li href="">Consulta</li>
+                        <li><a>Solicitudes NUPRE</a></li>
                         <li><a [routerLink]="(['/Detalle/' + this.solicitudId])">Detalle solicitud</a></li>
-                        <li>Registro de Titulo</li>
+                        <li>Registro de Título</li>
                     </ul>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <form [formGroup]="registroAsociaciones" #aFrom>
                     <section class="block-section">
                         <div class="content-title">
-                            <h3 class="title">Registrar Asociacion
+                            <h3 class="title">Registrar Asociación
                             </h3>
                         </div>
 
@@ -33,13 +33,13 @@
                             </strong>
 
                             <div class="form-control">
-                         
-                                <div [ngClass]="{'has-error':validarCampo('asociacion_Numero')}"></div>
-                                <span class="error-text" *ngIf="validarCampo('asociacion_Numero')">Este
+
+                                <div [ngClass]="{'has-error':validarCampo('profesional_Asociacion_Codigo')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('profesional_Asociacion_Codigo')">Este
                                     campo es requerido</span>
                                 <ng-select [items]="listaAsociaciones" placeholder="Seleccionar una "
-                                    formControlName="asociacion_Numero" bindLabel="asociacion_Nombre"
-                                    bindValue="asociacion_Numero" [clearable]="false" [searchable]="true"
+                                    bindValue="asociacion_Numero" formControlName="profesional_Asociacion_Codigo"
+                                    bindLabel="asociacion_Nombre" [clearable]="false" [searchable]="true"
                                     [ngModel]="selected">
                                 </ng-select>
                             </div>
@@ -47,17 +47,16 @@
                             </div>
                         </div>
                         <div class="form-field">
-                   
+
                             <strong class="caption">Número de Socio <span class="required-field">*</span>:
 
                             </strong>
 
                             <div class="form-control">
-                                <div [ngClass]="{'has-error':validarCampo('profesional_Asociacion_Codigo')}"></div>
-                                <span class="error-text" *ngIf="validarCampo('profesional_Asociacion_Codigo')">Este
+                                <div [ngClass]="{'has-error':validarCampo('asociacion_Numero_Socio')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('asociacion_Numero_Socio')">Este
                                     campo es requerido</span>
-                                <input type="text" formControlName="profesional_Asociacion_Codigo"
-                                    class="input form-input">
+                                <input type="text" formControlName="asociacion_Numero_Socio" class="input form-input">
 
                             </div>
                         </div>
@@ -72,11 +71,11 @@
                                 <!-- <div [ngClass]="{'has-error':validarCampo('documento_adjunto')}"></div> -->
                                 <!-- <span class="error-text" *ngIf="validarCampo('documento_adjunto')">Este
                                     campo es requerido</span> -->
-                                    <div [ngClass]="{'has-error':validarCampo('documento_adjunto')}"></div>
-                                    <span class="error-text" *ngIf="validarCampo('documento_adjunto')">Este
-                                        campo es requerido</span>
+                                <div [ngClass]="{'has-error':validarCampo('documento_adjunto')}"></div>
+                                <span class="error-text" *ngIf="validarCampo('documento_adjunto')">Este
+                                    campo es requerido</span>
                                 <div class="upload_file input">
-                                    
+
                                     <input type="file" formControlName="documento_adjunto" accept="application/pdf"
                                         (change)="uploadFile($any($event.target).files)" />
                                     <span class="file-name check-icon" id="spanImportarArchivo"></span>
@@ -90,10 +89,11 @@
 
                     </section>
                     <div class="bottom-btn right"></div>
-                    <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
+                    <button class="default-btn rounded lg-btn" [routerLink]="(['/Detalle/' + this.solicitudId])"><i
+                            class="fas fa-times"></i>
                         Cancelar</button>
-                    <button class="primary-btn rounded lg-btn" [disabled]="registroAsociaciones.invalid"
-                        (click)="guardarSolicitud()">
+                    <!-- [disabled]="registroAsociaciones.invalid" -->
+                    <button class="primary-btn rounded lg-btn" (click)="guardarSolicitud()">
 
 
                         <i class="fas fa-check">Agregar</i>

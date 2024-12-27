@@ -1,4 +1,4 @@
-<div class="skeleton slst animate__animated animate__fadeIn" *ngIf="loading">
+<div class="skeleton slst animate__animated animate__fadeIn" *ngIf="loading === true">
     <h3 class="color-accent">Estamos procesando su solicitud. Por favor, espere...</h3>
     <div class="tpln clm2 fd">
         <div><span class="sqr"></span></div>
@@ -11,7 +11,7 @@
         <div class="sqr wd mhg wvs pst"></div>
     </div>
 </div>
-<div *ngIf="!loading">
+<div *ngIf="loading === false">
     <h3 class="color-accent">Resumen de Solicitud</h3>
 
     <section class="block-section" *ngIf="this.detalle">
@@ -30,7 +30,7 @@
     <div class="yellow-alert" *ngIf="checkTitulos == false">
         <div class="content has-icon">
             <div class="icon"><i class="fas fa-exclamation-circle"></i></div>
-            <div class="text">Debe completar el registro de titulos los titulos profesionales antes de someter esta
+            <div class="text">Debe completar el registro de títulos los títulos profesionales antes de registrar esta
                 solicitud.</div>
         </div>
     </div>
@@ -38,14 +38,14 @@
     <div class="yellow-alert" *ngIf="!checkAsociaciones">
         <div class="content has-icon">
             <div class="icon"><i class="fas fa-exclamation-circle"></i></div>
-            <div class="text">Debe de registrar las asociaciones a la cual pertenece antes de someter esta solicitud
+            <div class="text">Debe de registrar las asociaciones a la cual pertenece antes de registrar esta solicitud
             </div>
         </div>
     </div>
     <div class="yellow-alert" *ngIf="!checkLocalidades">
         <div class="content has-icon">
             <div class="icon"><i class="fas fa-exclamation-circle"></i></div>
-            <div class="text">Debe de registrar la localidad donde presta servicio antes de someter esta solicitud
+            <div class="text">Debe de registrar la localidad donde presta servicio antes de registrar esta solicitud
             </div>
         </div>
     </div>
@@ -88,11 +88,40 @@
         </h4>
     </section> -->
 
-    <div *ngIf="submitCliked">
-        <div class="bottom-btn" *ngIf="checkAsociaciones && checkTitulos && checkLocalidades">
+    <div *ngIf="submitCliked == false ">
+
+        <!-- 
+        <div class="bottom-btn" *ngIf="checkAsociaciones == true && checkTitulos == true && checkLocalidades == true">
             <button [disabled]="this.submitCliked" class="primary-btn glow rounded lg-btn" (click)="Someter()">Enviar
+                solicitud</button>
+        </div> -->
+
+        <!-- <div class="bottom-btn"
+            *ngIf="checkAsociaciones == true && checkTitulos == true && checkLocalidades == true  && detalle.solicitud_Estado_Numero == 1">
+            <button class="primary-btn glow rounded lg-btn" (click)="Someter()">Someter
+                solicitud</button>
+        </div> -->
+        <div class="bottom-btn"
+            *ngIf="checkAsociaciones == true && checkTitulos == true && checkLocalidades == true  && detalle.solicitud_Estado_Numero == 0">
+            <button class="primary-btn rounded open-modal" data-target="confirmar_someter_solicitud">Registrar
                 solicitud</button>
         </div>
     </div>
-
+    <!--Modal confirmar sometimiento solicitud-->
+    <div id="confirmar_someter_solicitud" class="modal-wrap">
+        <div class="modalbox confirmation">
+            <div class="modal-body-content">
+                <strong> ¿Está seguro que desea enviar esta solicitud?</strong>
+                <p>Una vez enviada no podra hacer modificaciones de ningun tipo</p>
+                <div class="bottom-btn less-margin">
+                    <button class="primary-btn rounded dismiss" (click)="Someter()">
+                        Sí, estoy seguro
+                    </button>
+                    <button class="default-btn rounded dismiss">
+                        No, fue un error
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

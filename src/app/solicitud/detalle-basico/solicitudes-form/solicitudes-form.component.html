@@ -13,7 +13,7 @@
                         <li>Consulta</li>
                         <li><a>Solicitudes NUPRE</a></li>
                         <li><a [routerLink]="(['/Detalle/' + this.solicitudId])">Detalle solicitud</a></li>
-                        <li>Registro de Titulo</li>
+                        <li>Registro de Título</li>
                     </ul>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <form [formGroup]="registroTituloForm" #aFrom>
                     <section class="block-section">
                         <div class="content-title">
-                            <h3 class="title">Detalle del Titulo</h3>
+                            <h3 class="title">Detalle del Título</h3>
                         </div>
                         <div class="form-field">
                             <div class="form-field">
@@ -44,7 +44,7 @@
 
 
                         <div class="form-field">
-                            <strong class="caption">Titulo <span class="required-field">*</span>:
+                            <strong class="caption">Título <span class="required-field">*</span>:
 
                             </strong>
 
@@ -70,7 +70,8 @@
                                 <div [ngClass]="{'has-error':validarCampo('especialidad_Periodo')}"></div>
                                 <span class="error-text" *ngIf="validarCampo('especialidad_Periodo')">Este
                                     campo es requerido</span>
-                                <input type="date" formControlName="especialidad_Periodo" class="input form-input">
+                                <input type="date" formControlName="especialidad_Periodo" class="input form-input"
+                                    max="3000-01-01" onfocus="this.max=new Date().toISOString().split('T')[0]">
 
                             </div>
                         </div>
@@ -100,7 +101,7 @@
 
                     </section>
                     <div class="bottom-btn right"></div>
-                    <button class="default-btn rounded lg-btn"><i class="fas fa-times"></i>
+                    <button class="default-btn rounded lg-btn" (click)="Cancelar()"><i class="fas fa-times"></i>
                         Cancelar</button>
                     <button class="primary-btn rounded lg-btn" [disabled]="registroTituloForm.invalid"
                         (click)="guardarSolicitud()">

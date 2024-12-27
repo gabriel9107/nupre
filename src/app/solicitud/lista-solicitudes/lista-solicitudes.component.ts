@@ -16,6 +16,7 @@ import { FiltroBase } from '../../Models/FiltroBase';
 
 import { User } from '../../auth/User';
 import getUserInfo from '../../auth/JWT';
+import { environment } from '../../environments/environment.desarrollo';
 
 
 @Component({
@@ -48,6 +49,12 @@ export class ListaSolicitudesComponent implements OnInit {
   public currentUser: User | undefined;
   public empresa: boolean = false;
 
+
+
+  buscarEstado(estado: number) {
+
+    return this.TipoEstado.find((a) => a.profesional_Estado_Numero == estado)?.profesional_EstadoDescripcion;
+  }
 
   createFormActive() {
     this.busquedaForm = this.fb.group({
@@ -93,6 +100,11 @@ export class ListaSolicitudesComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = getUserInfo();
+    // console.log(this.currentUser);
+    if (this.currentUser.UsuarioTipo != 3 && this.currentUser.UsuarioTipo != 4 && this.currentUser.UsuarioTipo != 15) {
+
+      document.location.href = environment.urlOficinaVirtualLogin
+    }
     // this.ge();
     this.obtenerEstados();
     this.GetSolicitudes();
@@ -116,41 +128,13 @@ export class ListaSolicitudesComponent implements OnInit {
   }
 
   public exportarExcel() {
-    console.log('funcion pendeinte para exportar a excel');
   }
 
-  // buscarSolicitudes(btntype = false, changeEstado = false) {
-
-  //   var parameter = this.getfilterparamters();
-
-  //   //cambiando a implementar filtros 
-
-  //   this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
-
-  //     this.details = res;
-  //   },
-  //     error => {
-  //       this.ValidarError = true;
-  //       this.loading = false;
-  //     });
-
-
-
-  //   //funcional anteriormente 
-  //   // this.servicio.getAllSoliciudes().subscribe((res: Listado_Solicitud_Medico[]) => {
-
-  //   //   this.details = res;
-  //   // }, error => {
-  //   //   this.ValidarError = true;
-  //   //   this.loading = false;
-  //   // }
-  //   // )
-  // }
 
   obtenerEstados() {
     this.servicio.obtenerListadoEstado().subscribe((res: Solicitudes_Estados[]) => {
       this.TipoEstado = res;
-  
+
     });
   }
 
@@ -159,8 +143,9 @@ export class ListaSolicitudesComponent implements OnInit {
 
   getfilterparamters() {
     let param = new Profesionales_Filtro_Listado;
-    let statusnumber = 0;
+    let statusnumber = 99;
 
+    param.Cedula = this.currentUser?.UsuarioCedula;
     param.Solicitud_Numero = this.busquedaForm.get('Search')?.value;
 
     param.AnioInicio = this.busquedaForm.get('fechaInicio')?.value;
@@ -169,7 +154,7 @@ export class ListaSolicitudesComponent implements OnInit {
     let validarstatus = document.querySelector('input[name="tipoest"]:checked');
     if (validarstatus) {
       statusnumber = Number((validarstatus as HTMLInputElement).value);
-  
+
     }
 
 
@@ -212,9 +197,6 @@ export class ListaSolicitudesComponent implements OnInit {
       this.filtro.draw = 1
     }
 
-    // if (this.currentUser!.UsuarioRegistroPatronal > 0) {
-    //   this.empresa = true;       
-    // }
 
     this.servicio.getApplications(parameter).subscribe((res: Listado_Solicitud_Medico[]) => {
 
@@ -225,6 +207,7 @@ export class ListaSolicitudesComponent implements OnInit {
 
 
   }
+
   public LimpiarFiltros() {
     this.busquedaForm.patchValue(
       {
@@ -240,6 +223,7 @@ export class ListaSolicitudesComponent implements OnInit {
     document.getElementById('idtypestatus')?.setAttribute('value', '0')
     this.GetSolicitudes(false, false)
   }
+
 
 }
 function resp(value: Profesionales_Estado_Solicitud): void {

@@ -41,8 +41,8 @@
 <div class="add-choices" *ngIf="Registrado == false">
 
     <div class="block" (click)="Nuevasolicitud(this.solicitudId)">
-        <h4><i class="fas fa-edit"></i> Títulos de Profesiones </h4>
-        <span>Registre los datos relacionados al medico (Copia del titulo , Copia de Exequátu ).</span>
+        <h4><i class="fas fa-edit"></i>Registrar Títulos de Profesiones </h4>
+        <span>Registre los datos relacionados al Médico (Copia del título , Copia de Exequátu ).</span>
     </div>
 </div>
 
@@ -51,7 +51,7 @@
         <div class="form-field">
             Existen datos que deben revisarse en la solicitud. Para corregir
             estos errores presione el botón
-            <strong>"editar registro <i class="fas fa-edit"></i>"</strong> que se encuentra en el recuadro del titulo
+            <strong>"editar registro <i class="fas fa-edit"></i>"</strong> que se encuentra en el recuadro del título
             registrado.
         </div>
         <div style="margin-bottom: 15px;" *ngFor="let motivo of motivos_Rechazos_Agrupados | keyvalue">
@@ -72,7 +72,7 @@
             <p>
                 <strong><i class="fas fa-exclamation-circle"></i> IMPORTANTE: Cuando haga los ajustes correspondientes.
                     Favor
-                    diríjase a la pestaña “Someter Solicitud” ubicado a la izquierda, para someter (enviar a SISALRIL)
+                    diríjase a la pestaña Registrar Solicitud” ubicado a la izquierda, para Registrar (enviar a SISALRIL)
                     la
                     solicitud.</strong>
             </p>
@@ -91,7 +91,7 @@
                 <div class="cel ">
                     <strong class="title">
 
-                        Titulo : {{item.especialidad_Descripcion}}
+                        Título : {{item.especialidad_Descripcion}}
 
 
                     </strong>
@@ -104,17 +104,25 @@
                             date:'dd/MM/yyyy'}} </span>
 
                         <span><i class="far fa-calendar"></i> Fecha
-                            del titulo: {{item.especialidad_Periodo | date:'dd/MM/yyyy'}} </span>
+                            del título: {{item.especialidad_Periodo | date:'dd/MM/yyyy'}} </span>
 
                         <span>
                             <i class="far fa-calendar"></i> Estatus Solicitud: {{item.registro_Estado}}</span>
+
+                        <!-- <a [href]="" target="_blank">
+
+                            <i class="far fa-eye"></i> Ver documento
+
+                        </a> -->
                     </div>
+
+
                 </div>
 
-                <!-- data-target="edit_documentform" -->
-                <div class="cel" id="btns" *ngIf="item.especialidad_Estado_Numero ==1">
-                    <button class="outline-btn icon edit tooltip open-modal" data-tooltip="Editar registro"
-                        (click)="EditarRegistro(item)">
+                <!-- data-target="edit_documentform" (click)="EditarRegistro(item)" -->
+                <div class="cel" id="btns" *ngIf="this.details.solicitud_Estado_Numero ==0">
+                    <button class="outline-btn icon edit tooltip open-modal" data-target="edit_documentform"
+                        data-tooltip="Editar registro" (click)="EditarRegistro(item)">
                         <i class="fas fa-edit"></i>
                     </button>
                 </div>
@@ -129,7 +137,7 @@
     </div>
 
     <div class="col-w3 info-section">
-        <div class="block m-top" *ngIf="Registrado == true">
+        <div class="block m-top" *ngIf="Registrado == true  && this.details.solicitud_Estado_Numero ==0">
             <h4>Acciones</h4>
             <div class="form-field">
                 <button class="default-btn rounded " (click)="Nuevasolicitud(this.solicitudId)">
@@ -145,49 +153,56 @@
     <div id="edit_documentform" class="modal-wrap">
         <div class="modalbox medium">
             <div class="modal-header">
-                <h2><i class="fas fa-pen"></i> Datos del Titulo : </h2>
+                <h2><i class="fas fa-pen"></i> Datos del Título : {{ TituloSelecionado}}</h2>
                 <button class="close-btn dismiss"><i class="fas fa-times"></i></button>
             </div>
-            <form action="" [formGroup]="frmAEdit">
+            <form action="" [formGroup]="registroTituloForm">
                 <div class="modal-body-content">
                     <div class="form-field">
-                        <strong class="captinon">Titulo :</strong>
-                        <div [ngClass]="{'has-error': submitted && frmAEdit.controls['profesional_Telefono1'].invalid}">
-                            <span class="error-text"
-                                *ngIf="submitted && frmAEdit.controls['profesional_Telefono1'].invalid">Teléfono
-                                inválido</span>
-                            <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono1"
-                                class="input form-input">
+                        <div>
+
                         </div>
                     </div>
+
                     <div class="form-field">
                         <strong class="captinon">Fecha Otorgado:</strong>
-                        <div [ngClass]="{'has-error': submitted && frmAEdit.controls['profesional_Telefono1'].invalid}">
-                            <span class="error-text"
-                                *ngIf="submitted && frmAEdit.controls['profesional_Telefono1'].invalid">Teléfono
-                                inválido</span>
-                            <input type="text" mask="(000) 000-0000" formControlName="profesional_Telefono2"
-                                class="input form-input">
-                        </div>
+
+                        <input type="date" formControlName="especialidad_Periodo" class="input form-input"
+                            max="3000-01-01" onfocus="this.max=new Date().toISOString().split('T')[0]" />
+
+
                     </div>
                     <div class="form-field">
                         <strong class="captinon">Documento :</strong>
-                        <div [ngClass]="{'has-error': submitted && frmAEdit.controls['documento_adjunto'].invalid}">
+                        <div
+                            [ngClass]="{'has-error': submitted && registroTituloForm.controls['documento_adjunto'].invalid}">
                             <span class="error-text"
-                                *ngIf="submitted && frmAEdit.controls['documento_adjunto'].invalid">Teléfono
+                                *ngIf="submitted && registroTituloForm.controls['documento_adjunto'].invalid">Teléfono
                                 inválido</span>
                             <div class="upload_file input">
                                 <input type="file" formControlName="documento_adjunto" accept="application/pdf"
-                                    (change)="uploadFile($any($event.target).files)" />
+                                    (change)="uploadFile($any($event.target).files)">
                                 <span class="file-name check-icon" id="spanImportarArchivo"></span>
+
                                 <button class="btn-search chambray-btn rounded">Buscar</button>
                             </div>
                         </div>
                     </div>
+                    <div class="bottom-btn right">
+                        <button type="button" class="default-btn rounded lg-btn dismiss" id="btnECancel"
+                            name="btnECancel">
+                            <i class="fas fa-times"></i> Cancelar</button>
+                        <button class="default-btn rounded lg-btn" (click)="guardarSolicitud()">
+                            Guardar </button>
+
+                    </div>
+
 
                 </div>
             </form>
+
         </div>
+
     </div>
 
 

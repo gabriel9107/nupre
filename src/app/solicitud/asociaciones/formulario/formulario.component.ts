@@ -8,6 +8,8 @@ import { solicitudCreacionDTO } from '../../../Models/Nupre/Listado_Solicitud_Me
 import { User } from '../../../Models/Solicitudes_ViewModelt';
 import getUserInfo from '../../../auth/JWT';
 import { ToastrService } from 'ngx-toastr';
+import { catchError, throwError, from } from 'rxjs';
+import { ApiError } from '../../../Models/Api/apiResult';
 
 @Component({
   selector: 'app-formulario',
@@ -26,27 +28,6 @@ export class FormularioComponent implements OnInit {
   errorMessage!: string;
   showErrorMessage: boolean = false;
 
-
-  navr(id: number) {
-    switch (id) {
-      case 0:
-
-        break;
-      case 1:
-        console.log("It is a Monday.");
-        break;
-      case 2:
-        console.log("It is a Tuesday.");
-        break;
-      case 3:
-        this.router.navigate(['/Detalle/' + this.solicitudId])
-        break;
-
-      default:
-        console.log("No such day exists!");
-        break;
-    }
-  }
 
   validarCampo(campo: string) {
     return (this.registroAsociaciones.get(campo)?.touched && this.registroAsociaciones.get(campo)?.errors);
@@ -71,16 +52,11 @@ export class FormularioComponent implements OnInit {
 
   }
 
-  // solicitud_Numero!: number;
-  //   asociacion_Registro_Patronal!: number;
-  //   profesional_Asociacion_Codigo!: string;
-  //   documento_Codigo!: string;
-
 
   createFormActive() {
     this.registroAsociaciones = this.fb.group({
-      asociacion_Numero: ['', Validators.required],
       profesional_Asociacion_Codigo: ['', Validators.required],
+      asociacion_Numero_Socio: ['', Validators.required],
       documento_adjunto: ['', Validators.required],
     })
   }
@@ -109,13 +85,7 @@ export class FormularioComponent implements OnInit {
 
 
 
-  // listadoEspecialidades: any[] = [];
 
-
-
-  obtenerListadoProfesiones(number: number) {
-
-  }
 
   uploadFile(files: File[]) {
 
@@ -158,26 +128,60 @@ export class FormularioComponent implements OnInit {
   obtenerParametros() {
     let param = new CrearProfesionalesAsociaciones_DTO();
     param.solicitud_Numero = this.solicitudId;
-
-    param.asociacion_Codigo = this.registroAsociaciones.get('asociacion_Numero')?.value
+    param.asociacion_Numero_Socio = this.registroAsociaciones.get('asociacion_Numero_Socio')?.value
+    param.asociacion_Registro_Patronal = this.user.UsuarioRegistroPatronal;
     param.profesional_Asociacion_Codigo = this.registroAsociaciones.get('profesional_Asociacion_Codigo')?.value
     param.Documento = this.certificado;
-    param.asociacion_Registro_Patronal = this.user.UsuarioRegistroPatronal;
+    param.Registro_Usuario = this.user.UsuarioCuenta;
     return param;
   }
 
+  Cancelar() {
+    window.history.back();
+  }
   guardarSolicitud() {
     let param = this.obtenerParametros();
 
     if (this.registroAsociaciones.invalid) {
-      this.toastr.warning('No puedo enviar una solicitud sin registrar el detalle de la asociacion correspondiente', 'Advertencia');
+      this.toastr.warning('No puedo enviar una solicitud sin registrar el detalle de la asociación correspondiente', 'Advertencia');
       return;
     }
+
     this.servicio.guardarAsociacion(param).subscribe(() => {
       this.router.navigate(['/Detalle/' + this.solicitudId])
       // this.refreshPage();
-    }, error => console.error(error));
+    }, error => {
 
+      console.log(error.error.message);
+      this.toastr.warning(error.error.message)
+    }
+    )
+    // this.servicio.guardarAsociacion(param).pipe(catchError(error => of([]))
+    // ).subscribe(() => {
+
+    //   this.router.navigate(['/Detalle/' + this.solicitudId])
+    // });
+    // this.servicio.guardarAsociacion(param).pipe(catchError(err => {
+
+    //   // if (error.error instanceof ApiError) {
+    //   //   this.toastr.warning(error.error.message)
+    //   // }
+    // })
+    // ).subscribe(() => {
+    //   this.router.navigate(['/Detalle/' + this.solicitudId])
+    // })
+
+
+    // this.servicio.guardarAsociacion(param).subscribe(() => {
+    //   this.router.navigate(['/Detalle/' + this.solicitudId])
+    //   // this.refreshPage();
+    // }, error =>
+    //   this.toastr.warning(error.message)
+    //   // )
+
+    //   // console.error(error));
+
+    // )
   }
   refreshPage(): void {
     const currentUrl = this.router.url;
@@ -185,4 +189,7 @@ export class FormularioComponent implements OnInit {
       this.router.navigate([currentUrl]);
     });
   }
+
+
+
 }

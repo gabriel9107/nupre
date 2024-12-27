@@ -16,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 
 })
 export class FormRegisterComponent implements OnInit {
+
+
   listaPrestadora: any[] = [];
   listaMunicipio: Municipio[] = [];
 
@@ -51,6 +53,9 @@ export class FormRegisterComponent implements OnInit {
     });
   }
 
+  Cancelar() {
+    window.history.back();
+  }
   obtenerListadoPrestadoras() {
     this.servicio.obtenerPrestadoras().subscribe((resp: Prestadoras[]) => {
       this.listaPrestadora = resp
@@ -107,8 +112,10 @@ export class FormRegisterComponent implements OnInit {
       this.lockBotton = true;
       this.servicio.guardarLocalidades(param).subscribe(() => {
         this.router.navigate(['/Detalle/' + this.solicitudId])
-      }, error => console.error(error));
-
+        // }, error => console.error(error));
+      }, error =>
+        this.toastr.warning(error.error.message)
+      )
 
     } if (this.registroLocalidades.invalid) {
       this.toastr.warning('No puedo enviar una solicitud sin registrar los datos de Localidad correspondientes', 'Advertencia');

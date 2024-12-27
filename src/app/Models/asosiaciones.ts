@@ -11,16 +11,33 @@ export interface ProfesionalesAsociacionesTipoCata {
 }
 
 export class CrearProfesionalesAsociaciones_DTO {
+    asociacion_Numero_Socio!: string;
     solicitud_Numero!: number;
     asociacion_Registro_Patronal?: number;
-    asociacion_Codigo!: number;
     profesional_Asociacion_Codigo!: string;
     Documento!: File;
+    Registro_Usuario!: string;
+
+}
+
+export class EditarProfesionalesAsociaciones_DTO {
+    asociacion_ID!:number;
+    asociacion_Numero_Socio!: string;
+    solicitud_Numero!: number;
+    asociacion_Registro_Patronal?: number;
+    profesional_Asociacion_Codigo!: string;
+    Documento!: File;
+    Registro_Usuario!: string;
+
+
 
 }
 
 export class ProfesionalesAsociaciones {
+    asociacion_Nombre?: string;
+    asociacion_Numero_Socio!: string;
     solicitud_Numero!: number;
+    asociacion_ID?: number;
     asociacion_Registro_Patronal!: number;
     profesional_Asociacion_Codigo!: string;
     documento_Codigo!: string;

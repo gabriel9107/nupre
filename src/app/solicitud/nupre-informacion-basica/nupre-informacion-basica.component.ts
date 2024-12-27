@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, input, signal } from '@angular/core';
 import { Motivo_Rechazo, User } from '../../Models/Solicitudes_ViewModelt';
-import { ActivatedRoute, Router, Params } from "@angular/router";
+import { ActivatedRoute, Router, Params, RoutesRecognized } from "@angular/router";
 
 import { NupreService } from '../../Servicio/nupre.service';
 import { Solicitud_basic_Informacion_DTO, Solicitud_Medico_Detalle_DTO } from '../../Models/Nupre/Listado_Solicitud_Medico';
@@ -10,6 +10,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfesionalesAsociaciones } from '../../Models/asosiaciones';
 import { Profesional_Listado_titulacionDTO } from '../../Models/Nupre/Profesional_titulacion';
 import { localidades } from '../../Models/Nupre/localidades';
+import { filter, pairwise } from 'rxjs';
+import $ from 'jquery';
+
+
+
+
 
 
 @Component({
@@ -75,12 +81,59 @@ export class NupreInformacionBasicaComponent implements OnInit {
 
   ngOnInit(): void {
     this.servicio.ReadActividadProgressBar(this.solicitudId);
+    this.getDetalleSolicitud();
+
 
 
   }
   public listSolicitud() {
     this.router.navigate(['/NUPRE']);
   }
+
+
+
+  redireccionar() {
+    this.router.events
+      .pipe(
+        filter((evt: any) => evt instanceof RoutesRecognized),
+        pairwise()
+      )
+      .subscribe((events: RoutesRecognized[]) => {
+        if (events[0].urlAfterRedirects.includes('/RegistrarTitulo')) {
+          console.log('desde titulos')
+          jQuery(function () {
+            setTimeout(() => {
+              $('#tab_regLicen').trigger('click');
+              $('#affiData').removeClass('is-active');
+            }, 150);
+          });
+        }
+        if (events[0].urlAfterRedirects.includes('/RegistrarAsociacion')) {
+          jQuery(function () {
+            console.log('desde asociacion')
+            setTimeout(() => {
+              $('#affiData').removeClass('is-active');
+              $('#tab_Asociaciones').trigger('click');
+            }, 125);
+          });
+        }
+        if (events[0].urlAfterRedirects.includes('/registrarlocalidades')) {
+          jQuery(function () {
+            setTimeout(() => {
+              console.log('desde localidades')
+              $("#Asociaciones").removeClass("is-active");
+              $("#affiData").removeClass("is-active");
+              $('#tab_Localidades').trigger('click');
+            }, 500);
+          });
+        }
+      });
+
+  }
+
+
+
+
 
 
 
@@ -110,7 +163,7 @@ export class NupreInformacionBasicaComponent implements OnInit {
         error => {
           this.toastr.error(error.error, 'Información');
         });
-
+    this.redireccionar();
   }
 
   public getListadoLocalidades(solicitud_numero: number) {

@@ -36,28 +36,12 @@
                 pertenece el profesional de la salud. Favor ingresar copia de certificación y carnets.</p>
             <p>3. Complete información de afiliación a las localidades profesionales médicas a las que pertenece el
                 profesional de la salud.
-            <p>4. Someter solicitud
+            <p>4. Registrar solicitud
             </p>
         </div>
     </div>
 </div>
 
-<!-- <div class="blue-alert"
-    *ngIf="loading == false && this.estado_Numero == 0 || this.estado_Numero == 1 || this.estado_Numero == 8 ">
-    <div class="content has-icon">
-        <div class="icon"><i class="fas fa-info-circle"></i></div>
-        <div><strong>No se ha formalizado la solicitud de Profesional de la salud (NUPRE) para este asociado.
-                Para continuar realice los siguientes pasos:</strong>
-            <p>1.Ingresar los titulos profesionale en el tap de Titulos (Paso : 2).
-            </p>
-            <p>2. Ingresar o registrar las asociaciones a la cual pertence (Paso : 3).</p>
-            <p>3. Ingresar o registrar la localidad en el tap de Titulos (Paso : 3).
-            </p>
-            <p>4. Someter la solicitud (Paso : 4)
-            </p>
-        </div>
-    </div>
-</div> -->
 
 
 <div class="row">
@@ -93,32 +77,33 @@
         <!-- datos de la solicitud -->
         <fieldset class="block-section has-edit-btn">
             <legend>Datos del Solicitante </legend>
+            <!-- <div class="float-btn"                *ngIf="this.estado_Numero == 0 || this.estado_Numero == == 1 || this.estado_Numero == 2 || this.estado_Numero == 8"> -->
             <div class="float-btn"
-                *ngIf="details.solicitud_Estado_Numero == 0 || details.solicitud_Estado_Numero == 1 || details.solicitud_Estado_Numero == 2 || details.solicitud_Estado_Numero == 8">
+                *ngIf="this.estado_Numero ==0 || this.estado_Numero == 1 || this.estado_Numero == 2 || this.estado_Numero == 8">
                 <span class="color-blue open-modal" data-target="edit_Data"><i class="fas fa-pen"></i> Editar
                     datos</span>
             </div>
             <div class="row">
                 <div class="col-w4">
                     <label class="label-text">Nombre</label>
-                    <strong>{{details?.profesional_Nombre_Completo}} </strong>
+                    <strong>{{this.afiliado_Nombre_Completo}} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Cédula</label>
-                    <strong>{{details!.profesional_Cedula! | mask: '000-0000000-0000' }} </strong>
+                    <strong>{{this.profesional_Cedula! | mask: '000-0000000-0000' }} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Teléfono Consultorio :
                     </label>
-                    <strong>{{details!.profesional_Telefono1! | mask: '000-000-0000'}} </strong>
+                    <strong>{{this.profesional_Telefono1! | mask: '000-000-0000'}} </strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Teléfono residencial</label>
-                    <strong> {{details?.profesional_Telefono2! | mask: '000-000-0000'}}</strong>
+                    <strong> {{this.profesional_Telefono2! | mask: '000-000-0000'}}</strong>
                 </div>
                 <div class="col-w4">
                     <label class="label-text">Correo electrónico</label>
-                    <strong>{{details?.profesional_Mail}} </strong>
+                    <strong>{{this.profesional_Mail}} </strong>
                 </div>
             </div>
 
@@ -136,7 +121,7 @@
         </fieldset>
     </div>
     <div class="col-w3 info-section">
-        <div class="block m-top warning" *ngIf="details?.solicitud_Estado_Numero == 2">
+        <div class="block m-top warning" *ngIf="this.estado_Numero == 2">
             <h4> </h4>
             <div>Diríjase a la pestaña “Registro de Documentos para ver los errores.</div>
             <div class="form-field" *ngFor="let motivos of motivos_Rechazo">
@@ -157,7 +142,7 @@
         <div class="block m-top">
             <div class="form-field">
                 <label class="label-text">Fecha de registro</label>
-                <strong>{{details?.registro_Fecha | date:'dd/MM/yyyy'}} </strong>
+                <strong>{{this.registro_Fecha| date:'dd/MM/yyyy'}} </strong>
             </div>
         </div>
 
@@ -242,8 +227,8 @@
                         </div> -->
                     </div>
                     <div class="modal-footer right">
-                        <button type="button" class="default-btn rounded lg-btn dismiss" id="btnCancel"
-                            name="btnCancel">
+                        <button type="button" class="default-btn rounded lg-btn dismiss" id="btnCancel" name="btnCancel"
+                            (click)="Cancelar()">
                             <i class="fas fa-times"></i> Cancelar</button>
                         <button type="button" class="primary-btn rounded lg-btn" (click)="GuardarAfiliadoSolicitud()"><i
                                 class="fas fa-check"></i> Guardar cambios</button>
